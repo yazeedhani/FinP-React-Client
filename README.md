@@ -20,7 +20,7 @@ FinP is a personal expense and budget tracker that is used to manage and plan on
     - Other
 
   Once user is done adding their expenses, they will then complete the creation of the tracker.
-  
+
 5. A completed tracker will display the tracker's name, monlthy take-home pay, total monthly expenses, monthly budget, a list of expenses, and an option to create a pie chart for expenses. If income exceeds expenses, a positive number in green will appear as cashflow, otherwise, a negative number will appear in red. The number 0 will appear in black if you break even.
 
 ### Managing Expenses in an Existing Tracker
@@ -39,10 +39,14 @@ FinP is a personal expense and budget tracker that is used to manage and plan on
 ![ERD](FinP-ERD.jpeg)
 
 ## Wireframes
-![Wireframe - MyFinP Dashboard](MyFinP.jpg)
-![Wireframe - Income form](Income-form.jpg)
-![Wireframe - Expense form](Expense-form.jpg)
-![Wireframe - Tracker view](Tracker-view.jpg)
+![Wireframe - Sign In](wireframes/SignIn.jpg)
+![Wireframe - Sign Up](wireframes/SignUp.jpg)
+![Wireframe - MyFinP Dashboard](wireframes/MyFinP.jpg)
+![Wireframe - Income form](wireframes/TrackerInfo.jpg)
+![Wireframe - Expense form](wireframes/AddExpense.jpg)
+![Wireframe - Tracker view](wireframes/MonthTracker.jpg)
+![Wireframe - Edit Pay in Tracker View](wireframes/EditPay.jpg)
+![Wireframe - Edit User Profile](wireframes/EditProfile.jpg)
 
 ## Tech Stack
 - MERN
