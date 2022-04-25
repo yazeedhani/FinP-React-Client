@@ -1,16 +1,22 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const signUp = (credentials) => {
+export const signUp = (credentials, account) => {
+	console.log('ACCOUNT: ', account)
+	console.log(typeof parseFloat(account.annualIncome))
 	return axios({
 		method: 'POST',
 		url: apiUrl + '/sign-up',
 		data: {
 			credentials: {
-				email: credentials.email,
+				username: credentials.username,
 				password: credentials.password,
 				password_confirmation: credentials.passwordConfirmation,
 			},
+			account: {
+				owner: account.accountOwner,
+				income: parseFloat(account.annualIncome),
+			}
 		},
 	})
 }
@@ -21,7 +27,7 @@ export const signIn = (credentials) => {
 		method: 'POST',
 		data: {
 			credentials: {
-				email: credentials.email,
+				username: credentials.username,
 				password: credentials.password,
 			},
 		},

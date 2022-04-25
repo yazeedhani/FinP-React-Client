@@ -18,9 +18,11 @@ const SignUp = (props) => {
 	// 		passwordConfirmation: '',
 	// 	}
 	// }    
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    const [annualIncome, setAnnualIncome] = useState(0)
+    const [accountOwner, setAccountOwner] = useState(null)
 
     const navigate = useNavigate()
 
@@ -29,9 +31,12 @@ const SignUp = (props) => {
 
 		const { msgAlert, setUser } = props
 
-        const credentials = {email, password, passwordConfirmation}
+        const credentials = {username, password, passwordConfirmation}
+        const account = {annualIncome, accountOwner}
 
-		signUp(credentials)
+        console.log('ACCOUNT FROM SIGNUP COMP: ', account)
+
+		signUp(credentials, account)
 			.then(() => signIn(credentials))
 			.then((res) => setUser(res.data.user))
 			.then(() =>
@@ -43,9 +48,10 @@ const SignUp = (props) => {
 			)
 			.then(() => navigate('/'))
 			.catch((error) => {
-                setEmail('')
+                setUsername('')
                 setPassword('')
                 setPasswordConfirmation('')
+                setAnnualIncome(0)
 				msgAlert({
 					heading: 'Sign Up Failed with error: ' + error.message,
 					message: messages.signUpFailure,
@@ -60,15 +66,26 @@ const SignUp = (props) => {
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Sign Up</h3>
                 <Form onSubmit={onSignUp}>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email address</Form.Label>
+                    <Form.Group controlId='username'>
+                        <Form.Label>Username</Form.Label>
                         <Form.Control
                             required
-                            type='email'
-                            name='email'
-                            value={email}
-                            placeholder='Enter email'
-                            onChange={e => setEmail(e.target.value)}
+                            type='text'
+                            name='username'
+                            value={username}
+                            placeholder='Enter username'
+                            onChange={e => setUsername(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='annualIncome'>
+                        <Form.Label>Annual Income</Form.Label>
+                        <Form.Control
+                            required
+                            type='number'
+                            name='annualIncome'
+                            value={annualIncome}
+                            placeholder='Enter annual income'
+                            onChange={e => setAnnualIncome(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId='password'>
