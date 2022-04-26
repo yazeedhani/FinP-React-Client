@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap/';
 
 import { createExpense } from '../../api/monthTracker';
@@ -96,6 +96,12 @@ const CreateExpense = (props) => {
                         Create Tracker
                     </Button>
                 </Form>
+                <Link to={`/monthTrackers/${monthTrackerId}/expense`}>
+                    Add another expense
+                </Link>
+                <Link to='/monthTrackers'>
+                    Cancel
+                </Link>
             </div>
         </div>
     )
