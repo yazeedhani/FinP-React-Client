@@ -7,8 +7,9 @@ import { createExpense } from '../../api/monthTracker';
 const CreateExpense = (props) => {
     const [expense, setExpense] = useState({name: '', category: '', amount: null})
     const { user, msgAlert } = props
+    const {monthTrackerId} = useParams()
+    const initialState = {name: '', category: '', amount: ''}
     const navigate = useNavigate()
-    const {monthTrackerId} = useParams() 
 
     const handleChange = (e) => {
         e.persist()
@@ -62,13 +63,14 @@ const CreateExpense = (props) => {
                     variant: 'danger'
                 })
             })
+        setExpense(initialState)
     }
 
     return (
         <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Add Expense</h3>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} onReset={addAnotherExpense}>
                     <Form.Group controlId='expenseName'>
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -114,10 +116,10 @@ const CreateExpense = (props) => {
                     <Button variant='primary' type='submit'>
                         Create Tracker
                     </Button>
+                    <Button variant='primary' type='submit' onClick={addAnotherExpense}>
+                        Add another expense
+                    </Button>
                 </Form>
-                <Button variant='primary' type='submit' onClick={addAnotherExpense}>
-                    Add another expense
-                </Button>
                 <Link to='/monthTrackers'>
                     Cancel
                 </Link>
