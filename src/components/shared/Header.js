@@ -9,6 +9,11 @@ const linkStyle = {
 const authenticatedOptions = (
 	<>
 		<Nav.Item>
+			<Link to='createMonthTracker' style={linkStyle}>
+				Create Tracker
+			</Link>
+		</Nav.Item>
+		<Nav.Item>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>

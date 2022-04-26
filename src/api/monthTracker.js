@@ -11,3 +11,24 @@ export const getAllMonthTrackers = (user) => {
         data: ''
     })
 }
+
+export const createMonthTracker = (user, newMonthTracker) => {
+    return axios({
+        url: `${apiUrl}/monthTrackers`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: {monthTracker: newMonthTracker} 
+    })
+}
+
+export const deleteMonthTracker = (user, monthTrackerId) => {
+    return axios({
+        url: `${apiUrl}/monthTrackers/${monthTrackerId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
+    })
+}
