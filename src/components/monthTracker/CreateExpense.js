@@ -45,6 +45,25 @@ const CreateExpense = (props) => {
             })
     }
 
+    const addAnotherExpense = () => {
+        createExpense(user, monthTrackerId, expense)
+            .then( res => {navigate(`/monthTrackers/${monthTrackerId}/expense`)})
+            .then( () => {
+                msgAlert({
+                    heading: 'Expense added',
+                    message: 'Added Expense to Monthly Tracker',
+                    variant: 'success'
+                })
+            })
+            .catch( () => {
+                msgAlert({
+                    heading: 'Oh No!',
+                    message: 'Expense could not be created.',
+                    variant: 'danger'
+                })
+            })
+    }
+
     return (
         <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
@@ -96,9 +115,9 @@ const CreateExpense = (props) => {
                         Create Tracker
                     </Button>
                 </Form>
-                <Link to={`/monthTrackers/${monthTrackerId}/expense`}>
+                <Button variant='primary' type='submit' onClick={addAnotherExpense}>
                     Add another expense
-                </Link>
+                </Button>
                 <Link to='/monthTrackers'>
                     Cancel
                 </Link>
