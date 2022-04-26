@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom'
-import { Form, Button, Dropdown, DropdownButton } from 'react-bootstrap/';
+import { Form, Button } from 'react-bootstrap/';
 
 import { createMonthTracker } from '../../api/monthTracker';
 
@@ -27,7 +27,11 @@ const CreateMonthTracker = (props) => {
         e.preventDefault()
 
         createMonthTracker(user, monthTracker)
-            .then( res => {navigate(`/monthTrackers`)})
+            .then( res => {
+                console.log('RES: ', res)
+                return res
+            })
+            .then( res => {navigate(`/monthTrackers/${res.data.monthTracker._id}/expense`)})
             .then( () => {
                 msgAlert({
                     heading: 'Tracker added',

@@ -32,3 +32,15 @@ export const deleteMonthTracker = (user, monthTrackerId) => {
         }
     })
 }
+
+export const createExpense = (user, monthTrackerId, newExpense) => {
+    console.log('NEW EXPENSE: ', newExpense)
+    return axios({
+        url: `${apiUrl}/monthTrackers/${monthTrackerId}/expense`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: {expense: newExpense}
+    })
+}

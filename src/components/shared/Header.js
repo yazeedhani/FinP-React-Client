@@ -9,7 +9,12 @@ const linkStyle = {
 const authenticatedOptions = (
 	<>
 		<Nav.Item>
-			<Link to='createMonthTracker' style={linkStyle}>
+			<Link to='monthTrackers' style={linkStyle}>
+				MyFinP
+			</Link>
+		</Nav.Item>
+		<Nav.Item>
+			<Link to='/monthTrackers/create' style={linkStyle}>
 				Create Tracker
 			</Link>
 		</Nav.Item>
@@ -58,7 +63,7 @@ const Header = ({ user }) => (
 		<Navbar.Collapse id='basic-navbar-nav'>
 			<Nav className='ml-auto'>
 				{user && (
-					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
+					<span className='navbar-text mr-2'>Welcome, {user.username}</span>
 				)}
 				{alwaysOptions}
 				{user ? authenticatedOptions : unauthenticatedOptions}
