@@ -14,6 +14,7 @@ const cardContainerLayout = {
 const MonthTrackers = (props) => {
     const { user, msgAlert } = props
     const [monthTrackers, setMonthTrackers] = useState(null)
+    const [updated, setUpdated] = useState(false)
     const navigate = useNavigate()
 
     useEffect( () => {
@@ -22,11 +23,12 @@ const MonthTrackers = (props) => {
                 setMonthTrackers(res.data.monthTrackers)
             })
             .catch(console.error)
-    }, [])
+    }, [updated])
 
     const deleteOneTracker = (user, monthTrackerId) => {
         deleteMonthTracker(user, monthTrackerId)
             .then( () => {
+                setUpdated(true)
                 msgAlert({
                     heading: 'Deleted Tracker',
                     message: '',
