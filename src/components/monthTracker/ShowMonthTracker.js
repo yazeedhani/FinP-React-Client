@@ -33,7 +33,9 @@ const ShowMonthTracker = (props) => {
             .catch(console.error)
     }, [updated])
 
-    const triggerRefresh = () => { setUpdated(prev => !prev) }
+    const triggerRefresh = () => { 
+        setUpdated(prev => !prev) 
+    }
 
     const handleChange = (e) => {
         e.persist()
@@ -72,8 +74,8 @@ const ShowMonthTracker = (props) => {
 
     const deleteOneExpense = (user, monthTrackerId, expenseId) => {
         deleteExpense(user, monthTrackerId, expenseId)
+            .then( () => triggerRefresh() )
             .then( () => {
-                // setUpdated( !prevState )
                 msgAlert({
                     heading: 'Deleted Expense',
                     message: '',
@@ -105,7 +107,7 @@ const ShowMonthTracker = (props) => {
                     <span>{expense.name}    </span>
                     <span>${expense.amount}   </span>
                     <span>{expense.category}   </span>
-                    <Button variant='primary' type='submit' onClick={ () => deleteOneExpense(user, expense.monthTracker, expense._id)}>
+                    <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, expense.monthTracker, expense._id)}>
                         X
                     </Button>
                 </Card.Body>
@@ -132,59 +134,13 @@ const ShowMonthTracker = (props) => {
                 <Modal.Title>Add Expense</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Form onSubmit={handleSubmit} >
-                    <Form.Group controlId='expenseName'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            required
-                            type='text'
-                            name='name'
-                            value={expense.name}
-                            placeholder='Enter name'
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='amount'>
-                        <Form.Label>Amount</Form.Label>
-                        <Form.Control
-                            required
-                            type='number'
-                            name='amount'
-                            value={expense.amount}
-                            placeholder='Enter amount'
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='category'>
-                        <Form.Label>Category</Form.Label>
-                        <Form.Control as='select'
-                            placeholder="Category"
-                            value={expense.category}
-                            name='category'
-                            onChange={handleChange}
-                        >
-                            <option></option>
-                            <option value="Entertainment">Entertainment</option>
-                            <option value="Housing">Housing</option>
-                            <option value="Food">Food</option>
-                            <option value="Auto">Auto</option>
-                            <option value="Health">Health</option>
-                            <option value="Shopping">Shopping</option>
-                            <option value="Restaurant">Restaurant</option>
-                            <option value="Loans">Loans</option>
-                            <option value="Other">Other</option>
-                        </Form.Control>
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Add Expense
-                    </Button>
-                </Form>
-                {/* <ExpenseForm 
+                <ExpenseForm 
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                    addAnotherExpense={addAnotherExpense}
+                    // addAnotherExpense={addAnotherExpense}
+                    buttonText={'Add Expense'}
                     expense={expense}
-                /> */}
+                />
                 </Modal.Body>
             </Modal>
             <div>   Name    Amount   Category</div>

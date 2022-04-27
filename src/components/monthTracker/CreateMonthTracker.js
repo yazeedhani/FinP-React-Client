@@ -53,17 +53,6 @@ const CreateMonthTracker = (props) => {
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Enter Tracker Info</h3>
                 <Form onSubmit={handleSubmit}>
-                    {/* <Form.Group controlId='month'>
-                        <Form.Label>Month</Form.Label>
-                        <Form.Control
-                            required
-                            type='text'
-                            name='month'
-                            value={monthTracker.month}
-                            placeholder='Enter month'
-                            onChange={handleChange}
-                        />
-                    </Form.Group> */}
                     <Form.Group controlId="month">
                         <Form.Label>Month</Form.Label>
                         <Form.Control as='select'

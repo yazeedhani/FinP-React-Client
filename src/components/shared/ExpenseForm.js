@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button } from 'react-bootstrap/';
 
 const ExpenseForm = (props) => {
-    const {handleSubmit, handleChange, expense, addAnotherExpense} = props
+    const {handleSubmit, handleChange, expense, buttonText} = props
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -49,10 +49,7 @@ const ExpenseForm = (props) => {
                 </Form.Control>
             </Form.Group>
             <Button variant='primary' type='submit'>
-                Create Tracker
-            </Button>
-            <Button variant='primary' type='submit' onClick={addAnotherExpense}>
-                Add another expense
+                {buttonText}
             </Button>
         </Form>
     )
