@@ -15,6 +15,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import MonthTracker from './components/monthTracker/MonthTrackers'
 import CreateMonthTracker from './components/monthTracker/CreateMonthTracker'
 import CreateExpense from './components/monthTracker/CreateExpense'
+import ShowMonthTracker from './components/monthTracker/ShowMonthTracker'
 
 const App = () => {
 
@@ -55,6 +56,10 @@ const App = () => {
 					<Route 
 						path='/monthTrackers/create' 
 						element={<CreateMonthTracker msgAlert={msgAlert} user={user} />}	
+					/>
+					<Route 
+						path='/monthTrackers/:monthTrackerId' 
+						element={<ShowMonthTracker msgAlert={msgAlert} user={user} />}	
 					/>
 					<Route 
 						path='/monthTrackers/:monthTrackerId/expense' 

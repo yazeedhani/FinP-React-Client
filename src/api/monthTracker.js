@@ -12,6 +12,17 @@ export const getAllMonthTrackers = (user) => {
     })
 }
 
+export const showMonthTracker = (user, monthTrackerId) => {
+    return axios({
+        url: `${apiUrl}/monthtrackers/${monthTrackerId}`,
+        method: 'GET',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: ''
+    })
+}
+
 export const createMonthTracker = (user, newMonthTracker) => {
     return axios({
         url: `${apiUrl}/monthTrackers`,
@@ -42,5 +53,15 @@ export const createExpense = (user, monthTrackerId, newExpense) => {
             Authorization: `Token token=${user.token}`
         },
         data: {expense: newExpense}
+    })
+}
+
+export const deleteExpense = (user, monthTrackerId, expenseId) => {
+    return axios({
+        url: `${apiUrl}/monthTrackers/${monthTrackerId}/${expenseId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        }
     })
 }

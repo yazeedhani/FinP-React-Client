@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllMonthTrackers } from "../../api/monthTracker";
-import { useNavigate } from 'react-router-dom'
-import { Button, Card, Form } from 'react-bootstrap'
+import { useNavigate, Link } from 'react-router-dom';
+import { Button, Card, Form } from 'react-bootstrap';
 
 import { deleteMonthTracker } from "../../api/monthTracker";
 
@@ -58,8 +58,15 @@ const MonthTrackers = (props) => {
         monthTrackerCards = monthTrackers.map( monthTracker => {
             return (
                 <Card key={monthTracker._id} style={{ width: '25%'  }} className="m-2">
-                    <Card.Title className='m-2'>{monthTracker.monthTrackerTitle}</Card.Title>
-                    <Button variant="danger" className='m-2' onClick={ () => deleteOneTracker(user, monthTracker._id)}>X</Button>
+                    <Card.Title className='m-2'>
+                        <Link to={`/monthTrackers/${monthTracker._id}`}>
+                            {monthTracker.monthTrackerTitle}
+                        </Link>
+                    </Card.Title>
+                    {/* <Link to={`/monthTrackers/${monthTracker._id}`}>
+                        <Button variant="primary" className='m-2'>View</Button>
+                    </Link> */}
+                    <Button variant="primary" className='m-2' onClick={ () => deleteOneTracker(user, monthTracker._id)}>X</Button>
                     <Card.Body>
                         <Card.Text>Annual Income: {monthTracker.monthlyTakeHome}</Card.Text>
                         <Card.Text>Savings: {monthTracker.monthly_savings}</Card.Text>
