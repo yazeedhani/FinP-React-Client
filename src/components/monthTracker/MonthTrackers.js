@@ -27,6 +27,7 @@ const MonthTrackers = (props) => {
 
     const deleteOneTracker = (user, monthTrackerId) => {
         deleteMonthTracker(user, monthTrackerId)
+            .then( () => triggerRefresh() )
             .then( () => {
                 setUpdated(true)
                 msgAlert({
@@ -43,6 +44,10 @@ const MonthTrackers = (props) => {
                     variant: 'danger'
                 })
             })
+    }
+
+    const triggerRefresh = () => { 
+        setUpdated(prev => !prev) 
     }
 
     if(!monthTrackers) {
