@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap/';
-
+import ExpenseForm from '../shared/ExpenseForm';
 import { createExpense } from '../../api/monthTracker';
 
 const CreateExpense = (props) => {
@@ -70,7 +70,7 @@ const CreateExpense = (props) => {
         <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Add Expense</h3>
-                <Form onSubmit={handleSubmit} onReset={addAnotherExpense}>
+                {/* <Form onSubmit={handleSubmit} onReset={addAnotherExpense}>
                     <Form.Group controlId='expenseName'>
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -119,7 +119,13 @@ const CreateExpense = (props) => {
                     <Button variant='primary' type='submit' onClick={addAnotherExpense}>
                         Add another expense
                     </Button>
-                </Form>
+                </Form> */}
+                <ExpenseForm 
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    addAnotherExpense={addAnotherExpense}
+                    expense={expense}
+                />
                 <Link to='/monthTrackers'>
                     Cancel
                 </Link>

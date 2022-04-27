@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense } from "../../api/monthTracker";
 import { Button, Card, Form, Modal } from 'react-bootstrap';
 import { createExpense } from '../../api/monthTracker';
+import ExpenseForm from "../shared/ExpenseForm";
 
 const ShowMonthTracker = (props) => {
     const [monthTracker, setMonthTracker] = useState({
@@ -30,18 +31,17 @@ const ShowMonthTracker = (props) => {
                 setMonthTracker(res.data.monthTracker)
             })
             .catch(console.error)
-    }, [])
+    }, [updated])
 
+    const triggerRefresh = () => { setUpdated(prev => !prev) }
 
     const handleChange = (e) => {
         e.persist()
 
-        // console.log('MONTHTRACKER BEFORE UPDATE: ', monthTracker)
         setExpense( prevProduct => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
-            // console.log('MONTHTRACKER AFTER UPDATE: ', monthTracker)
 
             return {...prevProduct, ...updatedValue}
         })
@@ -51,7 +51,9 @@ const ShowMonthTracker = (props) => {
         e.preventDefault()
 
         createExpense(user, monthTrackerId, expense)
-            .then( res => {navigate(`/monthTrackers`)})
+            // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
+            .then( () => handleClose() )
+            .then( () => triggerRefresh() )
             .then( () => {
                 msgAlert({
                     heading: 'Expense added',
@@ -94,15 +96,14 @@ const ShowMonthTracker = (props) => {
         totalExpenses += expense.amount
     })
 
-    // onClick={deleteOneExpense(user, expense.monthTracker, expense._id)}
     let expenseDivs = monthTracker.expenses.map( expense => {
-        console.log('EXPENSE: ', expense)
+        // console.log('EXPENSE: ', expense)
         // return <div><strong>{expense.name}</strong> ${expense.amount} {expense.category} <button >X</button></div>
         return (
             <Card>
                 <Card.Body>
                     <span>{expense.name}    </span>
-                    <span>{expense.amount}   </span>
+                    <span>${expense.amount}   </span>
                     <span>{expense.category}   </span>
                     <Button variant='primary' type='submit' onClick={ () => deleteOneExpense(user, expense.monthTracker, expense._id)}>
                         X
@@ -178,6 +179,12 @@ const ShowMonthTracker = (props) => {
                         Add Expense
                     </Button>
                 </Form>
+                {/* <ExpenseForm 
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    addAnotherExpense={addAnotherExpense}
+                    expense={expense}
+                /> */}
                 </Modal.Body>
             </Modal>
             <div>   Name    Amount   Category</div>
