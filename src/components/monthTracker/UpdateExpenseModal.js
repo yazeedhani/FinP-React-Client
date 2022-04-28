@@ -4,8 +4,8 @@ import ExpenseForm from "../shared/ExpenseForm";
 import { Button, Card, Form, Modal } from 'react-bootstrap';
 
 const UpdateExpenseModal = (props) => {
-    const [expense, setExpense] = useState(props.expense)
-    const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow } = props
+    // const [expense, setExpense] = useState(props.expense)
+    const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow, expense, setExpense } = props
 
     const handleChange = (e) => {
         e.persist()

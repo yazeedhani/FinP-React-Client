@@ -133,25 +133,25 @@ const ShowMonthTracker = (props) => {
             })
     }
 
-    const updateOneExpense = (user, monthTrackerId, expenseId) => {
-        updateExpense(user, monthTrackerId, expenseId)
-            .then( () => triggerRefresh() )
-            .then( () => {
-                msgAlert({
-                    heading: 'Updated Expense',
-                    message: '',
-                    variant: 'success'
-                })
-            })
-            .then( () => {navigate(`/monthTrackers/${monthTrackerId}/`)})
-            .catch( () => {
-                msgAlert({
-                    heading: 'Oh No!',
-                    message: 'Expense not able to be updated.',
-                    variant: 'danger'
-                })
-        })
-    }
+    // const updateOneExpense = (user, monthTrackerId, expenseId) => {
+    //     updateExpense(user, monthTrackerId, expenseId)
+    //         .then( () => triggerRefresh() )
+    //         .then( () => {
+    //             msgAlert({
+    //                 heading: 'Updated Expense',
+    //                 message: '',
+    //                 variant: 'success'
+    //             })
+    //         })
+    //         .then( () => {navigate(`/monthTrackers/${monthTrackerId}/`)})
+    //         .catch( () => {
+    //             msgAlert({
+    //                 heading: 'Oh No!',
+    //                 message: 'Expense not able to be updated.',
+    //                 variant: 'danger'
+    //             })
+    //     })
+    // }
 
     let totalExpenses = 0
     monthTracker.expenses.forEach( expense => {
@@ -159,18 +159,25 @@ const ShowMonthTracker = (props) => {
     })
 
 
-    let expenseDivs = monthTracker.expenses.map( expense => {
+    let expenseDivs = monthTracker.expenses.map( exp => {
         return (
-            <Card key={expense._id}>
+            <Card key={exp._id}>
                 <Card.Body>
-                    <span>{expense.name}    </span>
-                    <span>${expense.amount}   </span>
-                    <span>{expense.category}   </span>
-                    <Button variant='primary' type='submit' onClick={() => setEditExpenseShow(true)}>
-                    Edit
+                    <span>{exp.name}    </span>
+                    <span>${exp.amount}   </span>
+                    <span>{exp.category}   </span>
+                    <Button 
+                        variant='primary' 
+                        type='submit' 
+                        onClick={() => {
+                            setExpense(expense)    
+                            setEditExpenseShow(true)
+                            }}>
+                        Edit
                     </Button>
-                    <UpdateExpenseModal 
+                    {/* <UpdateExpenseModal 
                         expense={expense}
+                        setExpense={setExpense}
                         show={editExpenseShow}
                         user={user}
                         msgAlert={msgAlert}
@@ -178,16 +185,14 @@ const ShowMonthTracker = (props) => {
                         triggerRefresh={triggerRefresh}
                         onHide={() => setEditExpenseShow(false)}
                         setEditExpenseShow={setEditExpenseShow}
-                    />
-                    <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, expense.monthTracker, expense._id)}>
+                    /> */}
+                    <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
                         X
                     </Button>
                 </Card.Body>
             </Card>
         )
     })
-
-    
 
     return (
         <Container>
@@ -201,6 +206,7 @@ const ShowMonthTracker = (props) => {
                 msgAlert={msgAlert}
                 monthTrackerId={expense.monthTracker}
                 monthTracker={monthTracker}
+                setMonthTracker={setMonthTracker}
                 triggerRefresh={triggerRefresh}
                 onHide={() => setEditMonthTrackerShow(false)}
                 setEditMonthTrackerShow={setEditMonthTrackerShow}
@@ -209,6 +215,7 @@ const ShowMonthTracker = (props) => {
             <p>Monthly Income: ${monthTracker.monthlyTakeHome}</p>
             <p>Monthly Budget: ${monthTracker.budget}</p>
             <p>Total Expenses: ${totalExpenses}</p>
+            <p>Savings this month: $ {monthTracker.monthly_savings}</p>
             <p>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses}</p>
 
             <h3>Expenses</h3>

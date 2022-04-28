@@ -3,20 +3,21 @@ import { updateMonthTracker } from '../../api/monthTracker';
 import { Button, Card, Form, Modal } from 'react-bootstrap';
 
 const UpdateMonthTrackerModal = (props) => {
-    const [monthTracker, setMonthTracker] = useState(props.monthTracker)
-    const { user, triggerRefresh, setEditMonthTrackerShow, msgAlert, show, monthTrackerId } = props
+    // console.log('props.monthTracker', props.monthTracker)
+    const { user, triggerRefresh, setEditMonthTrackerShow, msgAlert, show, monthTracker, setMonthTracker } = props
+    // const [tracker, setMonthTracker] = useState(props.monthTracker)
 
-    console.log('MONTHTRACKER IN UPDATEMONTHTRAKCER: ', monthTracker)
+    // console.log('MONTHTRACKER IN UPDATEMONTHTRAKCER: ', monthTracker)
 
     const handleChange = (e) => {
         e.persist()
 
-        setMonthTracker( prevProduct => {
+        setMonthTracker( prevMonthTracker => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
 
-            return {...prevProduct, ...updatedValue}
+            return {...prevMonthTracker, ...updatedValue}
         })
     }
 
