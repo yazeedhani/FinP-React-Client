@@ -30,13 +30,13 @@ const ShowMonthTracker = (props) => {
     const [editExpenseShow, setEditExpenseShow] = useState(false)
     const [editMonthTrackerShow, setEditMonthTrackerShow] = useState(false)
     let categoryTotals = [{category: 'name', total: 0}] // {category: 'name', total: 0}
-
-
     let [category, setCategory ] = useState('All')
+
+
+    // To set the category with category selected from the dropdown menu
     let categorySelected = (cat) => {
         setCategory( cat )
     }
-
 
     useEffect( () => {
         showMonthTracker(user, monthTrackerId)
@@ -103,6 +103,7 @@ const ShowMonthTracker = (props) => {
         createExpense(user, monthTrackerId, expense)
             .then( () => setAddExpenseShow(false) )
             .then( () => triggerRefresh() )
+            .then( () => setExpense({name: '', category: '', amount: null}))
             .then( () => {
                 msgAlert({
                     heading: 'Expense added',
@@ -242,7 +243,7 @@ const ShowMonthTracker = (props) => {
                                 }}>
                             Edit
                         </Button>
-                        <UpdateExpenseModal 
+                        {/* <UpdateExpenseModal 
                             expense={expense}
                             setExpense={setExpense}
                             show={editExpenseShow}
@@ -252,7 +253,7 @@ const ShowMonthTracker = (props) => {
                             triggerRefresh={triggerRefresh}
                             onHide={() => setEditExpenseShow(false)}
                             setEditExpenseShow={setEditExpenseShow}
-                        />
+                        /> */}
                         <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
                             X
                         </Button>
@@ -300,7 +301,7 @@ const ShowMonthTracker = (props) => {
                 Add Expense
             </Button>
             
-
+            {/* Modal to add a new expense */}
             <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
                 <Modal.Header closeButton>
                 <Modal.Title>Add Expense</Modal.Title>
@@ -315,6 +316,8 @@ const ShowMonthTracker = (props) => {
                 />
                 </Modal.Body>
             </Modal>
+
+            {/* Dropdown list to filter by expenses by category */}
             <DropdownButton id="dropdown-basic-button-2" title="Categories" >
 				<Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
 				<Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
@@ -327,8 +330,14 @@ const ShowMonthTracker = (props) => {
 				<Dropdown.Item onClick={ () => categorySelected('Loans')}>Loans</Dropdown.Item>
 				<Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
 			</DropdownButton>
+
             <div>   Name    Amount   Category</div>
             {expenseDivs}
+
+            <h3>Savings</h3>
+            <Button variant="primary">
+                Add Savings
+            </Button>
         </Container>
     )
 }
