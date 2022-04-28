@@ -35,7 +35,6 @@ const ShowMonthTracker = (props) => {
     let [category, setCategory ] = useState('All')
     let categorySelected = (cat) => {
         setCategory( cat )
-        // console.log('CATEGORY SELECTED: ', category)
     }
 
 
@@ -102,7 +101,6 @@ const ShowMonthTracker = (props) => {
         e.preventDefault()
 
         createExpense(user, monthTrackerId, expense)
-            // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
             .then( () => setAddExpenseShow(false) )
             .then( () => triggerRefresh() )
             .then( () => {
@@ -141,6 +139,28 @@ const ShowMonthTracker = (props) => {
             })
     }
 
+    // Calculate if the user has met their budget for a single month tracker
+    const meetingBudget = () => {
+        if( totalExpenses < monthTracker.budget )
+        {
+            return (
+                <p style={{color: 'green'}}>You are behind your budget!</p>
+            )
+        }
+        else if( totalExpenses > monthTracker.budget )
+        {
+            return (
+                <p style={{color: 'red'}}>You have exceeded your budget.</p>
+            )
+        }
+        else
+        {
+            return (
+                <p style={{color: 'blue'}}>You have met your budget.</p>
+            )
+        }
+    }
+
     // const updateOneExpense = (user, monthTrackerId, expenseId) => {
     //     updateExpense(user, monthTrackerId, expenseId)
     //         .then( () => triggerRefresh() )
@@ -161,48 +181,13 @@ const ShowMonthTracker = (props) => {
     //     })
     // }
 
+    // Calculate total number of expenses
     let totalExpenses = 0
     monthTracker.expenses.forEach( expense => {
         totalExpenses += expense.amount
     })
 
-
-    // let expenseDivs = monthTracker.expenses.map( exp => {
-    //     return (
-    //         <Card key={exp._id}>
-    //             <Card.Body>
-    //                 <span>{exp.name}    </span>
-    //                 <span>${exp.amount}   </span>
-    //                 <span>{exp.category}   </span>
-    //                 <Button 
-    //                     variant='primary' 
-    //                     type='submit' 
-    //                     onClick={() => {
-    //                         setExpense(expense)    
-    //                         setEditExpenseShow(true)
-    //                         }}>
-    //                     Edit
-    //                 </Button>
-    //                 <UpdateExpenseModal 
-    //                     expense={expense}
-    //                     setExpense={setExpense}
-    //                     show={editExpenseShow}
-    //                     user={user}
-    //                     msgAlert={msgAlert}
-    //                     monthTrackerId={expense.monthTracker}
-    //                     triggerRefresh={triggerRefresh}
-    //                     onHide={() => setEditExpenseShow(false)}
-    //                     setEditExpenseShow={setEditExpenseShow}
-    //                 />
-    //                 <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-    //                     X
-    //                 </Button>
-    //             </Card.Body>
-    //         </Card>
-    //     )
-    // })
-
-    // To display expenses depending on the category selected from the dropdown menu
+    // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
         console.log('EXP: ', exp)
         if(exp.category === category)
@@ -303,6 +288,12 @@ const ShowMonthTracker = (props) => {
             <p>Total Expenses: ${totalExpenses}</p>
             <p>Savings this month: $ {monthTracker.monthly_savings}</p>
             <p>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses}</p>
+
+            <div>
+                <p>
+                    {meetingBudget()}
+                </p>
+            </div>
 
             <h3>Expenses</h3>
             <Button variant="primary" onClick={() => setAddExpenseShow(true)}>
