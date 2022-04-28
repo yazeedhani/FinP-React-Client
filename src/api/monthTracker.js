@@ -34,6 +34,17 @@ export const createMonthTracker = (user, newMonthTracker) => {
     })
 }
 
+export const updateMonthTracker = (user, monthTrackerId, updatedMonthTracker) => {
+    return axios({
+        url: `${apiUrl}/monthTrackers/${monthTrackerId}`,
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: {monthTracker: updatedMonthTracker} 
+    })
+}
+
 export const deleteMonthTracker = (user, monthTrackerId) => {
     return axios({
         url: `${apiUrl}/monthTrackers/${monthTrackerId}`,
@@ -45,7 +56,6 @@ export const deleteMonthTracker = (user, monthTrackerId) => {
 }
 
 export const createExpense = (user, monthTrackerId, newExpense) => {
-    console.log('NEW EXPENSE: ', newExpense)
     return axios({
         url: `${apiUrl}/monthTrackers/${monthTrackerId}/expense`,
         method: 'POST',
@@ -63,5 +73,16 @@ export const deleteExpense = (user, monthTrackerId, expenseId) => {
         headers: {
             Authorization: `Token token=${user.token}`
         }
+    })
+}
+
+export const updateExpense = (user, monthTrackerId, expenseId, updatedExpense) => {
+    return axios({
+        url: `${apiUrl}/monthTrackers/${monthTrackerId}/${expenseId}`,
+        method: 'PATCH',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: {expense: updatedExpense}
     })
 }

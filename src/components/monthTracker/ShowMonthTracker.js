@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { PieChart, Pie } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { showMonthTracker, deleteExpense } from "../../api/monthTracker";
-import { Button, Card, Form, Modal } from 'react-bootstrap';
-import { createExpense } from '../../api/monthTracker';
+import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
+import { Button, Card, Modal, Container } from 'react-bootstrap';
 import ExpenseForm from "../shared/ExpenseForm";
+import UpdateExpenseModal from "./UpdateExpenseModal";
+import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
 
 const ShowMonthTracker = (props) => {
     const [monthTracker, setMonthTracker] = useState({
@@ -18,20 +20,59 @@ const ShowMonthTracker = (props) => {
     })
     const [expense, setExpense] = useState({name: '', category: '', amount: null})
     const [updated, setUpdated] = useState(false)
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
     const { user, msgAlert } = props
     const { monthTrackerId } = useParams()
     const navigate = useNavigate()
+    const [show, setShow] = useState(false);
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+    const [addExpenseShow, setAddExpenseShow] = useState(false)
+    const [editExpenseShow, setEditExpenseShow] = useState(false)
+    const [editMonthTrackerShow, setEditMonthTrackerShow] = useState(false)
+    let categoryTotals = [{category: 'name', total: 0}] // {category: 'name', total: 0}
 
     useEffect( () => {
         showMonthTracker(user, monthTrackerId)
             .then( res => {
                 setMonthTracker(res.data.monthTracker)
+                return res.data.monthTracker
             })
+            // .then( (monthTracker) => {
+            //         console.log('MONTHTRACKER IN .THEN: ', monthTracker.expenses)
+            //         console.log('categoryTotals: ', categoryTotals)    
+            //         const expenses = monthTracker.expenses
+            //         for(let i = 0; i < expenses.length; i++)
+            //         {
+
+            //             let category = expenses[i].category
+            //             console.log('CATEGORY: ', category)
+            //             // Object.values(categoryTotals[i]).includes(category)
+            //             // console.log(`${category} in ${categoryTotals}`, category in categoryTotals[i])
+            //             console.log(`CATEOGRYTOTALS[i] ${categoryTotals[i].category}`)
+            //             console.log(`CATEOGRYTOTALS[i] ${categoryTotals[i].total}`)
+            //             if(category === categoryTotals[i].category)
+            //             {
+            //                 console.log('TRUE')
+            //                 console.log('CATEGORY in IF:', category)
+            //                 console.log('categoryTotals[i]', categoryTotals[i].total)
+            //                 // categoryTotals[i].total += parseFloat(expenses[i].amount)
+            //                 console.log('categoryTotals: ', categoryTotals)
+            //             }
+            //             else
+            //             {
+            //                 console.log('FALSE')
+            //                 console.log('CATEGORY in ELSE:', category)
+            //                 // categoryTotals[`${category}`] = expenses[i].amount
+            //                 categoryTotals.push({category: `${category}`, total: expenses[i].amount})
+            //                 console.log('categoryTotals: ', categoryTotals)
+            //                 console.log(`categoryTotals ${i}`, categoryTotals[i])
+            //             }
+            //         }
+            // })
             .catch(console.error)
     }, [updated])
+
+    console.log('MONTHTRACKER: ', monthTracker)
 
     const triggerRefresh = () => { 
         setUpdated(prev => !prev) 
@@ -54,7 +95,7 @@ const ShowMonthTracker = (props) => {
 
         createExpense(user, monthTrackerId, expense)
             // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
-            .then( () => handleClose() )
+            .then( () => setAddExpenseShow(false) )
             .then( () => triggerRefresh() )
             .then( () => {
                 msgAlert({
@@ -92,32 +133,78 @@ const ShowMonthTracker = (props) => {
             })
     }
 
-    let totalExpenses = 0
+    const updateOneExpense = (user, monthTrackerId, expenseId) => {
+        updateExpense(user, monthTrackerId, expenseId)
+            .then( () => triggerRefresh() )
+            .then( () => {
+                msgAlert({
+                    heading: 'Updated Expense',
+                    message: '',
+                    variant: 'success'
+                })
+            })
+            .then( () => {navigate(`/monthTrackers/${monthTrackerId}/`)})
+            .catch( () => {
+                msgAlert({
+                    heading: 'Oh No!',
+                    message: 'Expense not able to be updated.',
+                    variant: 'danger'
+                })
+        })
+    }
 
+    let totalExpenses = 0
     monthTracker.expenses.forEach( expense => {
         totalExpenses += expense.amount
     })
 
+
     let expenseDivs = monthTracker.expenses.map( expense => {
-        // console.log('EXPENSE: ', expense)
-        // return <div><strong>{expense.name}</strong> ${expense.amount} {expense.category} <button >X</button></div>
         return (
-            <Card>
+            <Card key={expense._id}>
                 <Card.Body>
                     <span>{expense.name}    </span>
                     <span>${expense.amount}   </span>
                     <span>{expense.category}   </span>
+                    <Button variant='primary' type='submit' onClick={() => setEditExpenseShow(true)}>
+                    Edit
+                    </Button>
+                    <UpdateExpenseModal 
+                        expense={expense}
+                        show={editExpenseShow}
+                        user={user}
+                        msgAlert={msgAlert}
+                        monthTrackerId={expense.monthTracker}
+                        triggerRefresh={triggerRefresh}
+                        onHide={() => setEditExpenseShow(false)}
+                        setEditExpenseShow={setEditExpenseShow}
+                    />
                     <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, expense.monthTracker, expense._id)}>
                         X
                     </Button>
                 </Card.Body>
             </Card>
-            )
+        )
     })
 
+    
+
     return (
-        <>
-            <div>{monthTracker.month} {monthTracker.year}</div><br/>
+        <Container>
+            <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
+            <Button variant="primary" onClick={() => setEditMonthTrackerShow(true)}>
+                Edit Tracker
+            </Button>
+            <UpdateMonthTrackerModal 
+                show={editMonthTrackerShow}
+                user={user}
+                msgAlert={msgAlert}
+                monthTrackerId={expense.monthTracker}
+                monthTracker={monthTracker}
+                triggerRefresh={triggerRefresh}
+                onHide={() => setEditMonthTrackerShow(false)}
+                setEditMonthTrackerShow={setEditMonthTrackerShow}
+            />
             <p>Annual Income: ${monthTracker.annualTakeHome}</p>
             <p>Monthly Income: ${monthTracker.monthlyTakeHome}</p>
             <p>Monthly Budget: ${monthTracker.budget}</p>
@@ -125,11 +212,12 @@ const ShowMonthTracker = (props) => {
             <p>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses}</p>
 
             <h3>Expenses</h3>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={() => setAddExpenseShow(true)}>
                 Add Expense
             </Button>
+            
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
                 <Modal.Header closeButton>
                 <Modal.Title>Add Expense</Modal.Title>
                 </Modal.Header>
@@ -145,7 +233,7 @@ const ShowMonthTracker = (props) => {
             </Modal>
             <div>   Name    Amount   Category</div>
             {expenseDivs}
-        </>
+        </Container>
     )
 }
 
