@@ -5,7 +5,7 @@ import ExpenseForm from '../shared/ExpenseForm';
 import { createExpense } from '../../api/monthTracker';
 
 const CreateExpense = (props) => {
-    const [expense, setExpense] = useState({name: '', category: '', amount: null})
+    const [newExpense, setNewExpense] = useState({name: '', category: '', amount: null})
     const { user, msgAlert } = props
     const {monthTrackerId} = useParams()
     const initialState = {name: '', category: '', amount: ''}
@@ -15,7 +15,7 @@ const CreateExpense = (props) => {
         e.persist()
 
         // console.log('MONTHTRACKER BEFORE UPDATE: ', monthTracker)
-        setExpense( prevProduct => {
+        setNewExpense( prevProduct => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
@@ -28,7 +28,7 @@ const CreateExpense = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        createExpense(user, monthTrackerId, expense)
+        createExpense(user, monthTrackerId, newExpense)
             .then( res => {navigate(`/monthTrackers`)})
             .then( () => {
                 msgAlert({
@@ -47,7 +47,7 @@ const CreateExpense = (props) => {
     }
 
     const addAnotherExpense = () => {
-        createExpense(user, monthTrackerId, expense)
+        createExpense(user, monthTrackerId, newExpense)
             .then( res => {navigate(`/monthTrackers/${monthTrackerId}/expense`)})
             .then( () => {
                 msgAlert({
@@ -63,7 +63,7 @@ const CreateExpense = (props) => {
                     variant: 'danger'
                 })
             })
-        setExpense(initialState)
+        setNewExpense(initialState)
     }
 
     return (
@@ -75,7 +75,7 @@ const CreateExpense = (props) => {
                     handleSubmit={handleSubmit}
                     // addAnotherExpense={addAnotherExpense}
                     buttonText={'Create Tracker'}
-                    expense={expense}
+                    expense={newExpense}
                 />
                 <Button variant='primary' type='submit' onClick={addAnotherExpense}>
                         Add another expense

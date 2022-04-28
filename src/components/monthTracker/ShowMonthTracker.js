@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PieChart, Pie } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
-import { Button, Card, Modal, Container } from 'react-bootstrap';
+import { Button, Card, Modal, Container, Dropdown, DropdownButton } from 'react-bootstrap';
 import ExpenseForm from "../shared/ExpenseForm";
 import UpdateExpenseModal from "./UpdateExpenseModal";
 import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
@@ -30,6 +30,14 @@ const ShowMonthTracker = (props) => {
     const [editExpenseShow, setEditExpenseShow] = useState(false)
     const [editMonthTrackerShow, setEditMonthTrackerShow] = useState(false)
     let categoryTotals = [{category: 'name', total: 0}] // {category: 'name', total: 0}
+
+
+    let [category, setCategory ] = useState('All')
+    let categorySelected = (cat) => {
+        setCategory( cat )
+        // console.log('CATEGORY SELECTED: ', category)
+    }
+
 
     useEffect( () => {
         showMonthTracker(user, monthTrackerId)
@@ -159,40 +167,118 @@ const ShowMonthTracker = (props) => {
     })
 
 
+    // let expenseDivs = monthTracker.expenses.map( exp => {
+    //     return (
+    //         <Card key={exp._id}>
+    //             <Card.Body>
+    //                 <span>{exp.name}    </span>
+    //                 <span>${exp.amount}   </span>
+    //                 <span>{exp.category}   </span>
+    //                 <Button 
+    //                     variant='primary' 
+    //                     type='submit' 
+    //                     onClick={() => {
+    //                         setExpense(expense)    
+    //                         setEditExpenseShow(true)
+    //                         }}>
+    //                     Edit
+    //                 </Button>
+    //                 <UpdateExpenseModal 
+    //                     expense={expense}
+    //                     setExpense={setExpense}
+    //                     show={editExpenseShow}
+    //                     user={user}
+    //                     msgAlert={msgAlert}
+    //                     monthTrackerId={expense.monthTracker}
+    //                     triggerRefresh={triggerRefresh}
+    //                     onHide={() => setEditExpenseShow(false)}
+    //                     setEditExpenseShow={setEditExpenseShow}
+    //                 />
+    //                 <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+    //                     X
+    //                 </Button>
+    //             </Card.Body>
+    //         </Card>
+    //     )
+    // })
+
+    // To display expenses depending on the category selected from the dropdown menu
     let expenseDivs = monthTracker.expenses.map( exp => {
-        return (
-            <Card key={exp._id}>
-                <Card.Body>
-                    <span>{exp.name}    </span>
-                    <span>${exp.amount}   </span>
-                    <span>{exp.category}   </span>
-                    <Button 
-                        variant='primary' 
-                        type='submit' 
-                        onClick={() => {
-                            setExpense(expense)    
-                            setEditExpenseShow(true)
-                            }}>
-                        Edit
-                    </Button>
-                    {/* <UpdateExpenseModal 
-                        expense={expense}
-                        setExpense={setExpense}
-                        show={editExpenseShow}
-                        user={user}
-                        msgAlert={msgAlert}
-                        monthTrackerId={expense.monthTracker}
-                        triggerRefresh={triggerRefresh}
-                        onHide={() => setEditExpenseShow(false)}
-                        setEditExpenseShow={setEditExpenseShow}
-                    /> */}
-                    <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-                        X
-                    </Button>
-                </Card.Body>
-            </Card>
-        )
+        console.log('EXP: ', exp)
+        if(exp.category === category)
+        {
+            return (
+                <Card key={exp._id}>
+                    <Card.Body>
+                        <span>{exp.name}    </span>
+                        <span>${exp.amount}   </span>
+                        <span>{exp.category}   </span>
+                        <Button 
+                            variant='primary' 
+                            type='submit' 
+                            onClick={() => {
+                                setExpense(expense)    
+                                setEditExpenseShow(true)
+                                }}>
+                            Edit
+                        </Button>
+                        <UpdateExpenseModal 
+                            expense={expense}
+                            setExpense={setExpense}
+                            show={editExpenseShow}
+                            user={user}
+                            msgAlert={msgAlert}
+                            monthTrackerId={expense.monthTracker}
+                            triggerRefresh={triggerRefresh}
+                            onHide={() => setEditExpenseShow(false)}
+                            setEditExpenseShow={setEditExpenseShow}
+                        />
+                        <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                            X
+                        </Button>
+                    </Card.Body>
+                </Card>
+            )
+        }
+        else if(category === 'All')
+        {
+            return (
+                <Card key={exp._id}>
+                    <Card.Body>
+                        <span>{exp.name}    </span>
+                        <span>${exp.amount}   </span>
+                        <span>{exp.category}   </span>
+                        <Button 
+                            variant='primary' 
+                            type='submit' 
+                            onClick={() => {
+                                setExpense(expense)    
+                                setEditExpenseShow(true)
+                                }}>
+                            Edit
+                        </Button>
+                        <UpdateExpenseModal 
+                            expense={expense}
+                            setExpense={setExpense}
+                            show={editExpenseShow}
+                            user={user}
+                            msgAlert={msgAlert}
+                            monthTrackerId={expense.monthTracker}
+                            triggerRefresh={triggerRefresh}
+                            onHide={() => setEditExpenseShow(false)}
+                            setEditExpenseShow={setEditExpenseShow}
+                        />
+                        <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                            X
+                        </Button>
+                    </Card.Body>
+                </Card>
+            )
+        }
     })
+
+    console.log('EXPENSE DIVS AFTER CATEGORY SELECTED: ', expenseDivs)
+
 
     return (
         <Container>
@@ -238,6 +324,18 @@ const ShowMonthTracker = (props) => {
                 />
                 </Modal.Body>
             </Modal>
+            <DropdownButton id="dropdown-basic-button-2" title="Categories" >
+				<Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Auto')}>Auto</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Health')}>Health</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Food')}>Food</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Restaurant')}>Restaurant</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Shopping')}>Shopping</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Loans')}>Loans</Dropdown.Item>
+				<Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
+			</DropdownButton>
             <div>   Name    Amount   Category</div>
             {expenseDivs}
         </Container>
