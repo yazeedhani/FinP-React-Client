@@ -18,9 +18,14 @@ const authenticatedOptions = (
 				Create Tracker
 			</Link>
 		</Nav.Item>
-		<Nav.Item>
+		{/* <Nav.Item>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
+			</Link>
+		</Nav.Item> */}
+		<Nav.Item>
+			<Link to='/account/' style={linkStyle}>
+				My Account
 			</Link>
 		</Nav.Item>
 		<Nav.Item>

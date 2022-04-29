@@ -16,6 +16,7 @@ import MonthTracker from './components/monthTracker/MonthTrackers'
 import CreateMonthTracker from './components/monthTracker/CreateMonthTracker'
 import CreateExpense from './components/monthTracker/CreateExpense'
 import ShowMonthTracker from './components/monthTracker/ShowMonthTracker'
+import UserAccount from './components/userAccount/UserAccount'
 
 const App = () => {
 
@@ -51,19 +52,33 @@ const App = () => {
 					<Route path='/' element={<Home msgAlert={msgAlert} user={user} />} />
 					<Route 
 						path='/monthTrackers' 
-						element={<MonthTracker msgAlert={msgAlert} user={user} />}
+						element={
+						<RequireAuth user={user}>
+							<MonthTracker msgAlert={msgAlert} user={user} />
+						</RequireAuth>
+						}
 					/>
 					<Route 
 						path='/monthTrackers/create' 
-						element={<CreateMonthTracker msgAlert={msgAlert} user={user} />}	
+						element={
+						<CreateMonthTracker msgAlert={msgAlert} user={user} />
+						}	
 					/>
 					<Route 
 						path='/monthTrackers/:monthTrackerId' 
-						element={<ShowMonthTracker msgAlert={msgAlert} user={user} />}	
+						element={
+						<RequireAuth user={user}>	
+							<ShowMonthTracker msgAlert={msgAlert} user={user} />
+						</RequireAuth>
+						}	
 					/>
 					<Route 
 						path='/monthTrackers/:monthTrackerId/expense' 
-						element={<CreateExpense msgAlert={msgAlert} user={user} />}	
+						element={
+						<RequireAuth user={user}>
+							<CreateExpense msgAlert={msgAlert} user={user} />
+						</RequireAuth>
+						}	
 					/>
 					<Route
 						path='/sign-up'
@@ -78,6 +93,14 @@ const App = () => {
 						element={
 						<RequireAuth user={user}>
 							<SignOut msgAlert={msgAlert} clearUser={clearUser} user={user} />
+						</RequireAuth>
+						}
+					/>
+					<Route
+						path='/account/'
+						element={
+						<RequireAuth user={user}>
+							<UserAccount msgAlert={msgAlert} clearUser={clearUser} user={user} />
 						</RequireAuth>
 						}
 					/>

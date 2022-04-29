@@ -20,7 +20,7 @@ const ShowMonthTracker = (props) => {
         expenses: [],
     })
     // This duplicate state of the above will be used to populate the edit tracker form in the modal
-    // This is so that the data displated in the dashboard won't be changing simulatneosly as your
+    // This is so that the data displayed in the dashboard won't be changing simultaneosly as you
     // are typing in the edit form on the modal.
     // This is to trick React
     const [updatedTracker, setUpdatedTracker] = useState({
@@ -74,7 +74,6 @@ const ShowMonthTracker = (props) => {
         '#5aed55'
     ]
 
-
     // Function To set the category with category selected from the dropdown menu
     let categorySelected = (cat) => {
         setCategory( cat )
@@ -94,13 +93,6 @@ const ShowMonthTracker = (props) => {
             })
             .catch(console.error)
     }, [updated])
-
-    console.log('MONTHTRACKER: ', monthTracker)
- 
-
-    // const triggerRefresh = () => { 
-    //     setUpdated(prev => !prev) 
-    // }
 
     const handleChange = (e) => {
         e.persist()
@@ -163,7 +155,7 @@ const ShowMonthTracker = (props) => {
         if( totalExpenses < monthTracker.budget )
         {
             return (
-                <p style={{color: 'green'}}>You are behind your budget!</p>
+                <p style={{color: 'green'}}>You are under your budget!</p>
             )
         }
         else if( totalExpenses > monthTracker.budget )
@@ -188,8 +180,9 @@ const ShowMonthTracker = (props) => {
         totalExpenses += expense.amount
     })
 
+    // This is to add to the amount key in each object in categoryArray depending on the category of each object in the array
+    // This is needed to create the pie chart.
     const expenses = monthTracker.expenses
-
     for(let i = 0; i < expenses.length; i++)
     {
         for(let object = 0; object < categoryArray.length; object++)
@@ -321,9 +314,6 @@ const ShowMonthTracker = (props) => {
 
             <h3>Expenses</h3>
 
-
-
-            
             <ButtonGroup aria-label="Basic example">
                 <Button variant="primary" onClick={() => setAddExpenseShow(true)}>
                     Add Expense
@@ -343,7 +333,6 @@ const ShowMonthTracker = (props) => {
                     <Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
                 </DropdownButton>
             </ButtonGroup>
-           
 
             {/* Modal to add a new expense */}
             <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
@@ -360,8 +349,6 @@ const ShowMonthTracker = (props) => {
                 />
                 </Modal.Body>
             </Modal>
-
-            
 
             <div>   Name    Amount   Category</div>
             {expenseDivs}
