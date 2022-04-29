@@ -4,7 +4,7 @@ import { Button, Card, Form, Modal } from 'react-bootstrap';
 
 const UpdateMonthTrackerModal = (props) => {
     // console.log('props.monthTracker', props.monthTracker)
-    const { user, triggerRefresh, setEditMonthTrackerShow, msgAlert, show, monthTracker, setMonthTracker } = props
+    const { user, triggerRefresh, setEditMonthTrackerShow, msgAlert, show, monthTracker, setUpdatedTracker, updatedTracker } = props
     // const [tracker, setMonthTracker] = useState(props.monthTracker)
 
     // console.log('MONTHTRACKER IN UPDATEMONTHTRAKCER: ', monthTracker)
@@ -12,19 +12,19 @@ const UpdateMonthTrackerModal = (props) => {
     const handleChange = (e) => {
         e.persist()
 
-        setMonthTracker( prevMonthTracker => {
+        setUpdatedTracker( prevUpdatedTracker => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
 
-            return {...prevMonthTracker, ...updatedValue}
+            return {...prevUpdatedTracker, ...updatedValue}
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         // console.log('EXPENSE: ', expense)
-        updateMonthTracker(user, monthTracker._id, monthTracker)
+        updateMonthTracker(user, updatedTracker._id, updatedTracker)
             // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
             .then( () => setEditMonthTrackerShow(false) )
             .then( () => triggerRefresh() )
@@ -57,7 +57,7 @@ const UpdateMonthTrackerModal = (props) => {
                             required
                             type='number'
                             name='annualTakeHome'
-                            value={monthTracker.annualTakeHome}
+                            value={updatedTracker.annualTakeHome}
                             placeholder='Enter annual income'
                             onChange={handleChange}
                         />
@@ -66,7 +66,7 @@ const UpdateMonthTrackerModal = (props) => {
                         <Form.Label>Month</Form.Label>
                         <Form.Control as='select'
                             placeholder="Month"
-                            value={monthTracker.month}
+                            value={updatedTracker.month}
                             name='month'
                             onChange={handleChange}
                         >
@@ -91,7 +91,7 @@ const UpdateMonthTrackerModal = (props) => {
                             required
                             type='number'
                             name='year'
-                            value={monthTracker.year}
+                            value={updatedTracker.year}
                             placeholder='Enter year'
                             onChange={handleChange}
                         />
@@ -102,7 +102,7 @@ const UpdateMonthTrackerModal = (props) => {
                             required
                             type='number'
                             name='budget'
-                            value={monthTracker.budget}
+                            value={updatedTracker.budget}
                             placeholder='Enter budget'
                             onChange={handleChange}
                         />

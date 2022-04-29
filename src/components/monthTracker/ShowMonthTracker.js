@@ -2,13 +2,28 @@ import React, { useEffect, useState } from "react";
 import { PieChart, Pie } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
-import { Button, Card, Modal, Container, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup } from 'react-bootstrap';
 import ExpenseForm from "../shared/ExpenseForm";
 import UpdateExpenseModal from "./UpdateExpenseModal";
 import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
 
 const ShowMonthTracker = (props) => {
+    // This state is what will be displayed on the monthTracker dashboard
     const [monthTracker, setMonthTracker] = useState({
+        month: '',
+        year: '',
+        annualTakeHome: 0,
+        monthlyTakeHome: 0,
+        budget: 0,
+        monthly_savings: 0,
+        monthly_cashflow: 0,
+        expenses: [],
+    })
+    // This duplicate state of the above will be used to populate the edit tracker form in the modal
+    // This is so that the data displated in the dashboard won't be changing simulatneosly as your
+    // are typing in the edit form on the modal.
+    // This is to trick React
+    const [updatedTracker, setUpdatedTracker] = useState({
         month: '',
         year: '',
         annualTakeHome: 0,
@@ -42,6 +57,7 @@ const ShowMonthTracker = (props) => {
         showMonthTracker(user, monthTrackerId)
             .then( res => {
                 setMonthTracker(res.data.monthTracker)
+                setUpdatedTracker(res.data.monthTracker)
                 return res.data.monthTracker
             })
             // .then( (monthTracker) => {
@@ -101,6 +117,7 @@ const ShowMonthTracker = (props) => {
         e.preventDefault()
 
         createExpense(user, monthTrackerId, expense)
+            .then( res => console.log('NEW EXPENSE CREATED: ', res.data.expense))
             .then( () => setAddExpenseShow(false) )
             .then( () => triggerRefresh() )
             .then( () => setExpense({name: '', category: '', amount: null}))
@@ -183,14 +200,16 @@ const ShowMonthTracker = (props) => {
     // }
 
     // Calculate total number of expenses
+    // Savings will not be added to the expenses total
     let totalExpenses = 0
     monthTracker.expenses.forEach( expense => {
+        if(expense.category !== 'Savings')
         totalExpenses += expense.amount
     })
 
     // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
-        console.log('EXP: ', exp)
+        // console.log('EXP: ', exp)
         if(exp.category === category)
         {
             return (
@@ -234,7 +253,7 @@ const ShowMonthTracker = (props) => {
                         <span>{exp.name}    </span>
                         <span>${exp.amount}   </span>
                         <span>{exp.category}   </span>
-                        <Button 
+                        {/* <Button 
                             variant='primary' 
                             type='submit' 
                             onClick={() => {
@@ -242,7 +261,7 @@ const ShowMonthTracker = (props) => {
                                 setEditExpenseShow(true)
                                 }}>
                             Edit
-                        </Button>
+                        </Button> */}
                         {/* <UpdateExpenseModal 
                             expense={expense}
                             setExpense={setExpense}
@@ -263,7 +282,7 @@ const ShowMonthTracker = (props) => {
         }
     })
 
-    console.log('EXPENSE DIVS AFTER CATEGORY SELECTED: ', expenseDivs)
+    // console.log('EXPENSE DIVS AFTER CATEGORY SELECTED: ', expenseDivs)
 
 
     return (
@@ -277,19 +296,22 @@ const ShowMonthTracker = (props) => {
                 user={user}
                 msgAlert={msgAlert}
                 monthTrackerId={expense.monthTracker}
-                monthTracker={monthTracker}
-                setMonthTracker={setMonthTracker}
+                updatedTracker={updatedTracker}
+                setUpdatedTracker={setUpdatedTracker}
                 triggerRefresh={triggerRefresh}
                 onHide={() => setEditMonthTrackerShow(false)}
                 setEditMonthTrackerShow={setEditMonthTrackerShow}
             />
-            <p>Annual Income: ${monthTracker.annualTakeHome}</p>
-            <p>Monthly Income: ${monthTracker.monthlyTakeHome}</p>
-            <p>Monthly Budget: ${monthTracker.budget}</p>
-            <p>Total Expenses: ${totalExpenses}</p>
-            <p>Savings this month: $ {monthTracker.monthly_savings}</p>
-            <p>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses}</p>
-
+            <p></p>
+            <ListGroup>
+                <ListGroup.Item>Annual Income: ${monthTracker.annualTakeHome}</ListGroup.Item>
+                <ListGroup.Item>Monthly Income: ${monthTracker.monthlyTakeHome}</ListGroup.Item>
+                <ListGroup.Item>Monthly Budget: ${monthTracker.budget}</ListGroup.Item>
+                <ListGroup.Item>Total Expenses: ${totalExpenses}</ListGroup.Item>
+                <ListGroup.Item>Savings this month: $ {monthTracker.monthly_savings}</ListGroup.Item>
+                <ListGroup.Item>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings}</ListGroup.Item>
+            </ListGroup>
+            <p></p>
             <div>
                 <p>
                     {meetingBudget()}
@@ -297,10 +319,31 @@ const ShowMonthTracker = (props) => {
             </div>
 
             <h3>Expenses</h3>
-            <Button variant="primary" onClick={() => setAddExpenseShow(true)}>
-                Add Expense
-            </Button>
+
+
+
             
+            <ButtonGroup aria-label="Basic example">
+                <Button variant="primary" onClick={() => setAddExpenseShow(true)}>
+                    Add Expense
+                </Button>
+                {/* Dropdown list to filter by expenses by category */}
+                <DropdownButton id="dropdown-basic-button-2" title="Categories" >
+                    <Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Auto')}>Auto</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Health')}>Health</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Food')}>Food</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Restaurant')}>Restaurant</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Shopping')}>Shopping</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Loans')}>Loans</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Savings')}>Savings</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
+                </DropdownButton>
+            </ButtonGroup>
+           
+
             {/* Modal to add a new expense */}
             <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
                 <Modal.Header closeButton>
@@ -317,19 +360,7 @@ const ShowMonthTracker = (props) => {
                 </Modal.Body>
             </Modal>
 
-            {/* Dropdown list to filter by expenses by category */}
-            <DropdownButton id="dropdown-basic-button-2" title="Categories" >
-				<Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Auto')}>Auto</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Health')}>Health</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Food')}>Food</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Restaurant')}>Restaurant</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Shopping')}>Shopping</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Loans')}>Loans</Dropdown.Item>
-				<Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
-			</DropdownButton>
+            
 
             <div>   Name    Amount   Category</div>
             {expenseDivs}
