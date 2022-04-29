@@ -5,17 +5,17 @@ import { Button, Card, Form, Modal } from 'react-bootstrap';
 
 const UpdateExpenseModal = (props) => {
     // const [expense, setExpense] = useState(props.expense)
-    const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow, expense, setExpense } = props
+    const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow, expense, setSelectedExpense } = props
 
     const handleChange = (e) => {
         e.persist()
 
-        setExpense( prevProduct => {
+        setSelectedExpense( prevExp => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
 
-            return {...prevProduct, ...updatedValue}
+            return {...prevExp, ...updatedValue}
         })
     }
 
@@ -42,6 +42,7 @@ const UpdateExpenseModal = (props) => {
             })
     }
 
+    console.log('EXPENSE in UPDATEMODAL: ', expense)
     return (
         <Modal className='edit-modal' show={show} onHide={setEditExpenseShow}>
             <Modal.Header closeButton>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip, Cell } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
 import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup } from 'react-bootstrap';
@@ -44,13 +44,44 @@ const ShowMonthTracker = (props) => {
     const [addExpenseShow, setAddExpenseShow] = useState(false)
     const [editExpenseShow, setEditExpenseShow] = useState(false)
     const [editMonthTrackerShow, setEditMonthTrackerShow] = useState(false)
-    let categoryTotals = [{category: 'name', total: 0}] // {category: 'name', total: 0}
+  
     let [category, setCategory ] = useState('All')
+    const [selectedExpense, setSelectedExpense] = useState(null)
+    
+    const categoryArray = [
+        {category: 'Housing', amount: 0},
+        {category: 'Entertainment', amount: 0},
+        {category: 'Auto', amount: 0},
+        {category: 'Health', amount: 0},
+        {category: 'Food', amount: 0},
+        {category: 'Restaurant', amount: 0},
+        {category: 'Shopping', amount: 0},
+        {category: 'Loans', amount: 0},
+        {category: 'Savings', amount: 0},
+        {category: 'Other', amount: 0}
+    ]
+
+    const categoryColors = [
+        '#0088FE', 
+        '#00C49F', 
+        '#FFBB28', 
+        '#FF8042',
+        '#ed5555',
+        '#cc55ed',
+        '#55e0ed',
+        '#ef4c55',
+        '#6255ed',
+        '#5aed55'
+    ]
 
 
-    // To set the category with category selected from the dropdown menu
+    // Function To set the category with category selected from the dropdown menu
     let categorySelected = (cat) => {
         setCategory( cat )
+    }
+
+    const triggerRefresh = () => { 
+        setUpdated(prev => !prev) 
     }
 
     useEffect( () => {
@@ -58,48 +89,18 @@ const ShowMonthTracker = (props) => {
             .then( res => {
                 setMonthTracker(res.data.monthTracker)
                 setUpdatedTracker(res.data.monthTracker)
+                console.log('EXPENSES IN USEEFFECT: ', res.data.monthTracker.expenses)
                 return res.data.monthTracker
             })
-            // .then( (monthTracker) => {
-            //         console.log('MONTHTRACKER IN .THEN: ', monthTracker.expenses)
-            //         console.log('categoryTotals: ', categoryTotals)    
-            //         const expenses = monthTracker.expenses
-            //         for(let i = 0; i < expenses.length; i++)
-            //         {
-
-            //             let category = expenses[i].category
-            //             console.log('CATEGORY: ', category)
-            //             // Object.values(categoryTotals[i]).includes(category)
-            //             // console.log(`${category} in ${categoryTotals}`, category in categoryTotals[i])
-            //             console.log(`CATEOGRYTOTALS[i] ${categoryTotals[i].category}`)
-            //             console.log(`CATEOGRYTOTALS[i] ${categoryTotals[i].total}`)
-            //             if(category === categoryTotals[i].category)
-            //             {
-            //                 console.log('TRUE')
-            //                 console.log('CATEGORY in IF:', category)
-            //                 console.log('categoryTotals[i]', categoryTotals[i].total)
-            //                 // categoryTotals[i].total += parseFloat(expenses[i].amount)
-            //                 console.log('categoryTotals: ', categoryTotals)
-            //             }
-            //             else
-            //             {
-            //                 console.log('FALSE')
-            //                 console.log('CATEGORY in ELSE:', category)
-            //                 // categoryTotals[`${category}`] = expenses[i].amount
-            //                 categoryTotals.push({category: `${category}`, total: expenses[i].amount})
-            //                 console.log('categoryTotals: ', categoryTotals)
-            //                 console.log(`categoryTotals ${i}`, categoryTotals[i])
-            //             }
-            //         }
-            // })
             .catch(console.error)
     }, [updated])
 
     console.log('MONTHTRACKER: ', monthTracker)
+ 
 
-    const triggerRefresh = () => { 
-        setUpdated(prev => !prev) 
-    }
+    // const triggerRefresh = () => { 
+    //     setUpdated(prev => !prev) 
+    // }
 
     const handleChange = (e) => {
         e.persist()
@@ -179,26 +180,6 @@ const ShowMonthTracker = (props) => {
         }
     }
 
-    // const updateOneExpense = (user, monthTrackerId, expenseId) => {
-    //     updateExpense(user, monthTrackerId, expenseId)
-    //         .then( () => triggerRefresh() )
-    //         .then( () => {
-    //             msgAlert({
-    //                 heading: 'Updated Expense',
-    //                 message: '',
-    //                 variant: 'success'
-    //             })
-    //         })
-    //         .then( () => {navigate(`/monthTrackers/${monthTrackerId}/`)})
-    //         .catch( () => {
-    //             msgAlert({
-    //                 heading: 'Oh No!',
-    //                 message: 'Expense not able to be updated.',
-    //                 variant: 'danger'
-    //             })
-    //     })
-    // }
-
     // Calculate total number of expenses
     // Savings will not be added to the expenses total
     let totalExpenses = 0
@@ -206,6 +187,24 @@ const ShowMonthTracker = (props) => {
         if(expense.category !== 'Savings')
         totalExpenses += expense.amount
     })
+
+    const expenses = monthTracker.expenses
+
+    for(let i = 0; i < expenses.length; i++)
+    {
+        for(let object = 0; object < categoryArray.length; object++)
+        {
+            // console.log('EXPENSES[i].CATEGORY :', expenses[i].category)
+            // console.log('CATEGORYARRAY[OBJECT].CATEGORY :', categoryArray[object].category)
+            // console.log('expenses[i].category in categoryArray[object] :', expenses[i].category in categoryArray[object])
+            if(expenses[i].category === categoryArray[object].category)
+            {
+                categoryArray[object].amount += expenses[i].amount
+            }
+        }
+    }
+
+    console.log('CATEGORYARRAY AFTER UPDATE: ', categoryArray)
 
     // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
@@ -222,14 +221,15 @@ const ShowMonthTracker = (props) => {
                             variant='primary' 
                             type='submit' 
                             onClick={() => {
-                                setExpense(expense)    
+                                setSelectedExpense(exp)
+                                // setExpense(exp)    
                                 setEditExpenseShow(true)
                                 }}>
                             Edit
                         </Button>
                         <UpdateExpenseModal 
-                            expense={expense}
-                            setExpense={setExpense}
+                            expense={selectedExpense}
+                            setSelectedExpense={setSelectedExpense}
                             show={editExpenseShow}
                             user={user}
                             msgAlert={msgAlert}
@@ -253,26 +253,27 @@ const ShowMonthTracker = (props) => {
                         <span>{exp.name}    </span>
                         <span>${exp.amount}   </span>
                         <span>{exp.category}   </span>
-                        {/* <Button 
+                        <Button 
                             variant='primary' 
                             type='submit' 
                             onClick={() => {
-                                setExpense(expense)    
+                                setSelectedExpense(exp)
+                                // setExpense(exp)    
                                 setEditExpenseShow(true)
                                 }}>
                             Edit
-                        </Button> */}
-                        {/* <UpdateExpenseModal 
-                            expense={expense}
-                            setExpense={setExpense}
+                        </Button>
+                        <UpdateExpenseModal 
+                            expense={selectedExpense}
+                            setSelectedExpense={setSelectedExpense}
                             show={editExpenseShow}
                             user={user}
                             msgAlert={msgAlert}
-                            monthTrackerId={expense.monthTracker}
+                            monthTrackerId={exp.monthTracker}
                             triggerRefresh={triggerRefresh}
                             onHide={() => setEditExpenseShow(false)}
                             setEditExpenseShow={setEditExpenseShow}
-                        /> */}
+                        />
                         <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
                             X
                         </Button>
@@ -365,10 +366,22 @@ const ShowMonthTracker = (props) => {
             <div>   Name    Amount   Category</div>
             {expenseDivs}
 
-            <h3>Savings</h3>
+            {/* <h3>Savings</h3>
             <Button variant="primary">
                 Add Savings
-            </Button>
+            </Button> */}
+
+            {/* {categoryArray} */}
+            {/* <ResponsiveContainer width="100%" height="100%"> */}
+            <PieChart width={300} height={300}>
+                <Pie data={categoryArray} dataKey="amount" nameKey="category" cx="50%" cy="50%" innerRadius={60} outerRadius={150} fill="green" paddingAngle={5} label>
+                    {categoryArray.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={categoryColors[index % categoryColors.length]} />
+                    ))}
+                </Pie>
+            </PieChart>
+                {/* <Tooltip /> */}
+            {/* </ResponsiveContainer> */}
         </Container>
     )
 }
