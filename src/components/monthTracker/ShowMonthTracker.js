@@ -97,12 +97,12 @@ const ShowMonthTracker = (props) => {
     const handleChange = (e) => {
         e.persist()
 
-        setExpense( prevProduct => {
+        setExpense( prevExpense => {
             const name = e.target.name
             let value = e.target.value
             const updatedValue = { [name]:value }
 
-            return {...prevProduct, ...updatedValue}
+            return {...prevExpense, ...updatedValue}
         })
     }
 
@@ -187,15 +187,24 @@ const ShowMonthTracker = (props) => {
     {
         for(let object = 0; object < categoryArray.length; object++)
         {
-            // console.log('EXPENSES[i].CATEGORY :', expenses[i].category)
-            // console.log('CATEGORYARRAY[OBJECT].CATEGORY :', categoryArray[object].category)
-            // console.log('expenses[i].category in categoryArray[object] :', expenses[i].category in categoryArray[object])
             if(expenses[i].category === categoryArray[object].category)
             {
                 categoryArray[object].amount += expenses[i].amount
             }
         }
     }
+
+    // Create pie chart cells (slices). Each slice is assigned a color.
+    // Do not inlcude categories with the amount equal to 0
+    // const pieChartCells = categoryArray.filter((entry, index) => {
+    //     console.log('ENTRY: ', entry)
+    //     if(entry.amount > 0)
+    //     {
+    //        return <Cell key={`cell-${entry}`} fill={categoryColors[index % categoryColors.length]} />
+    //     }
+    // })
+
+    // console.log('PIE CHART CELLS: ', pieChartCells)
 
     console.log('CATEGORYARRAY AFTER UPDATE: ', categoryArray)
 
@@ -353,6 +362,10 @@ const ShowMonthTracker = (props) => {
             <div>   Name    Amount   Category</div>
             {expenseDivs}
 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             {/* <h3>Savings</h3>
             <Button variant="primary">
                 Add Savings
@@ -360,13 +373,18 @@ const ShowMonthTracker = (props) => {
 
             {/* {categoryArray} */}
             {/* <ResponsiveContainer width="100%" height="100%"> */}
-            <PieChart width={300} height={300}>
-                <Pie data={categoryArray} dataKey="amount" nameKey="category" cx="50%" cy="50%" innerRadius={60} outerRadius={150} fill="green" paddingAngle={5} label>
+            <PieChart width={400} height={400}>
+                <Pie data={categoryArray} dataKey="amount" nameKey="category" cx="50%" cy="50%" innerRadius={40} outerRadius={150} paddingAngle={5} isAnimationActive={false} label={true} labelLine >
                     {categoryArray.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={categoryColors[index % categoryColors.length]} />
+                        <Cell key={`cell-${entry}`} fill={categoryColors[index % categoryColors.length]} />
                     ))}
+                    {/* {pieChartCells} */}
                 </Pie>
             </PieChart>
+
+            <br/>
+            <br/>
+            <br/>
                 {/* <Tooltip /> */}
             {/* </ResponsiveContainer> */}
         </Container>

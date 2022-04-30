@@ -73,7 +73,7 @@ const MonthTrackers = (props) => {
                     </Link> */}
                     <Button variant="primary" className='m-2' onClick={ () => deleteOneTracker(user, monthTracker._id)}>X</Button>
                     <Card.Body>
-                        <Card.Text>Annual Income: ${monthTracker.monthlyTakeHome}</Card.Text>
+                        <Card.Text>Monthly Income: ${monthTracker.monthlyTakeHome}</Card.Text>
                         <Card.Text>Savings: ${monthTracker.monthly_savings}</Card.Text>
                         <Card.Text>Budget: ${monthTracker.budget}</Card.Text>
                     </Card.Body>
