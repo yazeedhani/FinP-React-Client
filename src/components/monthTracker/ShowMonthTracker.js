@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, ResponsiveContainer, Legend, Tooltip, Cell } from "recharts";
+import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
-import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup } from 'react-bootstrap';
+import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, ProgressBar } from 'react-bootstrap';
 import ExpenseForm from "../shared/ExpenseForm";
 import UpdateExpenseModal from "./UpdateExpenseModal";
 import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
@@ -73,6 +73,8 @@ const ShowMonthTracker = (props) => {
         '#6255ed',
         '#5aed55'
     ]
+
+    
 
     // Function To set the category with category selected from the dropdown menu
     let categorySelected = (cat) => {
@@ -194,17 +196,12 @@ const ShowMonthTracker = (props) => {
         }
     }
 
-    // Create pie chart cells (slices). Each slice is assigned a color.
-    // Do not inlcude categories with the amount equal to 0
-    // const pieChartCells = categoryArray.filter((entry, index) => {
-    //     console.log('ENTRY: ', entry)
-    //     if(entry.amount > 0)
-    //     {
-    //        return <Cell key={`cell-${entry}`} fill={categoryColors[index % categoryColors.length]} />
-    //     }
-    // })
+    // Filter categoryArray to not inlcude zeroes in the pie chart that represent empty categories
+    const filteredCategoryArray = categoryArray.filter( (cat, index) => {
+        return (cat.amount > 0)
+    })
 
-    // console.log('PIE CHART CELLS: ', pieChartCells)
+    console.log('FILTERED CAT ARRAY: ', filteredCategoryArray)
 
     console.log('CATEGORYARRAY AFTER UPDATE: ', categoryArray)
 
@@ -287,7 +284,6 @@ const ShowMonthTracker = (props) => {
 
     // console.log('EXPENSE DIVS AFTER CATEGORY SELECTED: ', expenseDivs)
 
-
     return (
         <Container>
             <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
@@ -318,6 +314,7 @@ const ShowMonthTracker = (props) => {
             <div>
                 <p>
                     {meetingBudget()}
+                    <ProgressBar label={totalExpenses} max={monthTracker.budget}/>
                 </p>
             </div>
 
@@ -362,31 +359,56 @@ const ShowMonthTracker = (props) => {
             <div>   Name    Amount   Category</div>
             {expenseDivs}
 
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            {/* <h3>Savings</h3>
-            <Button variant="primary">
-                Add Savings
-            </Button> */}
+            {/* <ResponsiveContainer width={700} height={500}> */}
+                <PieChart width={600} height={500}>
+                    <Pie 
+                        data={filteredCategoryArray} 
+                        dataKey="amount" 
+                        nameKey="category" 
+                        cx="50%" 
+                        cy="50%" 
+                        innerRadius={40} 
+                        outerRadius={100} 
+                        paddingAngle={16} 
+                        isAnimationActive={false} 
+                        label={({
+                            cx,
+                            cy,
+                            midAngle,
+                            innerRadius,
+                            outerRadius,
+                            value,
+                            index
+                            }) => {
+                            const RADIAN = Math.PI / 180
+                            // eslint-disable-next-line
+                            const radius = 25 + innerRadius + (outerRadius - innerRadius)
+                            // eslint-disable-next-line
+                            const x = cx + radius * Math.cos(-midAngle * RADIAN)
+                            // eslint-disable-next-line
+                            const y = cy + radius * Math.sin(-midAngle * RADIAN)
 
-            {/* {categoryArray} */}
-            {/* <ResponsiveContainer width="100%" height="100%"> */}
-            <PieChart width={400} height={400}>
-                <Pie data={categoryArray} dataKey="amount" nameKey="category" cx="50%" cy="50%" innerRadius={40} outerRadius={150} paddingAngle={5} isAnimationActive={false} label={true} labelLine >
-                    {categoryArray.map((entry, index) => (
-                        <Cell key={`cell-${entry}`} fill={categoryColors[index % categoryColors.length]} />
-                    ))}
-                    {/* {pieChartCells} */}
-                </Pie>
-            </PieChart>
-
-            <br/>
-            <br/>
-            <br/>
-                {/* <Tooltip /> */}
-            {/* </ResponsiveContainer> */}
+                            return (
+                                <text
+                                x={x}
+                                y={y}
+                                fill="#8884d8"
+                                textAnchor={x > cx ? "start" : "end"}
+                                dominantBaseline="central"
+                                >
+                                {filteredCategoryArray[index].category} (${value})
+                                </text>
+                            )
+                            }}
+                        >
+                        {filteredCategoryArray.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={categoryColors[index % categoryColors.length]} >
+                                {entry.category}
+                            </Cell>
+                        ))}
+                    </Pie>
+                </PieChart>
+                {/* </ResponsiveContainer> */}
         </Container>
     )
 }

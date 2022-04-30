@@ -9,11 +9,11 @@ const linkStyle = {
 }
 
 const UserAccount = (props) => {
+    const { user, msgAlert } = props
     const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0})
     const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0})
-    const [show, setShow] = useState(false);
     const [updated, setUpdated] = useState(false)
-    const { user, msgAlert } = props
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
@@ -73,7 +73,7 @@ const UserAccount = (props) => {
         <Container>
             <p>Username: {user.username}</p>
             <p>Annual Income: ${account.income}</p>
-            <p>Savings: ${account.savings}</p>
+            <p>Total Savings: ${account.savings}</p>
 
             <Button>
                 <Link to='/change-password' style={linkStyle}>
@@ -102,7 +102,7 @@ const UserAccount = (props) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Button variant='primary' type='submit'>
+                    <Button variant='primary' type='submit' onClick={handleClose}>
                         Edit Account
                     </Button>
                 </Form>
