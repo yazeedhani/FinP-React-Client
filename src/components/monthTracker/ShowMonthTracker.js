@@ -314,7 +314,7 @@ const ShowMonthTracker = (props) => {
             <div>
                 <p>
                     {meetingBudget()}
-                    <ProgressBar label={totalExpenses} max={monthTracker.budget}/>
+                    <ProgressBar animated label={`$${totalExpenses}`} variant={ totalExpenses < monthTracker.budget ? "success" : "danger"} now={totalExpenses} max={monthTracker.budget}/>
                 </p>
             </div>
 
@@ -390,17 +390,17 @@ const ShowMonthTracker = (props) => {
 
                             return (
                                 <text
-                                x={x}
-                                y={y}
-                                fill="#8884d8"
-                                textAnchor={x > cx ? "start" : "end"}
-                                dominantBaseline="central"
-                                >
-                                {filteredCategoryArray[index].category} (${value})
+                                    x={x}
+                                    y={y}
+                                    fill="#8884d8"
+                                    textAnchor={x > cx ? "start" : "end"}
+                                    dominantBaseline="central"
+                                    >
+                                    {filteredCategoryArray[index].category} (${value})
                                 </text>
                             )
-                            }}
-                        >
+                        }}
+                    >
                         {filteredCategoryArray.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={categoryColors[index % categoryColors.length]} >
                                 {entry.category}
