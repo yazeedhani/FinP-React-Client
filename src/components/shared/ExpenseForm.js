@@ -43,16 +43,22 @@ const ExpenseForm = (props) => {
                     onChange={handleChange}
                 >
                     <option></option>
-                    <option value="Entertainment">Entertainment</option>
-                    <option value="Housing">Housing</option>
-                    <option value="Food">Food</option>
-                    <option value="Auto">Auto</option>
-                    <option value="Health">Health</option>
-                    <option value="Shopping">Shopping</option>
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Loans">Loans</option>
-                    <option value="Savings">Savings</option>
-                    <option value="Other">Other</option>
+                    <optgroup label="Expenses">
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Housing">Housing</option>
+                        <option value="Food">Food</option>
+                        <option value="Auto">Auto</option>
+                        <option value="Health">Health</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Restaurant">Restaurant</option>
+                        <option value="Other">Other</option>
+                    </optgroup>
+                    <optgroup label="Savings">
+                        <option value="Savings">Savings</option>
+                    </optgroup>
+                    <optgroup label="Loans">
+                        <option value="Loans">Loans</option>
+                    </optgroup>
                 </Form.Control>
             </Form.Group>
             <Button variant='primary' type='submit'>

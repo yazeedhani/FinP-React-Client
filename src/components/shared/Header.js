@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { Container } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
@@ -23,6 +24,21 @@ const authenticatedOptions = (
 				Change Password
 			</Link>
 		</Nav.Item> */}
+		{/* <Nav.Item>
+			<Link to='/account/' style={linkStyle}>
+				My Account
+			</Link>
+		</Nav.Item>
+		<Nav.Item>
+			<Link to='sign-out' style={linkStyle}>
+				Sign Out
+			</Link>
+		</Nav.Item> */}
+	</>
+)
+
+const userAccountAuthenticatedOptions = (
+	<>
 		<Nav.Item>
 			<Link to='/account/' style={linkStyle}>
 				My Account
@@ -58,23 +74,47 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-	<Navbar bg='primary' variant='dark' expand='md'>
-		<Navbar.Brand>
-            <Link to='/' style={linkStyle}>
-                FinP
-            </Link>
-        </Navbar.Brand>
-		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-		<Navbar.Collapse id='basic-navbar-nav'>
-			<Nav className='ml-auto'>
-				{user && (
-					<span className='navbar-text mr-2'>Welcome, {user.username}</span>
-				)}
-				{alwaysOptions}
-				{user ? authenticatedOptions : unauthenticatedOptions}
-			</Nav>
-		</Navbar.Collapse>
+	<Navbar collapseOnSelect bg='success' variant='dark' expand='md'>
+		<Container>
+			<Navbar.Brand>
+				<Link to='/' style={linkStyle}>
+					FinP
+				</Link>
+			</Navbar.Brand>
+			<Navbar.Toggle aria-controls='responsive-navbar-nav' />
+			<Navbar.Collapse id='responsive-navbar-nav'>
+				<Nav className='me-auto'>
+					{user && (
+						<span className='navbar-text mr-2'>Signed in as: {user.username}</span>
+					)}
+					{alwaysOptions}
+					{user ? authenticatedOptions : unauthenticatedOptions}
+				</Nav>
+				<Nav>
+					{user ? userAccountAuthenticatedOptions : <></>}	
+				</Nav>
+			</Navbar.Collapse>
+		</Container>
 	</Navbar>
 )
+// const Header = ({ user }) => (
+// 	<Navbar bg='success' variant='dark' expand='md'>
+// 		<Navbar.Brand>
+//             <Link to='/' style={linkStyle}>
+//                 FinP
+//             </Link>
+//         </Navbar.Brand>
+// 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
+// 		<Navbar.Collapse id='basic-navbar-nav'>
+// 			<Nav className='ml-auto'>
+// 				{user && (
+// 					<span className='navbar-text mr-2'>Welcome, {user.username}</span>
+// 				)}
+// 				{alwaysOptions}
+// 				{user ? authenticatedOptions : unauthenticatedOptions}
+// 			</Nav>
+// 		</Navbar.Collapse>
+// 	</Navbar>
+// )
 
 export default Header
