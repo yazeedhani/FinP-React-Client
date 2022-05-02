@@ -4,7 +4,7 @@ import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGro
 import { getUserAccount, updateUserAccount } from "../../api/userAccout";
 
 const linkStyle = {
-    color: 'white',
+    color: 'green',
     textDecoration: 'none'
 }
 
@@ -75,13 +75,13 @@ const UserAccount = (props) => {
             <p>Annual Income: ${account.income}</p>
             <p>Total Savings: ${account.savings}</p>
 
-            <Button>
-                <Link to='/change-password' style={linkStyle}>
+            <Button variant="outline-success">
+                <Link id="link-change-password" to='/change-password' style={linkStyle}>
                     Change Password
                 </Link>
             </Button>
 
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="outline-success" onClick={handleShow}>
                 Edit
             </Button>
             <Modal show={show} onHide={handleClose}>

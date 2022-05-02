@@ -107,7 +107,7 @@ const UpdateMonthTrackerModal = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    <Button variant='success' type='submit'>
                         Edit
                     </Button>
                 </Form>

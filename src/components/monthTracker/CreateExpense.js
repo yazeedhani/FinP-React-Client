@@ -77,7 +77,7 @@ const CreateExpense = (props) => {
                     buttonText={'Create Tracker'}
                     expense={newExpense}
                 />
-                <Button variant='primary' type='submit' onClick={addAnotherExpense}>
+                <Button variant='success' type='success' onClick={addAnotherExpense}>
                         Add another expense
                     </Button>
                 <Link to='/monthTrackers'>

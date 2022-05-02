@@ -154,7 +154,13 @@ const ShowMonthTracker = (props) => {
 
     // Calculate if the user has met their budget for a single month tracker
     const meetingBudget = () => {
-        if( totalExpenses < monthTracker.budget )
+        if( totalExpenses === 0 )
+        {
+            return (
+                <></>
+            )
+        }
+        else if( totalExpenses < monthTracker.budget )
         {
             return (
                 <p style={{color: 'green'}}>You are under your budget!</p>
@@ -208,24 +214,26 @@ const ShowMonthTracker = (props) => {
     // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
         // console.log('EXP: ', exp)
+        // const date = exp.createdAt.substr(0,10)
         if(exp.category === category)
         {
             return (
                 <tr key={exp._id}>
                     {/* <Card.Body> */}
-                        <td>{exp.name}    </td>
-                        <td>${exp.amount}   </td>
-                        <td>{exp.category}   </td>
+                        <td>{exp.name}</td>
+                        <td>${exp.amount}</td>
+                        <td>{exp.category}</td>
+                        {/* <td>{date}</td> */}
                         <td>
                             <Button 
-                                variant='primary' 
+                                variant="outline-success"
                                 type='submit' 
                                 onClick={() => {
                                     setSelectedExpense(exp)
                                     // setExpense(exp)    
                                     setEditExpenseShow(true)
                                     }}>
-                                Edit
+                                <i class="material-icons">edit</i>
                             </Button>
                             <UpdateExpenseModal 
                                 expense={selectedExpense}
@@ -238,8 +246,8 @@ const ShowMonthTracker = (props) => {
                                 onHide={() => setEditExpenseShow(false)}
                                 setEditExpenseShow={setEditExpenseShow}
                             />
-                            <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-                                X
+                            <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                                <i class="material-icons">delete_forever</i>
                             </Button>
                         </td>
                     {/* </Card.Body> */}
@@ -251,19 +259,20 @@ const ShowMonthTracker = (props) => {
             return (
                 <tr key={exp._id}>
                     {/* <Card.Body> */}
-                        <td>{exp.name}    </td>
-                        <td>${exp.amount}   </td>
-                        <td>{exp.category}   </td>
+                        <td>{exp.name}</td>
+                        <td>${exp.amount}</td>
+                        <td>{exp.category}</td>
+                        {/* <td>{date}</td> */}
                         <td>
                             <Button 
-                                variant='primary' 
+                                variant="outline-success"
                                 type='submit' 
                                 onClick={() => {
                                     setSelectedExpense(exp)
                                     // setExpense(exp)    
                                     setEditExpenseShow(true)
                                     }}>
-                                Edit
+                                <i class="material-icons">edit</i>
                             </Button>
                             <UpdateExpenseModal 
                                 expense={selectedExpense}
@@ -276,8 +285,8 @@ const ShowMonthTracker = (props) => {
                                 onHide={() => setEditExpenseShow(false)}
                                 setEditExpenseShow={setEditExpenseShow}
                             />
-                            <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-                                X
+                            <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                                <i class="material-icons">delete_forever</i>
                             </Button>
                         </td>
                     {/* </Card.Body> */}
@@ -367,8 +376,9 @@ const ShowMonthTracker = (props) => {
     return (
         <Container>
             <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
-            <Button variant="success" onClick={() => setEditMonthTrackerShow(true)}>
-                Edit Tracker
+            <Button variant="outline-success" onClick={() => setEditMonthTrackerShow(true)}>
+                {/* Edit Tracker */}
+                <i class="material-icons">edit</i>
             </Button>
             <UpdateMonthTrackerModal 
                 show={editMonthTrackerShow}
@@ -384,11 +394,11 @@ const ShowMonthTracker = (props) => {
             <p></p>
             <ListGroup>
                 <ListGroup.Item>Annual Income: ${monthTracker.annualTakeHome}</ListGroup.Item>
-                <ListGroup.Item>Monthly Income: ${monthTracker.monthlyTakeHome}</ListGroup.Item>
+                <ListGroup.Item>Monthly Income: ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
                 <ListGroup.Item>Monthly Budget: ${monthTracker.budget}</ListGroup.Item>
                 <ListGroup.Item>Total Expenses: ${totalExpenses}</ListGroup.Item>
                 <ListGroup.Item>Savings this month: $ {monthTracker.monthly_savings}</ListGroup.Item>
-                <ListGroup.Item>Cashflow: ${monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings}</ListGroup.Item>
+                <ListGroup.Item>Cashflow: ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item>
             </ListGroup>
             <p></p>
             <div>
@@ -410,12 +420,12 @@ const ShowMonthTracker = (props) => {
 
             <h3>Expenses</h3>
 
-            <ButtonGroup aria-label="Basic example">
-                <Button variant="success" onClick={() => setAddExpenseShow(true)}>
-                    Add Expense
+            {/* <ButtonGroup aria-label="Basic example"> */}
+                <Button variant="outline-success" className="plus-categories-btnGroup" onClick={() => setAddExpenseShow(true)}>
+                    <i class="material-icons">add</i>
                 </Button>
                 {/* Dropdown list to filter by expenses by category */}
-                <DropdownButton variant="success" id="dropdown-basic-button-2" title="Categories" >
+                <DropdownButton variant="outline-success" className="plus-categories-btnGroup" style={{marginLeft: 5}} id="dropdown-basic-button-2" title="Categories" >
                     <Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>
@@ -428,7 +438,7 @@ const ShowMonthTracker = (props) => {
                     <Dropdown.Item onClick={ () => categorySelected('Savings')}>Savings</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
                 </DropdownButton>
-            </ButtonGroup>
+            {/* </ButtonGroup> */}
 
             {/* Modal to add a new expense */}
             <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
@@ -452,7 +462,8 @@ const ShowMonthTracker = (props) => {
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Category</th>
-                        <th>Action</th> 
+                        {/* <th>Date</th> */}
+                        <th>Actions</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -461,7 +472,7 @@ const ShowMonthTracker = (props) => {
             </Table>
 
             {/* <ResponsiveContainer width={700} height={500}> */}
-                <PieChart width={600} height={500}>
+                <PieChart id="pie-chart" width={600} height={500}>
                     <Pie 
                         data={filteredCategoryArray} 
                         dataKey="amount" 

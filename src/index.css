@@ -13,5 +13,27 @@ code {
 }
 
 .edit-modal {
-  background-color: rgba(0, 0, 0, 0.00001);
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.delete-button-monthTracker {
+  width: 17%;
+  height: 17%;
+}
+
+.card-monthTracker {
+  width: 50%;
+}
+
+.plus-categories-btnGroup {
+  display: inline-block;
+}
+
+#pie-chart {
+  width: 200%;
+  margin: 0 auto;
+}
+
+#link-change-password:hover {
+  color: white;
 }

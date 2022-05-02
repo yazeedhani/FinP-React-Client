@@ -9,16 +9,16 @@ const linkStyle = {
 }
 const authenticatedOptions = (
 	<>
-		<Nav.Item>
+		<Nav.Link>
 			<Link to='monthTrackers' style={linkStyle}>
 				MyFinP
 			</Link>
-		</Nav.Item>
-		<Nav.Item>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='/monthTrackers/create' style={linkStyle}>
 				Create Tracker
 			</Link>
-		</Nav.Item>
+		</Nav.Link>
 		{/* <Nav.Item>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
@@ -39,27 +39,27 @@ const authenticatedOptions = (
 
 const userAccountAuthenticatedOptions = (
 	<>
-		<Nav.Item>
+		<Nav.Link>
 			<Link to='/account/' style={linkStyle}>
 				My Account
 			</Link>
-		</Nav.Item>
-		<Nav.Item>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
-		</Nav.Item>
+		</Nav.Link>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
-        <Nav.Item>
+        <Nav.Link>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
-        </Nav.Item>
-        <Nav.Item>
+        </Nav.Link>
+        <Nav.Link>
 		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
-        </Nav.Item>
+        </Nav.Link>
 	</>
 )
 
@@ -74,7 +74,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-	<Navbar collapseOnSelect bg='success' variant='dark' expand='md'>
+	<Navbar collapseOnSelect sticky='top'  bg='success' variant='dark' expand='md'>
 		<Container>
 			<Navbar.Brand>
 				<Link to='/' style={linkStyle}>
@@ -84,37 +84,22 @@ const Header = ({ user }) => (
 			<Navbar.Toggle aria-controls='responsive-navbar-nav' />
 			<Navbar.Collapse id='responsive-navbar-nav'>
 				<Nav className='me-auto'>
+					
+					{/* {user && (
+						<span className='navbar-text mr-2'>Signed in as: {user.username}</span>
+					)} */}
+					{/* {alwaysOptions} */}
+					{user ? authenticatedOptions : unauthenticatedOptions}
+				</Nav>
+				<Nav className='navbar-text'>
 					{user && (
 						<span className='navbar-text mr-2'>Signed in as: {user.username}</span>
 					)}
-					{alwaysOptions}
-					{user ? authenticatedOptions : unauthenticatedOptions}
-				</Nav>
-				<Nav>
 					{user ? userAccountAuthenticatedOptions : <></>}	
 				</Nav>
 			</Navbar.Collapse>
 		</Container>
 	</Navbar>
 )
-// const Header = ({ user }) => (
-// 	<Navbar bg='success' variant='dark' expand='md'>
-// 		<Navbar.Brand>
-//             <Link to='/' style={linkStyle}>
-//                 FinP
-//             </Link>
-//         </Navbar.Brand>
-// 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
-// 		<Navbar.Collapse id='basic-navbar-nav'>
-// 			<Nav className='ml-auto'>
-// 				{user && (
-// 					<span className='navbar-text mr-2'>Welcome, {user.username}</span>
-// 				)}
-// 				{alwaysOptions}
-// 				{user ? authenticatedOptions : unauthenticatedOptions}
-// 			</Nav>
-// 		</Navbar.Collapse>
-// 	</Navbar>
-// )
 
 export default Header

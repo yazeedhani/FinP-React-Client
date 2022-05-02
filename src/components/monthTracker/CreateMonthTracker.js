@@ -98,7 +98,7 @@ const CreateMonthTracker = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Button variant='primary' type='submit'>
+                    <Button variant='success' type='submit'>
                         Expenses
                     </Button>
                 </Form>

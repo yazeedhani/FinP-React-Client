@@ -23,6 +23,7 @@ const ExpenseForm = (props) => {
                     onChange={handleChange}
                 />
             </Form.Group>
+            <br/>
             <Form.Group controlId='amount'>
                 <Form.Label>Amount</Form.Label>
                 <Form.Control
@@ -34,6 +35,7 @@ const ExpenseForm = (props) => {
                     onChange={handleChange}
                 />
             </Form.Group>
+            <br/>
             <Form.Group controlId='category'>
                 <Form.Label>Category</Form.Label>
                 <Form.Control as='select'
@@ -61,7 +63,8 @@ const ExpenseForm = (props) => {
                     </optgroup>
                 </Form.Control>
             </Form.Group>
-            <Button variant='primary' type='submit'>
+            <br/>
+            <Button variant='success' type='submit'>
                 {buttonText}
             </Button>
         </Form>

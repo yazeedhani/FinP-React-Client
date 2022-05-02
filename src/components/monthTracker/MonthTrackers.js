@@ -8,7 +8,8 @@ import { deleteMonthTracker } from "../../api/monthTracker";
 const cardContainerLayout = {
     display: 'flex',
     justifyContent: 'center',
-    flexFlow: 'row wrap'
+    flexFlow: 'row wrap',
+    // marginLeft: 5
 }
 
 const MonthTrackers = (props) => {
@@ -62,28 +63,39 @@ const MonthTrackers = (props) => {
     if(monthTrackers.length > 0) {
         monthTrackerCards = monthTrackers.map( monthTracker => {
             return (
-                <Card key={monthTracker._id} style={{ width: '25%'  }} className="m-2">
-                    <Card.Title className='m-2'>
-                        <Link to={`/monthTrackers/${monthTracker._id}`}>
-                            {monthTracker.monthTrackerTitle}
+                <>
+                    <Card 
+                        key={monthTracker._id}
+                        border="success" 
+                        // style={{ width: '25%'  }} 
+                        // className="m-2"
+                        style={{ width: '18rem' }}
+                        className="mb-2"
+                    >
+                        <Link to={`/monthTrackers/${monthTracker._id}`} style={{color: 'green', textDecoration: 'none'}}>
+                            <Card.Header>
+                                {monthTracker.monthTrackerTitle}
+                            </Card.Header>
                         </Link>
-                    </Card.Title>
-                    {/* <Link to={`/monthTrackers/${monthTracker._id}`}>
-                        <Button variant="primary" className='m-2'>View</Button>
-                    </Link> */}
-                    <Button variant="primary" className='m-2' onClick={ () => deleteOneTracker(user, monthTracker._id)}>X</Button>
-                    <Card.Body>
-                        <Card.Text>Monthly Income: ${monthTracker.monthlyTakeHome}</Card.Text>
-                        <Card.Text>Savings: ${monthTracker.monthly_savings}</Card.Text>
-                        <Card.Text>Budget: ${monthTracker.budget}</Card.Text>
-                    </Card.Body>
-                </Card>
+                        {/* <Link to={`/monthTrackers/${monthTracker._id}`}>
+                            <Button variant="primary" className='m-2'>View</Button>
+                        </Link> */}
+                        <Card.Body>
+                            <Card.Text>Monthly Income: ${monthTracker.monthlyTakeHome.toFixed(2)}</Card.Text>
+                            <Card.Text>Savings: ${monthTracker.monthly_savings}</Card.Text>
+                            <Card.Text>Budget: ${monthTracker.budget}</Card.Text>
+                        </Card.Body>
+                        <Button variant="outline-danger" className='m-2 delete-button-monthTracker' onClick={ () => deleteOneTracker(user, monthTracker._id)}><i class="material-icons">delete_forever</i></Button>
+                    </Card>
+                </>
             )
         })
     }
 
     return (
         <>
+            <br/>
+            <br/>
             <div style={cardContainerLayout}>
                 {monthTrackerCards}
             </div>
