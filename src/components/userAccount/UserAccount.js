@@ -10,8 +10,8 @@ const linkStyle = {
 
 const UserAccount = (props) => {
     const { user, msgAlert } = props
-    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0})
-    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0})
+    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
+    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
     const [updated, setUpdated] = useState(false)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -50,7 +50,8 @@ const UserAccount = (props) => {
 
         updateUserAccount(user, updatedAccount)
             .then( () => triggerRefresh() )
-            .then( () => setUpdatedAccount({savings: 0, cashlow: 0, income: 0}))
+            .then( console.log('UPDATED ACCOUNT: ', updatedAccount))
+            .then( () => setUpdatedAccount({savings: 0, cashlow: 0, income: 0, loans: 0}))
             .then( () => {
                 msgAlert({
                     heading: 'Account Updated',
@@ -71,6 +72,8 @@ const UserAccount = (props) => {
 
     return (
         <Container>
+            <br/>
+            <h3>Account Summary</h3>
             <p>Username: {user.username}</p>
             <p>Annual Income: ${account.income}</p>
             <p>Total Savings: ${account.savings}</p>
@@ -87,15 +90,15 @@ const UserAccount = (props) => {
             </Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Edit Annual Income</Modal.Title>
+                <Modal.Title>Edit Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId='expenseName'>
+                    <Form.Group controlId='annualIncome'>
                         <Form.Label>Annual Income</Form.Label>
                         <Form.Control
                             required
-                            type='text'
+                            type='number'
                             name='income'
                             value={updatedAccount.income}
                             placeholder='Enter new income'
@@ -103,7 +106,19 @@ const UserAccount = (props) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Button variant='primary' type='submit' onClick={handleClose}>
+                    <Form.Group controlId='loans'>
+                        <Form.Label>Total Loans</Form.Label>
+                        <Form.Control
+                            required
+                            type='number'
+                            name='loans'
+                            value={updatedAccount.loans}
+                            placeholder='Enter loan amount'
+                            onChange={handleChange}
+                        />
+                    </Form.Group>
+                    <br/>
+                    <Button variant='outline-success' type='submit' onClick={handleClose}>
                         Edit Account
                     </Button>
                 </Form>

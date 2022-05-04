@@ -62,6 +62,7 @@ const UpdateMonthTrackerModal = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <br/>
                     <Form.Group controlId="month">
                         <Form.Label>Month</Form.Label>
                         <Form.Control as='select'
@@ -85,6 +86,7 @@ const UpdateMonthTrackerModal = (props) => {
                             <option value="December">December</option>
                         </Form.Control>
                     </Form.Group>
+                    <br/>
                     <Form.Group controlId='year'>
                         <Form.Label>Year</Form.Label>
                         <Form.Control
@@ -96,6 +98,7 @@ const UpdateMonthTrackerModal = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <br/>
                     <Form.Group controlId='budget'>
                         <Form.Label>Monthly Budget</Form.Label>
                         <Form.Control
@@ -107,7 +110,8 @@ const UpdateMonthTrackerModal = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Button variant='success' type='submit'>
+                    <br/>
+                    <Button variant='outline-success' type='submit'>
                         Edit
                     </Button>
                 </Form>

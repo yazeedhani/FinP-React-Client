@@ -375,6 +375,8 @@ const ShowMonthTracker = (props) => {
 
     return (
         <Container>
+            <br/>
+            <br/>
             <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
             <Button variant="outline-success" onClick={() => setEditMonthTrackerShow(true)}>
                 {/* Edit Tracker */}
