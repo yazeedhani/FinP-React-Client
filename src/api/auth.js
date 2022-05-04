@@ -16,6 +16,7 @@ export const signUp = (credentials, account) => {
 			account: {
 				owner: account.accountOwner,
 				income: parseFloat(account.annualIncome),
+				loans: parseFloat(account.totalLoans)
 			}
 		},
 	})

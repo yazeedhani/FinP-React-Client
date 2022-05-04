@@ -12,6 +12,7 @@ const SignUp = (props) => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [annualIncome, setAnnualIncome] = useState(0)
+    const [totalLoans, setTotalLoans] = useState(0)
     const [accountOwner, setAccountOwner] = useState(null)
 
     const navigate = useNavigate()
@@ -22,7 +23,7 @@ const SignUp = (props) => {
 		const { msgAlert, setUser } = props
 
         const credentials = {username, password, passwordConfirmation}
-        const account = {annualIncome, accountOwner}
+        const account = {annualIncome, accountOwner, totalLoans}
 
         console.log('ACCOUNT FROM SIGNUP COMP: ', account)
 
@@ -42,6 +43,7 @@ const SignUp = (props) => {
                 setPassword('')
                 setPasswordConfirmation('')
                 setAnnualIncome(0)
+                setTotalLoans(0)
 				msgAlert({
 					heading: 'Sign Up Failed with error: ' + error.message,
 					message: messages.signUpFailure,
@@ -76,6 +78,17 @@ const SignUp = (props) => {
                             value={annualIncome}
                             placeholder='Enter annual income'
                             onChange={e => setAnnualIncome(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId='totalLoans'>
+                        <Form.Label>Total loans</Form.Label>
+                        <Form.Control
+                            required
+                            type='number'
+                            name='totalLoans'
+                            value={totalLoans}
+                            placeholder='Enter loans amount'
+                            onChange={e => setTotalLoans(e.target.value)}
                         />
                     </Form.Group>
                     <Form.Group controlId='password'>

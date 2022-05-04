@@ -74,6 +74,7 @@ const UserAccount = (props) => {
             <p>Username: {user.username}</p>
             <p>Annual Income: ${account.income}</p>
             <p>Total Savings: ${account.savings}</p>
+            <p>Total Loans: ${account.loans}</p>
 
             <Button variant="outline-success">
                 <Link id="link-change-password" to='/change-password' style={linkStyle}>
