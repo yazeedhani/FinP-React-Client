@@ -396,6 +396,7 @@ const ShowMonthTracker = (props) => {
                 <ListGroup.Item>Annual Income: ${monthTracker.annualTakeHome}</ListGroup.Item>
                 <ListGroup.Item>Monthly Income: ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
                 <ListGroup.Item>Monthly Budget: ${monthTracker.budget}</ListGroup.Item>
+                <ListGroup.Item>Loan Repayments This Month: ${monthTracker.monthly_loan_payments}</ListGroup.Item>
                 <ListGroup.Item>Total Expenses: ${totalExpenses}</ListGroup.Item>
                 <ListGroup.Item>Savings this month: $ {monthTracker.monthly_savings}</ListGroup.Item>
                 <ListGroup.Item>Cashflow: ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item>
