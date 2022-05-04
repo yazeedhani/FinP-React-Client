@@ -69,7 +69,7 @@ const CreateExpense = (props) => {
     return (
         <div className='row'>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Add Expense</h3>
+                <h3>Add Transaction</h3>
                 <ExpenseForm 
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
@@ -78,7 +78,7 @@ const CreateExpense = (props) => {
                     expense={newExpense}
                 />
                 <Button variant='success' type='success' onClick={addAnotherExpense}>
-                        Add another expense
+                        Add another transaction
                     </Button>
                 <Link to='/monthTrackers'>
                     Cancel

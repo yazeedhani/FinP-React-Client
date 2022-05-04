@@ -419,7 +419,7 @@ const ShowMonthTracker = (props) => {
                 </p>
             </div>
 
-            <h3>Expenses</h3>
+            <h3>Transactions</h3>
 
             {/* <ButtonGroup aria-label="Basic example"> */}
                 <Button variant="outline-success" className="plus-categories-btnGroup" onClick={() => setAddExpenseShow(true)}>
@@ -444,14 +444,14 @@ const ShowMonthTracker = (props) => {
             {/* Modal to add a new expense */}
             <Modal show={addExpenseShow} onHide={() => setAddExpenseShow(false)}>
                 <Modal.Header closeButton>
-                <Modal.Title>Add Expense</Modal.Title>
+                <Modal.Title>Add Transaction</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <ExpenseForm 
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     // addAnotherExpense={addAnotherExpense}
-                    buttonText={'Add Expense'}
+                    buttonText={'Add Transaction'}
                     expense={expense}
                 />
                 </Modal.Body>

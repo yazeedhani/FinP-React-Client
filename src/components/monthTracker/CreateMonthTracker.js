@@ -76,6 +76,7 @@ const CreateMonthTracker = (props) => {
                             <option value="December">December</option>
                         </Form.Control>
                     </Form.Group>
+                    <br/>
                     <Form.Group controlId='year'>
                         <Form.Label>Year</Form.Label>
                         <Form.Control
@@ -87,6 +88,7 @@ const CreateMonthTracker = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <br/>
                     <Form.Group controlId='budget'>
                         <Form.Label>Monthly Budget</Form.Label>
                         <Form.Control
@@ -98,8 +100,9 @@ const CreateMonthTracker = (props) => {
                             onChange={handleChange}
                         />
                     </Form.Group>
+                    <br/>
                     <Button variant='success' type='submit'>
-                        Expenses
+                        Transactions
                     </Button>
                 </Form>
             </div>

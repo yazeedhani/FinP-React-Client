@@ -46,14 +46,14 @@ const UpdateExpenseModal = (props) => {
     return (
         <Modal className='edit-modal' show={show} onHide={setEditExpenseShow}>
             <Modal.Header closeButton>
-            <Modal.Title>Edit Expense</Modal.Title>
+            <Modal.Title>Edit Transaction</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <ExpenseForm 
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 // addAnotherExpense={addAnotherExpense}
-                buttonText={'Edit Expense'}
+                buttonText={'Edit Transaction'}
                 expense={expense}
             />
             </Modal.Body>
