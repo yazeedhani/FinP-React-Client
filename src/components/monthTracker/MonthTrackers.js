@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllMonthTrackers } from "../../api/monthTracker";
 import { useNavigate, Link } from 'react-router-dom';
-import { Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 
 import { deleteMonthTracker } from "../../api/monthTracker";
 
@@ -10,6 +10,11 @@ const cardContainerLayout = {
     justifyContent: 'center',
     flexFlow: 'row wrap',
     // marginLeft: 5
+}
+
+const containerStyle = {
+    position: 'absolute', left: '47%', top: '30%',
+    transform: 'translate(-50%, -50%)'
 }
 
 const MonthTrackers = (props) => {
@@ -55,7 +60,14 @@ const MonthTrackers = (props) => {
         return <p>Loading...</p>
     }
     else if(monthTrackers.length === 0) {
-        return <p>Add a month tracker</p>
+        return (
+            <Container style={containerStyle}>
+                <br/>
+                <p>You have no month trackers, yet!</p>
+                <p>Create a new month tracker!</p>
+                <Button variant="outline-success"><Link to='/monthTrackers/create' style={{ textDecoration: 'none', color: 'green' }}> Create Month Tracker</Link> </Button>
+            </Container>
+            )
     }
 
     let monthTrackerCards
