@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
-import {Form, Button, Col, Row, FloatingLabel} from 'react-bootstrap'
+import {Form, Button, Col, Row, FloatingLabel, Container} from 'react-bootstrap'
 
 const SignUp = (props) => { 
     const [username, setUsername] = useState('')
@@ -24,7 +24,7 @@ const SignUp = (props) => {
     }
     
     const formStyle = {
-        position: 'absolute', left: '47%', top: '30%',
+        position: 'absolute', left: '50%', top: '45%',
         transform: 'translate(-50%, -50%)'
     }
 
@@ -72,82 +72,88 @@ const SignUp = (props) => {
 
 
     return (
-        <div className='row' style={formStyle}>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Sign Up</h3>
-                <Form onSubmit={onSignUp}>
-                    <Row className='g-2'>
-                        <Col md>
-                            <Form.Group controlId='annualIncome'>
-                                    <Form.Label>Annual Income</Form.Label>
-                                    <Form.Control
-                                        required
-                                        style={{ width: 180 }}
-                                        type='number'
-                                        name='annualIncome'
-                                        value={annualIncome}
-                                        placeholder='Enter annual income'
-                                        onChange={e => setAnnualIncome(e.target.value)}
-                                    />
-                            </Form.Group>
-                        </Col>
-                        <Col md>
-                            <Form.Group controlId='totalLoans' style={incomeAndLoansInput}>
-                                    <Form.Label>Total loans</Form.Label>
-                                    <Form.Control
-                                        required
-                                        style={{ width: 180 }}
-                                        type='number'
-                                        name='totalLoans'
-                                        value={totalLoans}
-                                        placeholder='Enter loans amount'
-                                        onChange={e => setTotalLoans(e.target.value)}
-                                    />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Form.Group controlId='username'>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control
-                            required
-                            style={inputStyle}
-                            type='text'
-                            name='username'
-                            value={username}
-                            placeholder='Enter username'
-                            onChange={e => setUsername(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            required
-                            style={inputStyle}
-                            name='password'
-                            value={password}
-                            type='password'
-                            placeholder='Password'
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='passwordConfirmation'>
-                        <Form.Label>Password Confirmation</Form.Label>
-                        <Form.Control
-                            required
-                            style={inputStyle}
-                            name='passwordConfirmation'
-                            value={passwordConfirmation}
-                            type='password'
-                            placeholder='Confirm Password'
-                            onChange={e => setPasswordConfirmation(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Button variant="outline-success" type='submit'>
-                        Sign Up
-                    </Button>
-                </Form>
-            </div>
+        // <div className='row'>
+        //     <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+        <div style={formStyle}>
+            <h3>Sign Up</h3>
+            <Form onSubmit={onSignUp}>
+                <Row>
+                    <Col>
+                        <Form.Group controlId='annualIncome' style={{ width: 187 }}>
+                                <Form.Label>Annual Income</Form.Label>
+                                <Form.Control
+                                    required
+                                    type='number'
+                                    name='annualIncome'
+                                    value={annualIncome}
+                                    placeholder='Enter annual income'
+                                    onChange={e => setAnnualIncome(e.target.value)}
+                                />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId='totalLoans' style={{ width: 187 }}>
+                                <Form.Label>Total loans</Form.Label>
+                                <Form.Control
+                                    required
+                                    type='number'
+                                    name='totalLoans'
+                                    value={totalLoans}
+                                    placeholder='Enter loans amount'
+                                    onChange={e => setTotalLoans(e.target.value)}
+                                />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <br/>
+                <Form.Group controlId='username'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        required
+                        style={inputStyle}
+                        type='text'
+                        name='username'
+                        value={username}
+                        placeholder='Enter username'
+                        onChange={e => setUsername(e.target.value)}
+                    />
+                </Form.Group>
+                <br/>
+                <Form.Group controlId='password'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        required
+                        style={inputStyle}
+                        name='password'
+                        value={password}
+                        type='password'
+                        placeholder='Password'
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                </Form.Group>
+                <br/>
+                <Form.Group controlId='passwordConfirmation'>
+                    <Form.Label>Password Confirmation</Form.Label>
+                    <Form.Control
+                        required
+                        style={inputStyle}
+                        name='passwordConfirmation'
+                        value={passwordConfirmation}
+                        type='password'
+                        placeholder='Confirm Password'
+                        onChange={e => setPasswordConfirmation(e.target.value)}
+                    />
+                </Form.Group>
+                <br/>
+                <Button variant="outline-success" type='submit' style={buttonStyle}>
+                    Sign Up
+                </Button>
+            </Form>
+            <br/>
+            <span>Already have an account? <Link to='/sign-in' style={{ textDecoration: 'none' }}>Sign in</Link> </span>
         </div>
+        //     </div>
+        // </div>
     )
 
 }
