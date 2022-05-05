@@ -38,7 +38,8 @@ const ExpenseForm = (props) => {
             <br/>
             <Form.Group controlId='category'>
                 <Form.Label>Category</Form.Label>
-                <Form.Control as='select'
+                <Form.Select 
+                    // as='select'
                     placeholder="Category"
                     value={expense.category}
                     name='category'
@@ -61,7 +62,7 @@ const ExpenseForm = (props) => {
                     <optgroup label="Loans">
                         <option value="Loans">Loans</option>
                     </optgroup>
-                </Form.Control>
+                </Form.Select>
             </Form.Group>
             <br/>
             <Button variant='success' type='submit'>

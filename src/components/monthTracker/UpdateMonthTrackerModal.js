@@ -65,7 +65,7 @@ const UpdateMonthTrackerModal = (props) => {
                     <br/>
                     <Form.Group controlId="month">
                         <Form.Label>Month</Form.Label>
-                        <Form.Control as='select'
+                        <Form.Select
                             placeholder="Month"
                             value={updatedTracker.month}
                             name='month'
@@ -84,7 +84,7 @@ const UpdateMonthTrackerModal = (props) => {
                             <option value="October">October</option>
                             <option value="November">November</option>
                             <option value="December">December</option>
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                     <br/>
                     <Form.Group controlId='year'>

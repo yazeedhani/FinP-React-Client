@@ -395,15 +395,16 @@ const ShowMonthTracker = (props) => {
             />
             <p></p>
             <ListGroup>
-                <ListGroup.Item>Annual Income: ${monthTracker.annualTakeHome}</ListGroup.Item>
-                <ListGroup.Item>Monthly Income: ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
-                <ListGroup.Item>Monthly Budget: ${monthTracker.budget}</ListGroup.Item>
-                <ListGroup.Item>Loan Repayments This Month: ${monthTracker.monthly_loan_payments}</ListGroup.Item>
-                <ListGroup.Item>Total Expenses: ${totalExpenses}</ListGroup.Item>
-                <ListGroup.Item>Savings this month: $ {monthTracker.monthly_savings}</ListGroup.Item>
-                <ListGroup.Item>Cashflow: ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item>
+                <ListGroup.Item><strong>Annual Income:</strong> ${monthTracker.annualTakeHome}</ListGroup.Item>
+                <ListGroup.Item><strong>Monthly Income:</strong> ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
+                <ListGroup.Item><strong>Monthly Budget:</strong> ${monthTracker.budget}</ListGroup.Item>
+                <ListGroup.Item><strong>Loan Repayments This Month:</strong> ${monthTracker.monthly_loan_payments}</ListGroup.Item>
+                <ListGroup.Item><strong>Total Expenses:</strong> ${totalExpenses}</ListGroup.Item>
+                <ListGroup.Item><strong>Savings this month:</strong> ${monthTracker.monthly_savings}</ListGroup.Item>
+                <ListGroup.Item><strong>Cashflow:</strong> ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item>
             </ListGroup>
-            <p></p>
+            <br/>  
+            <br/>  
             <div>
                 <p>
                     {meetingBudget()}
@@ -420,7 +421,7 @@ const ShowMonthTracker = (props) => {
                     /> 
                 </p>
             </div>
-
+            <br/>                
             <h3>Transactions</h3>
 
             {/* <ButtonGroup aria-label="Basic example"> */}

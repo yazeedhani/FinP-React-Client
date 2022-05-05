@@ -9,12 +9,14 @@ const cardContainerLayout = {
     display: 'flex',
     justifyContent: 'center',
     flexFlow: 'row wrap',
+    fontFamily: 'Inter'
     // marginLeft: 5
 }
 
 const containerStyle = {
     position: 'absolute', left: '47%', top: '30%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    // fontFamily: 'Inter'
 }
 
 const MonthTrackers = (props) => {

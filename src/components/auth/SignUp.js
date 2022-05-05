@@ -93,7 +93,7 @@ const SignUp = (props) => {
                     </Col>
                     <Col>
                         <Form.Group controlId='totalLoans' style={{ width: 187 }}>
-                                <Form.Label>Total loans</Form.Label>
+                                <Form.Label>Total Loans</Form.Label>
                                 <Form.Control
                                     required
                                     type='number'

@@ -9,7 +9,8 @@ const Home = (props) => {
 	const divStyle = {
 		width: 800,
 		position: 'absolute', left: '47%', top: '30%',
-    	transform: 'translate(-50%, -50%)'
+    	transform: 'translate(-50%, -50%)',
+		fontFamily: 'Inter'
 	}
 
 	const buttonStyle = {
