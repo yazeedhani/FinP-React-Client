@@ -214,7 +214,7 @@ const ShowMonthTracker = (props) => {
     // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
         // console.log('EXP: ', exp)
-        // const date = exp.createdAt.substr(0,10)
+        const date = exp.createdAt.substr(0,10)
         if(exp.category === category)
         {
             return (
@@ -223,7 +223,7 @@ const ShowMonthTracker = (props) => {
                         <td>{exp.name}</td>
                         <td>${exp.amount}</td>
                         <td>{exp.category}</td>
-                        {/* <td>{date}</td> */}
+                        <td>{date}</td>
                         <td>
                             <Button 
                                 variant="outline-success"
@@ -262,7 +262,7 @@ const ShowMonthTracker = (props) => {
                         <td>{exp.name}</td>
                         <td>${exp.amount}</td>
                         <td>{exp.category}</td>
-                        {/* <td>{date}</td> */}
+                        <td>{date}</td>
                         <td>
                             <Button 
                                 variant="outline-success"
@@ -465,7 +465,7 @@ const ShowMonthTracker = (props) => {
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Category</th>
-                        {/* <th>Date</th> */}
+                        <th>Date</th>
                         <th>Actions</th> 
                     </tr>
                 </thead>

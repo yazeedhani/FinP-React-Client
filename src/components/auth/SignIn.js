@@ -15,7 +15,7 @@ const buttonStyle = {
 }
 
 const formStyle = {
-    position: 'absolute', left: '50%', top: '30%',
+    position: 'absolute', left: '47%', top: '30%',
     transform: 'translate(-50%, -50%)'
 }
 

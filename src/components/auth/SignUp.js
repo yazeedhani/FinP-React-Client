@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { signUp, signIn } from '../../api/auth'
 import messages from '../shared/AutoDismissAlert/messages'
 
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import {Form, Button, Col, Row, FloatingLabel} from 'react-bootstrap'
 
 const SignUp = (props) => { 
     const [username, setUsername] = useState('')
@@ -14,8 +13,27 @@ const SignUp = (props) => {
     const [annualIncome, setAnnualIncome] = useState(0)
     const [totalLoans, setTotalLoans] = useState(0)
     const [accountOwner, setAccountOwner] = useState(null)
-
     const navigate = useNavigate()
+
+    const inputStyle = {
+        width: 400,
+    }
+    
+    const buttonStyle = {
+        width: 400,
+    }
+    
+    const formStyle = {
+        position: 'absolute', left: '47%', top: '30%',
+        transform: 'translate(-50%, -50%)'
+    }
+
+    const incomeAndLoansInput = {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap' 
+    }
+
 
 	const onSignUp = (event) => {
 		event.preventDefault()
@@ -54,14 +72,45 @@ const SignUp = (props) => {
 
 
     return (
-        <div className='row'>
+        <div className='row' style={formStyle}>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Sign Up</h3>
                 <Form onSubmit={onSignUp}>
+                    <Row className='g-2'>
+                        <Col md>
+                            <Form.Group controlId='annualIncome'>
+                                    <Form.Label>Annual Income</Form.Label>
+                                    <Form.Control
+                                        required
+                                        style={{ width: 180 }}
+                                        type='number'
+                                        name='annualIncome'
+                                        value={annualIncome}
+                                        placeholder='Enter annual income'
+                                        onChange={e => setAnnualIncome(e.target.value)}
+                                    />
+                            </Form.Group>
+                        </Col>
+                        <Col md>
+                            <Form.Group controlId='totalLoans' style={incomeAndLoansInput}>
+                                    <Form.Label>Total loans</Form.Label>
+                                    <Form.Control
+                                        required
+                                        style={{ width: 180 }}
+                                        type='number'
+                                        name='totalLoans'
+                                        value={totalLoans}
+                                        placeholder='Enter loans amount'
+                                        onChange={e => setTotalLoans(e.target.value)}
+                                    />
+                            </Form.Group>
+                        </Col>
+                    </Row>
                     <Form.Group controlId='username'>
                         <Form.Label>Username</Form.Label>
                         <Form.Control
                             required
+                            style={inputStyle}
                             type='text'
                             name='username'
                             value={username}
@@ -69,32 +118,11 @@ const SignUp = (props) => {
                             onChange={e => setUsername(e.target.value)}
                         />
                     </Form.Group>
-                    <Form.Group controlId='annualIncome'>
-                        <Form.Label>Annual Income</Form.Label>
-                        <Form.Control
-                            required
-                            type='number'
-                            name='annualIncome'
-                            value={annualIncome}
-                            placeholder='Enter annual income'
-                            onChange={e => setAnnualIncome(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='totalLoans'>
-                        <Form.Label>Total loans</Form.Label>
-                        <Form.Control
-                            required
-                            type='number'
-                            name='totalLoans'
-                            value={totalLoans}
-                            placeholder='Enter loans amount'
-                            onChange={e => setTotalLoans(e.target.value)}
-                        />
-                    </Form.Group>
                     <Form.Group controlId='password'>
                         <Form.Label>Password</Form.Label>
                         <Form.Control
                             required
+                            style={inputStyle}
                             name='password'
                             value={password}
                             type='password'
@@ -106,6 +134,7 @@ const SignUp = (props) => {
                         <Form.Label>Password Confirmation</Form.Label>
                         <Form.Control
                             required
+                            style={inputStyle}
                             name='passwordConfirmation'
                             value={passwordConfirmation}
                             type='password'
@@ -114,7 +143,7 @@ const SignUp = (props) => {
                         />
                     </Form.Group>
                     <Button variant="outline-success" type='submit'>
-                        Submit
+                        Sign Up
                     </Button>
                 </Form>
             </div>

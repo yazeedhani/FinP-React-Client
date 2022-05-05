@@ -7,6 +7,7 @@ const linkStyle = {
     color: 'white',
     textDecoration: 'none'
 }
+
 const authenticatedOptions = (
 	<>
 		<Nav.Link>
