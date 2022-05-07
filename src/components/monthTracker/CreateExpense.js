@@ -16,7 +16,7 @@ const CreateExpense = (props) => {
     }
     
     const formStyle = {
-        position: 'absolute', left: '47%', top: '30%',
+        position: 'absolute', left: '47%', top: '40%',
         transform: 'translate(-50%, -50%)'
     }
 
@@ -27,18 +27,15 @@ const CreateExpense = (props) => {
         setNewExpense( prevExpense => {
             const name = e.target.name
             let value = e.target.value
-            console.log('this is e.target.checked', e.target.checked)
-            console.log('NAME', name)
-            console.log('VALUE', value)
 
-            // if( name === 'recurring' && e.target.checked)
-            // {
-            //     value = 'on'
-            // }
-            // else if( name === 'recurring' && !e.target.checked)
-            // {
-            //     value = false
-            // }
+            if( name === 'recurring' && e.target.checked)
+            {
+                value = true
+            }
+            else if( name === 'recurring' && !e.target.checked)
+            {
+                value = false
+            }
 
             const updatedValue = { [name]: value }
             // console.log('MONTHTRACKER AFTER UPDATE: ', monthTracker)
