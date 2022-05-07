@@ -55,7 +55,7 @@ const CreateMonthTracker = (props) => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="month">
                         <Form.Label>Month</Form.Label>
-                        <Form.Control as='select'
+                        <Form.Select 
                             placeholder="Month"
                             value={monthTracker.month}
                             name='month'
@@ -74,7 +74,7 @@ const CreateMonthTracker = (props) => {
                             <option value="October">October</option>
                             <option value="November">November</option>
                             <option value="December">December</option>
-                        </Form.Control>
+                        </Form.Select>
                     </Form.Group>
                     <br/>
                     <Form.Group controlId='year'>
@@ -101,7 +101,7 @@ const CreateMonthTracker = (props) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Button variant='success' type='submit'>
+                    <Button variant='outline-success' type='submit'>
                         Transactions
                     </Button>
                 </Form>

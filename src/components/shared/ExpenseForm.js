@@ -65,7 +65,7 @@ const ExpenseForm = (props) => {
                 </Form.Select>
             </Form.Group>
             <br/>
-            <Button variant='success' type='submit'>
+            <Button variant='outline-success' type='submit'>
                 {buttonText}
             </Button>
         </Form>

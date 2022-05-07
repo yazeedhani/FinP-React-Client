@@ -87,7 +87,7 @@ const SignIn = (props) => {
                     </Form.Group>
                     <br/>
                     <Button style={buttonStyle} variant="outline-success" type='submit'>
-                        Submit
+                        Sign In
                     </Button>
                 </Form>
                 <br/>
