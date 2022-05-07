@@ -33,7 +33,7 @@ const ShowMonthTracker = (props) => {
         monthly_cashflow: 0,
         expenses: [],
     })
-    const [expense, setExpense] = useState({name: '', category: '', amount: null})
+    const [expense, setExpense] = useState({name: '', category: '', amount: null, recurring: false})
     const [updated, setUpdated] = useState(false)
     const { user, msgAlert } = props
     const { monthTrackerId } = useParams()
