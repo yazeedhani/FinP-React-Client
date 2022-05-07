@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Button } from 'react-bootstrap/';
 
 const ExpenseForm = (props) => {
-    const {handleSubmit, handleChange, expense, buttonText} = props
+    const {handleSubmit, handleChange, expense, buttonText, inputStyle} = props
 
     // useEffect( () => {
     //     return function cleanup() {
@@ -21,6 +21,7 @@ const ExpenseForm = (props) => {
                     value={expense.name}
                     placeholder='Enter name'
                     onChange={handleChange}
+                    style={inputStyle}
                 />
             </Form.Group>
             <br/>
@@ -33,6 +34,7 @@ const ExpenseForm = (props) => {
                     value={expense.amount}
                     placeholder='Enter amount'
                     onChange={handleChange}
+                    style={inputStyle}
                 />
             </Form.Group>
             <br/>
@@ -44,6 +46,7 @@ const ExpenseForm = (props) => {
                     value={expense.category}
                     name='category'
                     onChange={handleChange}
+                    style={inputStyle}
                 >
                     <option></option>
                     <optgroup label="Expenses">
@@ -65,7 +68,7 @@ const ExpenseForm = (props) => {
                 </Form.Select>
             </Form.Group>
             <br/>
-            <Button variant='outline-success' type='submit'>
+            <Button variant='outline-success' type='submit' style={{ display: 'inline-block' }}>
                 {buttonText}
             </Button>
         </Form>

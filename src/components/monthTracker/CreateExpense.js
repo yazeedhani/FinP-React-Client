@@ -11,6 +11,15 @@ const CreateExpense = (props) => {
     const initialState = {name: '', category: '', amount: ''}
     const navigate = useNavigate()
 
+    const inputStyle = {
+        width: 400,
+    }
+    
+    const formStyle = {
+        position: 'absolute', left: '47%', top: '30%',
+        transform: 'translate(-50%, -50%)'
+    }
+
     const handleChange = (e) => {
         e.persist()
 
@@ -67,7 +76,7 @@ const CreateExpense = (props) => {
     }
 
     return (
-        <div className='row'>
+        <div className='row' style={formStyle}>
             <div className='col-sm-10 col-md-8 mx-auto mt-5'>
                 <h3>Add Transaction</h3>
                 <ExpenseForm 
@@ -76,13 +85,18 @@ const CreateExpense = (props) => {
                     // addAnotherExpense={addAnotherExpense}
                     buttonText={'Create Tracker'}
                     expense={newExpense}
+                    inputStyle={inputStyle}
                 />
-                <Button variant='outline-success' type='success' onClick={addAnotherExpense}>
+                <br/>
+                <Button variant='outline-success' type='success' onClick={addAnotherExpense} style={{ display: 'inline-block' }}>
                         Add another transaction
-                    </Button>
-                <Link to='/monthTrackers'>
-                    Cancel
-                </Link>
+                </Button>
+                <br/>
+                <Button variant='outline-danger' style={{ display: 'inline-block' }}>
+                    <Link to='/monthTrackers' style={{ textDecoration: 'none', color: 'red' }}>
+                        Cancel
+                    </Link>
+                </Button>    
             </div>
         </div>
     )
