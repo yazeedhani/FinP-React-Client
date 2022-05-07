@@ -9,8 +9,9 @@ const cardContainerLayout = {
     display: 'flex',
     justifyContent: 'center',
     flexFlow: 'row wrap',
-    fontFamily: 'Inter'
-    // marginLeft: 5
+    // fontFamily: 'Inter',
+    marginLeft: 5,
+    // width: '18rem'
 }
 
 const containerStyle = {
@@ -80,10 +81,11 @@ const MonthTrackers = (props) => {
                 <>
                     <Card 
                         key={monthTracker._id}
-                        border="success" 
+                        border="dark" 
                         // style={{ width: '25%'  }} 
                         // className="m-2"
-                        style={{ width: '18rem' }}
+                        // style={{ width: '18rem' }}
+                        style={cardContainerLayout}
                         className="mb-2"
                     >
                         <Link to={`/monthTrackers/${monthTracker._id}`} style={{color: 'green', textDecoration: 'none'}}>

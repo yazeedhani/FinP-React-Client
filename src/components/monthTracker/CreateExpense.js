@@ -5,10 +5,10 @@ import ExpenseForm from '../shared/ExpenseForm';
 import { createExpense } from '../../api/monthTracker';
 
 const CreateExpense = (props) => {
-    const [newExpense, setNewExpense] = useState({name: '', category: '', amount: null})
+    const [newExpense, setNewExpense] = useState({name: '', category: '', amount: null, recurring: false})
     const { user, msgAlert } = props
     const {monthTrackerId} = useParams()
-    const initialState = {name: '', category: '', amount: ''}
+    const initialState = {name: '', category: '', amount: '', recurring: false}
     const navigate = useNavigate()
 
     const inputStyle = {
@@ -24,13 +24,26 @@ const CreateExpense = (props) => {
         e.persist()
 
         // console.log('MONTHTRACKER BEFORE UPDATE: ', monthTracker)
-        setNewExpense( prevProduct => {
+        setNewExpense( prevExpense => {
             const name = e.target.name
             let value = e.target.value
-            const updatedValue = { [name]:value }
+            console.log('this is e.target.checked', e.target.checked)
+            console.log('NAME', name)
+            console.log('VALUE', value)
+
+            // if( name === 'recurring' && e.target.checked)
+            // {
+            //     value = 'on'
+            // }
+            // else if( name === 'recurring' && !e.target.checked)
+            // {
+            //     value = false
+            // }
+
+            const updatedValue = { [name]: value }
             // console.log('MONTHTRACKER AFTER UPDATE: ', monthTracker)
 
-            return {...prevProduct, ...updatedValue}
+            return {...prevExpense, ...updatedValue}
         })
     }
 

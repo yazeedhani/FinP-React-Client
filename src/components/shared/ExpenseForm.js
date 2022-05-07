@@ -68,6 +68,16 @@ const ExpenseForm = (props) => {
                 </Form.Select>
             </Form.Group>
             <br/>
+            <Form.Group className="mb-3" controlId="recurringExpense">
+                <Form.Check 
+                    type="checkbox" 
+                    label="Is this a recurring transaction?"
+                    name='recurring'
+                    defaultChecked={expense.recurring}
+                    onChange={handleChange} 
+                />
+            </Form.Group>
+            <br/>
             <Button variant='outline-success' type='submit' style={{ display: 'inline-block' }}>
                 {buttonText}
             </Button>
