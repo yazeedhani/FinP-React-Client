@@ -408,7 +408,25 @@ const ShowMonthTracker = (props) => {
             <div>
                 <p>
                     {meetingBudget()}
-                    <ProgressBar 
+                    <ProgressBar> 
+                        <ProgressBar 
+                            animated 
+                            striped 
+                            now={totalExpenses} 
+                            max={monthTracker.budget} 
+                            label={`$${totalExpenses}`}
+                            variant={ totalExpenses < monthTracker.budget ? "danger" : totalExpenses === monthTracker.budget ? "primary" : "danger"} 
+                        />
+                        <ProgressBar 
+                            animated 
+                            striped 
+                            now={monthTracker.budget - totalExpenses} 
+                            max={monthTracker.budget} 
+                            label={`$${monthTracker.budget - totalExpenses}`}
+                            variant="success" 
+                        />
+                    </ProgressBar> 
+                    {/* <ProgressBar 
                         animated 
                         label={`$${totalExpenses}`} 
                         now={totalExpenses} 
@@ -418,7 +436,7 @@ const ShowMonthTracker = (props) => {
                             : totalExpenses > monthTracker.budget ? "danger"
                             : "info"
                         }
-                    /> 
+                    />  */}
                 </p>
             </div>
             <br/>                
