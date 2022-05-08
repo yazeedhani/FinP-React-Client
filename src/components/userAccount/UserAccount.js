@@ -68,6 +68,24 @@ const UserAccount = (props) => {
             })
     }
 
+    // Display recurring expenses/transaction in My Account view
+    let recurringExpensesLIs
+
+    if(account.recurrences === 0)
+    {
+        return <p>No recurring expenses</p>
+    }
+    else if(!account.recurrences)
+    {
+        return <p>Loading...</p>
+    }
+    else if(account.recurrences.length > 0)
+    {
+        recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
+            return <li key={index}>{recurringExpense.name}</li>
+        })
+    }
+
     console.log('ACCOUNT: ', account)
 
     return (
@@ -78,6 +96,10 @@ const UserAccount = (props) => {
             <p>Annual Income: ${account.income}</p>
             <p>Total Savings: ${account.savings}</p>
             <p>Total Loans: ${account.loans}</p>
+            <p>Recurring Expenses: </p>
+            <ul>
+                {recurringExpensesLIs}
+            </ul>
 
             <Button variant="outline-success">
                 <Link id="link-change-password" to='/change-password' style={linkStyle}>
