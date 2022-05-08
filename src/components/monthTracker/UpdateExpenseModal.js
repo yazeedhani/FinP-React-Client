@@ -13,6 +13,16 @@ const UpdateExpenseModal = (props) => {
         setSelectedExpense( prevExp => {
             const name = e.target.name
             let value = e.target.value
+
+            if( name === 'recurring' && e.target.checked)
+            {
+                value = true
+            }
+            else if( name === 'recurring' && !e.target.checked)
+            {
+                value = false
+            }
+
             const updatedValue = { [name]:value }
 
             return {...prevExp, ...updatedValue}
