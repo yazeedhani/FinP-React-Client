@@ -10,8 +10,8 @@ const linkStyle = {
 
 const UserAccount = (props) => {
     const { user, msgAlert } = props
-    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurring: []})
-    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurring: []})
+    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
+    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
     const [updated, setUpdated] = useState(false)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -70,15 +70,19 @@ const UserAccount = (props) => {
 
     const deleteRecurrenceExpense = (user, expenseId) => {
         deleteOneRecurrenceExpense(user, expenseId)
-            .then( () => triggerRefresh() )
             .then( () => {
+                console.log('TRIGGERED REFRESH')
+                triggerRefresh()
+            })
+            .then( () => {
+                setUpdated(true)
                 msgAlert({
                     heading: 'Deleted Recurring Expense',
                     message: '',
                     variant: 'success'
                 })
             })
-            .then( () => {navigate(`/account/${user._id}/`)})
+            .then( () => {navigate(`/account/`)})
             .catch( () => {
                 msgAlert({
                     heading: 'Oh No!',
@@ -102,19 +106,12 @@ const UserAccount = (props) => {
     else if(account.recurrences.length > 0)
     {
         recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
-            // return <li key={index}>{recurringExpense.name}</li>
             return (
-                // <Form onSubmit={handleSubmit}>
-                //     <Form.Check 
-                //         type='checkbox'
-                //         key={index}
-                //         label={recurringExpense.name}
-                //         checked={ recurringExpense.recurring ? true : false}
-                //     />
-                // </Form>
-                <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense._id)}>
-                    {recurringExpense.name} <i class="material-icons">close</i>
-                </Button>
+                <li style={{ listStyle: 'none', marginTop: 5 }}>
+                    <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense._id)}>
+                        {recurringExpense.name} <i class="material-icons">close</i>
+                    </Button>
+                </li>
             )
         })
     }
@@ -125,11 +122,11 @@ const UserAccount = (props) => {
         <Container>
             <br/>
             <h3>Account Summary</h3>
-            <p>Username: {user.username}</p>
-            <p>Annual Income: ${account.income}</p>
-            <p>Total Savings: ${account.savings}</p>
-            <p>Total Loans: ${account.loans}</p>
-            <p>Recurring Expenses: </p>
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Annual Income:</strong> ${account.income}</p>
+            <p><strong>Total Savings:</strong> ${account.savings}</p>
+            <p><strong>Total Loans:</strong> ${account.loans}</p>
+            <p><strong>Recurring Expenses:</strong> </p>
             <ul>
                 {recurringExpensesLIs}
             </ul>

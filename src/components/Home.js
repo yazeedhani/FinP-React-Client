@@ -22,7 +22,7 @@ const Home = (props) => {
 		<div style={divStyle}>
 			<h2 style={{ textAlign: 'center'}}>The convenient way to manage your money</h2>
 			<article>
-				Tracking where you money goes is complicated. 
+				Tracking where your money goes is complicated. 
 				Looking at your bank statements can be overwhelming by only looking at an ongoing list of your transactions and not being able to make sense of your spending.
 				With FinP, you are able to track your monthly spending and have all of your transactions categorized to make sense of where your money is being spent the most.
 				FinP also allows you to track your monthly savings and loan payments as well as setup a monthly budget for your spending.
