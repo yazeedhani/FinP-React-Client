@@ -20,6 +20,21 @@ const CreateExpense = (props) => {
         transform: 'translate(-50%, -50%)'
     }
 
+    // Recurring expense checkbox to put into a form when passed in as a prop to ExpenseForm
+    const recurringExpenseCheckbox = () => {
+        return (
+            <Form.Group className="mb-3" controlId="recurringExpense">
+                <Form.Check 
+                    type="checkbox" 
+                    label="Is this a recurring transaction?"
+                    name='recurring'
+                    defaultChecked={newExpense.recurring}
+                    onChange={handleChange} 
+                />
+            </Form.Group>
+        )
+    }
+
     const handleChange = (e) => {
         e.persist()
 
@@ -96,6 +111,7 @@ const CreateExpense = (props) => {
                     buttonText={'Create Tracker'}
                     expense={newExpense}
                     inputStyle={inputStyle}
+                    recurringExpenseCheckbox={recurringExpenseCheckbox}
                 />
                 <br/>
                 <Button variant='outline-success' type='success' onClick={addAnotherExpense} style={{ display: 'inline-block' }}>

@@ -2,13 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Button } from 'react-bootstrap/';
 
 const ExpenseForm = (props) => {
-    const {handleSubmit, handleChange, expense, buttonText, inputStyle} = props
-
-    // useEffect( () => {
-    //     return function cleanup() {
-            
-    //       };
-    // })
+    const {handleSubmit, handleChange, expense, buttonText, inputStyle, recurringExpenseCheckbox} = props
 
     return (
         <Form onSubmit={handleSubmit}>
@@ -68,7 +62,7 @@ const ExpenseForm = (props) => {
                 </Form.Select>
             </Form.Group>
             <br/>
-            <Form.Group className="mb-3" controlId="recurringExpense">
+            {/* <Form.Group className="mb-3" controlId="recurringExpense">
                 <Form.Check 
                     type="checkbox" 
                     label="Is this a recurring transaction?"
@@ -76,7 +70,8 @@ const ExpenseForm = (props) => {
                     defaultChecked={expense.recurring}
                     onChange={handleChange} 
                 />
-            </Form.Group>
+            </Form.Group> */}
+            {recurringExpenseCheckbox()}
             <br/>
             <Button variant='outline-success' type='submit' style={{ display: 'inline-block' }}>
                 {buttonText}

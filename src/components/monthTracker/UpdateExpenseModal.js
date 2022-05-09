@@ -7,6 +7,11 @@ const UpdateExpenseModal = (props) => {
     // const [expense, setExpense] = useState(props.expense)
     const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow, expense, setSelectedExpense } = props
 
+    const recurringExpenseCheckbox = () => {
+        return (
+            <></>
+    )}
+
     const handleChange = (e) => {
         e.persist()
 
@@ -54,6 +59,7 @@ const UpdateExpenseModal = (props) => {
     }
 
     console.log('EXPENSE in UPDATEMODAL: ', expense)
+    console.log('recurringExpenseCheckbox: ', recurringExpenseCheckbox())
     return (
         <Modal className='edit-modal' show={show} onHide={setEditExpenseShow}>
             <Modal.Header closeButton>
@@ -66,6 +72,7 @@ const UpdateExpenseModal = (props) => {
                 // addAnotherExpense={addAnotherExpense}
                 buttonText={'Edit Transaction'}
                 expense={expense}
+                recurringExpenseCheckbox={recurringExpenseCheckbox}
             />
             </Modal.Body>
         </Modal>

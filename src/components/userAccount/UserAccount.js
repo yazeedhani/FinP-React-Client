@@ -107,7 +107,7 @@ const UserAccount = (props) => {
     {
         recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
             return (
-                <li style={{ listStyle: 'none', marginTop: 5 }}>
+                <li key={index} style={{ listStyle: 'none', marginTop: 5 }}>
                     <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense._id)}>
                         {recurringExpense.name} <i class="material-icons">close</i>
                     </Button>

@@ -74,7 +74,20 @@ const ShowMonthTracker = (props) => {
         '#5aed55'
     ]
 
-    
+    // Recurring expense checkbox to put into a form when passed in as a prop to ExpenseForm
+    const recurringExpenseCheckbox = () => {
+        return (
+            <Form.Group className="mb-3" controlId="recurringExpense">
+                <Form.Check 
+                    type="checkbox" 
+                    label="Is this a recurring transaction?"
+                    name='recurring'
+                    defaultChecked={expense.recurring}
+                    onChange={handleChange} 
+                />
+            </Form.Group>
+        )
+    }
 
     // Function To set the category with category selected from the dropdown menu
     let categorySelected = (cat) => {
@@ -484,6 +497,7 @@ const ShowMonthTracker = (props) => {
                     // addAnotherExpense={addAnotherExpense}
                     buttonText={'Add Transaction'}
                     expense={expense}
+                    recurringExpenseCheckbox={recurringExpenseCheckbox}
                 />
                 </Modal.Body>
             </Modal>
