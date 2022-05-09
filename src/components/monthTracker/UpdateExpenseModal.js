@@ -14,11 +14,12 @@ const UpdateExpenseModal = (props) => {
             const name = e.target.name
             let value = e.target.value
 
+            console.log('E.TARGET.CHECKED: ', e.target.checked === true)
             if( name === 'recurring' && e.target.checked)
             {
                 value = true
             }
-            else if( name === 'recurring' && !e.target.checked)
+            else if( name === 'recurring' && e.target.checked === false)
             {
                 value = false
             }

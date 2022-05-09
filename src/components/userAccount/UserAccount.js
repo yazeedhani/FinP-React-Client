@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, Modal, Form } from 'react-bootstrap';
-import { getUserAccount, updateUserAccount } from "../../api/userAccout";
+import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount } from "../../api/userAccout";
 
 const linkStyle = {
     color: 'green',
@@ -10,13 +10,13 @@ const linkStyle = {
 
 const UserAccount = (props) => {
     const { user, msgAlert } = props
-    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
-    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
+    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurring: []})
+    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurring: []})
     const [updated, setUpdated] = useState(false)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-  
+    const navigate = useNavigate()
 
     useEffect( () => {
         getUserAccount(user)
@@ -68,6 +68,26 @@ const UserAccount = (props) => {
             })
     }
 
+    const deleteRecurrenceExpense = (user, expenseId) => {
+        deleteOneRecurrenceExpense(user, expenseId)
+            .then( () => triggerRefresh() )
+            .then( () => {
+                msgAlert({
+                    heading: 'Deleted Recurring Expense',
+                    message: '',
+                    variant: 'success'
+                })
+            })
+            .then( () => {navigate(`/account/${user._id}/`)})
+            .catch( () => {
+                msgAlert({
+                    heading: 'Oh No!',
+                    message: 'Recurring expense not able to be deleted.',
+                    variant: 'danger'
+                })
+            })
+    }
+
     // Display recurring expenses/transaction in My Account view
     let recurringExpensesLIs
 
@@ -82,7 +102,20 @@ const UserAccount = (props) => {
     else if(account.recurrences.length > 0)
     {
         recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
-            return <li key={index}>{recurringExpense.name}</li>
+            // return <li key={index}>{recurringExpense.name}</li>
+            return (
+                // <Form onSubmit={handleSubmit}>
+                //     <Form.Check 
+                //         type='checkbox'
+                //         key={index}
+                //         label={recurringExpense.name}
+                //         checked={ recurringExpense.recurring ? true : false}
+                //     />
+                // </Form>
+                <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense._id)}>
+                    {recurringExpense.name} <i class="material-icons">close</i>
+                </Button>
+            )
         })
     }
 

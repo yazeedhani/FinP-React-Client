@@ -22,3 +22,14 @@ export const updateUserAccount = (user, updatedAccount) => {
         data: {account: updatedAccount}
     })
 }
+
+export const deleteOneRecurrenceExpense = (user, expenseId) => {
+    return axios({
+        url: `${apiUrl}/account/${user._id}/${expenseId}`,
+        method: 'DELETE',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: ''
+    })
+}

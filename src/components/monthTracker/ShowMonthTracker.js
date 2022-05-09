@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
-import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, ProgressBar, Table } from 'react-bootstrap';
+import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, ProgressBar, Table, Form } from 'react-bootstrap';
 import ExpenseForm from "../shared/ExpenseForm";
 import UpdateExpenseModal from "./UpdateExpenseModal";
 import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
@@ -103,15 +103,15 @@ const ShowMonthTracker = (props) => {
             const name = e.target.name
             let value = e.target.value
 
-            if( name === 'recurring' && e.target.checked)
+            if( name === 'recurring' && e.target.checked === true)
             {
                 value = true
             }
-            else if( name === 'recurring' && !e.target.checked)
+            else if( name === 'recurring' && e.target.checked === false)
             {
                 value = false
             }
-
+            
             const updatedValue = { [name]:value }
 
             return {...prevExpense, ...updatedValue}
@@ -432,7 +432,7 @@ const ShowMonthTracker = (props) => {
                             striped 
                             now={monthTracker.budget - totalExpenses} 
                             max={monthTracker.budget} 
-                            label={`$${monthTracker.budget - totalExpenses}`}
+                            label={`$${(monthTracker.budget - totalExpenses).toFixed(2)}`}
                             variant="success" 
                         />
                     </ProgressBar> 
@@ -457,7 +457,7 @@ const ShowMonthTracker = (props) => {
                     <i class="material-icons">add</i>
                 </Button>
                 {/* Dropdown list to filter by expenses by category */}
-                <DropdownButton variant="outline-success" className="plus-categories-btnGroup" style={{marginLeft: 5}} id="dropdown-basic-button-2" title="Categories" >
+                <DropdownButton variant="outline-success" className="plus-categories-btnGroup" style={{marginLeft: 5}} id="dropdown-basic-button-2" title={category} >
                     <Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>
