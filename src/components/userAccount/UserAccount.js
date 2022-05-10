@@ -10,8 +10,8 @@ const linkStyle = {
 
 const UserAccount = (props) => {
     const { user, msgAlert } = props
-    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
-    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0})
+    const [account, setAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurrences: []})
+    const [updatedAccount, setUpdatedAccount] = useState({savings: 0, cashlow: 0, income: 0, loans: 0, recurrences: []})
     const [updated, setUpdated] = useState(false)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -68,8 +68,8 @@ const UserAccount = (props) => {
             })
     }
 
-    const deleteRecurrenceExpense = (user, expenseId) => {
-        deleteOneRecurrenceExpense(user, expenseId)
+    const deleteRecurrenceExpense = (user, recurringId) => {
+        deleteOneRecurrenceExpense(user, recurringId)
             .then( () => {
                 console.log('TRIGGERED REFRESH')
                 triggerRefresh()
@@ -106,9 +106,10 @@ const UserAccount = (props) => {
     else if(account.recurrences.length > 0)
     {
         recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
+            console.log('RECURRING EXPENSE: ', recurringExpense)
             return (
                 <li key={index} style={{ listStyle: 'none', marginTop: 5 }}>
-                    <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense._id)}>
+                    <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense.recurringId)}>
                         {recurringExpense.name} <i class="material-icons">close</i>
                     </Button>
                 </li>
