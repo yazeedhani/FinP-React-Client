@@ -25,20 +25,20 @@ const CreateExpense = (props) => {
         return (
             <Form.Group className="mb-3" controlId="recurringExpense">
                 <Form.Check 
-                    type="checkbox" 
+                    type="checkbox"
                     label="Is this a recurring transaction?"
                     name='recurring'
-                    defaultChecked={newExpense.recurring}
+                    checked={newExpense.recurring}
                     onChange={handleChange} 
                 />
             </Form.Group>
         )
     }
 
+    console.log('newExpense BEFORE UPDATE: ', newExpense)
     const handleChange = (e) => {
         e.persist()
 
-        // console.log('MONTHTRACKER BEFORE UPDATE: ', monthTracker)
         setNewExpense( prevExpense => {
             const name = e.target.name
             let value = e.target.value
@@ -53,10 +53,10 @@ const CreateExpense = (props) => {
             }
 
             const updatedValue = { [name]: value }
-            // console.log('MONTHTRACKER AFTER UPDATE: ', monthTracker)
-
+            
             return {...prevExpense, ...updatedValue}
         })
+        console.log('newExpense AFTER UPDATE: ', newExpense)
     }
 
     const handleSubmit = (e) => {
@@ -81,8 +81,12 @@ const CreateExpense = (props) => {
     }
 
     const addAnotherExpense = () => {
+
         createExpense(user, monthTrackerId, newExpense)
-            .then( res => {navigate(`/monthTrackers/${monthTrackerId}/expense`)})
+            .then( res => {
+                setNewExpense(initialState)
+                navigate(`/monthTrackers/${monthTrackerId}/expense`)
+            })
             .then( () => {
                 msgAlert({
                     heading: 'Expense added',
@@ -97,7 +101,7 @@ const CreateExpense = (props) => {
                     variant: 'danger'
                 })
             })
-        setNewExpense(initialState)
+        console.log('NEW EXPENSE RESET TO INTIAL EXPENSE: ', newExpense)
     }
 
     return (
