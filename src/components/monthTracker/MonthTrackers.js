@@ -15,9 +15,10 @@ const cardContainerLayout = {
 }
 
 const containerStyle = {
-    position: 'absolute', left: '47%', top: '30%',
+    position: 'absolute', 
+    left: '47%', 
+    top: '30%',
     transform: 'translate(-50%, -50%)',
-    // fontFamily: 'Inter'
 }
 
 const MonthTrackers = (props) => {
@@ -81,16 +82,12 @@ const MonthTrackers = (props) => {
                 <>
                     <Card 
                         key={monthTracker._id}
-                        border="dark" 
-                        // style={{ width: '25%'  }} 
-                        // className="m-2"
-                        // style={{ width: '18rem' }}
-                        style={cardContainerLayout}
-                        className="mb-2"
+                        // border="dark" 
+                        className="m-2 monthTracker-card"
                     >
-                        <Link to={`/monthTrackers/${monthTracker._id}`} style={{color: 'green', textDecoration: 'none'}}>
+                        <Link to={`/monthTrackers/${monthTracker._id}`} style={{color: 'black', textDecoration: 'none'}}>
                             <Card.Header>
-                                {monthTracker.monthTrackerTitle}
+                                <h5>{monthTracker.monthTrackerTitle}</h5>
                             </Card.Header>
                         </Link>
                         {/* <Link to={`/monthTrackers/${monthTracker._id}`}>
