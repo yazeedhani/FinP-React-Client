@@ -95,13 +95,13 @@ const UserAccount = (props) => {
     // Display recurring expenses/transaction in My Account view
     let recurringExpensesLIs
 
-    if(account.recurrences === 0)
-    {
-        return <p>No recurring expenses</p>
-    }
-    else if(!account.recurrences)
+    if(!account.recurrences)
     {
         return <p>Loading...</p>
+    }
+    else if(account.recurrences === 0)
+    {
+        return <p>No recurring expenses</p>
     }
     else if(account.recurrences.length > 0)
     {
@@ -127,6 +127,7 @@ const UserAccount = (props) => {
             <p><strong>Annual Income:</strong> ${account.income}</p>
             <p><strong>Total Savings:</strong> ${account.savings}</p>
             <p><strong>Total Loans:</strong> ${account.loans}</p>
+            <p><strong>Total Cashlow:</strong> ${account.cashflow}</p>
             <p><strong>Recurring Expenses:</strong> </p>
             <ul>
                 {recurringExpensesLIs}

@@ -317,90 +317,13 @@ const ShowMonthTracker = (props) => {
             )
         }
     })
-    // // To filter expenses by category
-    // let expenseDivs = monthTracker.expenses.map( exp => {
-    //     // console.log('EXP: ', exp)
-    //     if(exp.category === category)
-    //     {
-    //         return (
-    //             <Card key={exp._id}>
-    //                 <Card.Body>
-    //                     <span>{exp.name}    </span>
-    //                     <span>${exp.amount}   </span>
-    //                     <span>{exp.category}   </span>
-    //                     <Button 
-    //                         variant='primary' 
-    //                         type='submit' 
-    //                         onClick={() => {
-    //                             setSelectedExpense(exp)
-    //                             // setExpense(exp)    
-    //                             setEditExpenseShow(true)
-    //                             }}>
-    //                         Edit
-    //                     </Button>
-    //                     <UpdateExpenseModal 
-    //                         expense={selectedExpense}
-    //                         setSelectedExpense={setSelectedExpense}
-    //                         show={editExpenseShow}
-    //                         user={user}
-    //                         msgAlert={msgAlert}
-    //                         monthTrackerId={expense.monthTracker}
-    //                         triggerRefresh={triggerRefresh}
-    //                         onHide={() => setEditExpenseShow(false)}
-    //                         setEditExpenseShow={setEditExpenseShow}
-    //                     />
-    //                     <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-    //                         X
-    //                     </Button>
-    //                 </Card.Body>
-    //             </Card>
-    //         )
-    //     }
-    //     else if(category === 'All')
-    //     {
-    //         return (
-    //             <Card key={exp._id}>
-    //                 <Card.Body>
-    //                     <span>{exp.name}    </span>
-    //                     <span>${exp.amount}   </span>
-    //                     <span>{exp.category}   </span>
-    //                     <Button 
-    //                         variant='primary' 
-    //                         type='submit' 
-    //                         onClick={() => {
-    //                             setSelectedExpense(exp)
-    //                             // setExpense(exp)    
-    //                             setEditExpenseShow(true)
-    //                             }}>
-    //                         Edit
-    //                     </Button>
-    //                     <UpdateExpenseModal 
-    //                         expense={selectedExpense}
-    //                         setSelectedExpense={setSelectedExpense}
-    //                         show={editExpenseShow}
-    //                         user={user}
-    //                         msgAlert={msgAlert}
-    //                         monthTrackerId={exp.monthTracker}
-    //                         triggerRefresh={triggerRefresh}
-    //                         onHide={() => setEditExpenseShow(false)}
-    //                         setEditExpenseShow={setEditExpenseShow}
-    //                     />
-    //                     <Button variant='danger' type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-    //                         X
-    //                     </Button>
-    //                 </Card.Body>
-    //             </Card>
-    //         )
-    //     }
-    // })
-
-    // console.log('EXPENSE DIVS AFTER CATEGORY SELECTED: ', expenseDivs)
 
     return (
         <Container>
             <br/>
             <br/>
-            <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
+            {/* <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/> */}
+            <div><h2>{monthTracker.monthTrackerTitle}</h2></div><br/>
             <Button variant="outline-success" onClick={() => setEditMonthTrackerShow(true)}>
                 {/* Edit Tracker */}
                 <i class="material-icons">edit</i>
@@ -424,42 +347,46 @@ const ShowMonthTracker = (props) => {
                 <ListGroup.Item><strong>Loan Repayments This Month:</strong> ${monthTracker.monthly_loan_payments}</ListGroup.Item>
                 <ListGroup.Item><strong>Total Expenses:</strong> ${totalExpenses}</ListGroup.Item>
                 <ListGroup.Item><strong>Savings this month:</strong> ${monthTracker.monthly_savings}</ListGroup.Item>
-                <ListGroup.Item><strong>Cashflow:</strong> ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item>
+                {/* <ListGroup.Item><strong>Cashflow:</strong> ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item> */}
+                <ListGroup.Item><strong>Cashflow:</strong> ${monthTracker.monthly_cashflow}</ListGroup.Item>
             </ListGroup>
             <br/>  
             <br/>  
             <div>
                 <p>
                     {meetingBudget()}
-                    <ProgressBar> 
-                        <ProgressBar 
-                            animated 
-                            striped 
-                            now={totalExpenses} 
-                            max={monthTracker.budget} 
-                            label={`$${totalExpenses}`}
-                            variant={ totalExpenses < monthTracker.budget ? "danger" : totalExpenses === monthTracker.budget ? "primary" : "danger"} 
-                        />
-                        <ProgressBar 
-                            animated 
-                            striped 
-                            now={monthTracker.budget - totalExpenses} 
-                            max={monthTracker.budget} 
-                            label={`$${(monthTracker.budget - totalExpenses).toFixed(2)}`}
-                            variant="success" 
-                        />
-                    </ProgressBar> 
-                    {/* <ProgressBar 
-                        animated 
-                        label={`$${totalExpenses}`} 
-                        now={totalExpenses} 
-                        max={monthTracker.budget}
-                        variant={ 
-                            totalExpenses < monthTracker.budget ? "success" 
-                            : totalExpenses > monthTracker.budget ? "danger"
-                            : "info"
-                        }
-                    />  */}
+                    {/* If totalexpenses is less than the monthly budget, then display the totalexpenses-budget difference progress bar too, or else only display totalExpenses progress bar */}
+                    {
+                        totalExpenses < monthTracker.budget
+                            ? 
+                                <ProgressBar> 
+                                    <ProgressBar 
+                                        animated 
+                                        striped 
+                                        now={totalExpenses} 
+                                        max={monthTracker.budget} 
+                                        label={`$${totalExpenses.toFixed(2)}`}
+                                        variant={ totalExpenses < monthTracker.budget ? "danger" : totalExpenses === monthTracker.budget ? "primary" : "danger"} 
+                                    />
+                                    <ProgressBar 
+                                        animated 
+                                        striped 
+                                        now={monthTracker.budget - totalExpenses} 
+                                        max={monthTracker.budget} 
+                                        label={`$${(monthTracker.budget - totalExpenses).toFixed(2)}`}
+                                        variant="success" 
+                                    />
+                                </ProgressBar>
+                            :
+                                <ProgressBar 
+                                    animated 
+                                    striped 
+                                    now={totalExpenses} 
+                                    max={monthTracker.budget} 
+                                    label={`$${totalExpenses}`}
+                                    variant={ totalExpenses < monthTracker.budget ? "danger" : totalExpenses === monthTracker.budget ? "primary" : "danger"} 
+                                />
+                    }
                 </p>
             </div>
             <br/>                
