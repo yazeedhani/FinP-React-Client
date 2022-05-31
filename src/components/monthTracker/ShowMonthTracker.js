@@ -234,6 +234,7 @@ const ShowMonthTracker = (props) => {
 
     console.log('CATEGORYARRAY AFTER UPDATE: ', categoryArray)
 
+
     // To filter expenses by category
     let expenseDivs = monthTracker.expenses.map( exp => {
         // console.log('EXP: ', exp)

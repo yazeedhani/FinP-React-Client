@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getAllMonthTrackers } from "../../api/monthTracker";
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Card, Container } from 'react-bootstrap';
-
+import Chart from 'chart.js/auto';
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { deleteMonthTracker } from "../../api/monthTracker";
 
 const cardContainerLayout = {
@@ -107,6 +108,8 @@ const MonthTrackers = (props) => {
         })
     }
 
+    console.log('MONTHTRACKERS: ', monthTrackers)
+
     return (
         <>
             <br/>
@@ -114,6 +117,17 @@ const MonthTrackers = (props) => {
             <div style={cardContainerLayout}>
                 {monthTrackerCards}
             </div>
+            <br/>
+            <Container>
+                <BarChart width={730} height={250} data={monthTrackers}>
+                    <XAxis dataKey="monthTrackerTitle" name={`${monthTrackers.month} ${monthTrackers.year}`} />
+                    <YAxis/>
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="monthly_cashflow" name="Cashflow" unit="$" fill="#8884d8"/>
+                    <Bar dataKey="totalExpenses" name="Expenses" fill="#82ca9d" />
+                </BarChart>
+            </Container>
         </>
     )
 }
