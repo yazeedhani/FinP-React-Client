@@ -99,7 +99,7 @@ const MonthTrackers = (props) => {
                             <Card.Text><strong>Savings:</strong> ${monthTracker.monthly_savings}</Card.Text>
                             <Card.Text><strong>Loan repayments:</strong> ${monthTracker.monthly_loan_payments}</Card.Text>
                             <Card.Text><strong>Budget:</strong> ${monthTracker.budget}</Card.Text>
-                            <Card.Text><strong>Cashlow:</strong> ${monthTracker.monthly_cashflow}</Card.Text>
+                            <Card.Text><strong>Cashlow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</Card.Text>
                         </Card.Body>
                         <Button variant="outline-danger" className='m-2 delete-button-monthTracker' onClick={ () => deleteOneTracker(user, monthTracker._id)}><i class="material-icons">delete_forever</i></Button>
                     </Card>
@@ -120,12 +120,13 @@ const MonthTrackers = (props) => {
             <br/>
             <Container id="bar-chart">
                 <BarChart width={730} height={250} data={monthTrackers}>
-                    <XAxis dataKey="monthTrackerTitle" name={`${monthTrackers.month} ${monthTrackers.year}`} />
+                    <XAxis dataKey="monthTrackerTitle" />
                     <YAxis/>
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="monthly_cashflow" name="Cashflow" unit="$" fill="#8884d8"/>
-                    <Bar dataKey="totalExpenses" name="Expenses" fill="#82ca9d" />
+                    <Bar dataKey="totalExpenses" name="Expenses" unit="$" fill="#82ca9d" />
+                    <Bar dataKey="monthly_savings" name="Savings" unit="$" fill="#8884d8"/>
+                    <Bar dataKey="monthly_loan_payments" name="Loan payments" unit="$" fill="#f55d42"/>
                 </BarChart>
             </Container>
         </>
