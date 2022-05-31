@@ -118,7 +118,7 @@ const MonthTrackers = (props) => {
                 {monthTrackerCards}
             </div>
             <br/>
-            <Container>
+            <Container id="bar-chart">
                 <BarChart width={730} height={250} data={monthTrackers}>
                     <XAxis dataKey="monthTrackerTitle" name={`${monthTrackers.month} ${monthTrackers.year}`} />
                     <YAxis/>

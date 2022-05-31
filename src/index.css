@@ -40,6 +40,10 @@ code {
   margin: 0 auto;
 }
 
+#bar-chart {
+  width: 40%;
+}
+
 #link-change-password:hover {
   color: white;
 }
