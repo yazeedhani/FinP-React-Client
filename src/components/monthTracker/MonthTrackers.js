@@ -100,6 +100,7 @@ const MonthTrackers = (props) => {
                             <Card.Text><strong>Loan repayments:</strong> ${monthTracker.monthly_loan_payments}</Card.Text>
                             <Card.Text><strong>Budget:</strong> ${monthTracker.budget}</Card.Text>
                             <Card.Text><strong>Cashlow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</Card.Text>
+                            <Card.Text><strong>Expenses:</strong> ${monthTracker.totalExpenses.toFixed(2)}</Card.Text>
                         </Card.Body>
                         <Button variant="danger" className='m-2 delete-button-monthTracker' onClick={ () => deleteOneTracker(user, monthTracker._id)}><i class="material-icons">delete_forever</i></Button>
                     </Card>
