@@ -110,7 +110,7 @@ const UserAccount = (props) => {
             return (
                 <li key={index} style={{ listStyle: 'none', marginTop: 5 }}>
                     <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense.recurringId)}>
-                        {recurringExpense.name} <i class="material-icons">close</i>
+                        {recurringExpense.name} ${recurringExpense.amount} <i class="material-icons">close</i>
                     </Button>
                 </li>
             )
@@ -127,7 +127,7 @@ const UserAccount = (props) => {
             <p><strong>Annual Income:</strong> ${account.income}</p>
             <p><strong>Total Savings:</strong> ${account.savings}</p>
             <p><strong>Total Loans:</strong> ${account.loans}</p>
-            <p><strong>Total Cashlow:</strong> ${account.cashflow}</p>
+            <p><strong>Total Cashlow:</strong> ${account.cashflow.toFixed(2)}</p>
             <p><strong>Recurring Expenses:</strong> </p>
             <ul>
                 {recurringExpensesLIs}
