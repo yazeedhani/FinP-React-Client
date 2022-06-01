@@ -289,7 +289,7 @@ const ShowMonthTracker = (props) => {
                         <td>{date}</td>
                         <td>
                             <Button 
-                                variant="outline-success"
+                                variant="success"
                                 type='submit' 
                                 onClick={() => {
                                     setSelectedExpense(exp)
@@ -309,7 +309,7 @@ const ShowMonthTracker = (props) => {
                                 onHide={() => setEditExpenseShow(false)}
                                 setEditExpenseShow={setEditExpenseShow}
                             />
-                            <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                            <Button variant="danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
                                 <i class="material-icons">delete_forever</i>
                             </Button>
                         </td>
@@ -325,7 +325,7 @@ const ShowMonthTracker = (props) => {
             <br/>
             <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
             {/* <div><h2>{monthTracker.monthTrackerTitle}</h2></div><br/> */}
-            <Button variant="outline-success" onClick={() => setEditMonthTrackerShow(true)}>
+            <Button variant="success" onClick={() => setEditMonthTrackerShow(true)}>
                 {/* Edit Tracker */}
                 <i class="material-icons">edit</i>
             </Button>
@@ -394,11 +394,11 @@ const ShowMonthTracker = (props) => {
             <h3>Transactions</h3>
 
             {/* <ButtonGroup aria-label="Basic example"> */}
-                <Button variant="outline-success" className="plus-categories-btnGroup" onClick={() => setAddExpenseShow(true)}>
+                <Button variant="success" className="plus-categories-btnGroup" onClick={() => setAddExpenseShow(true)}>
                     <i class="material-icons">add</i>
                 </Button>
                 {/* Dropdown list to filter by expenses by category */}
-                <DropdownButton variant="outline-success" className="plus-categories-btnGroup" style={{marginLeft: 5}} id="dropdown-basic-button-2" title={category} >
+                <DropdownButton variant="success" className="plus-categories-btnGroup" style={{marginLeft: 5}} id="dropdown-basic-button-2" title={category} >
                     <Dropdown.Item onClick={ () => categorySelected('All')}>All</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Housing')}>Housing</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Entertainment')}>Entertainment</Dropdown.Item>

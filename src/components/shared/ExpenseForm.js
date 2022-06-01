@@ -73,7 +73,7 @@ const ExpenseForm = (props) => {
             </Form.Group> */}
             {recurringExpenseCheckbox()}
             <br/>
-            <Button variant='outline-success' type='submit' style={{ display: 'inline-block' }}>
+            <Button variant='success' type='submit' style={{ display: 'inline-block' }}>
                 {buttonText}
             </Button>
         </Form>

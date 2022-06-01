@@ -101,7 +101,7 @@ const CreateMonthTracker = (props) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Button variant='outline-success' type='submit'>
+                    <Button variant='success' type='submit'>
                         Transactions
                     </Button>
                 </Form>

@@ -145,7 +145,7 @@ const SignUp = (props) => {
                     />
                 </Form.Group>
                 <br/>
-                <Button variant="outline-success" type='submit' style={buttonStyle}>
+                <Button variant="success" type='submit' style={buttonStyle}>
                     Sign Up
                 </Button>
             </Form>

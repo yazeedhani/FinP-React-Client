@@ -4,7 +4,7 @@ import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGro
 import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount } from "../../api/userAccout";
 
 const linkStyle = {
-    color: 'green',
+    color: 'white',
     textDecoration: 'none'
 }
 
@@ -127,19 +127,19 @@ const UserAccount = (props) => {
             <p><strong>Annual Income:</strong> ${account.income}</p>
             <p><strong>Total Savings:</strong> ${account.savings}</p>
             <p><strong>Total Loans:</strong> ${account.loans}</p>
-            <p><strong>Total Cashlow:</strong> ${account.cashflow.toFixed(2)}</p>
-            <p><strong>Recurring Expenses:</strong> </p>
+            <p><strong>Total Cashlow:</strong> ${account.cashflow}</p>
+            <p><strong>Recurring Expenses:</strong></p>
             <ul>
                 {recurringExpensesLIs}
             </ul>
 
-            <Button variant="outline-success">
+            <Button variant="success">
                 <Link id="link-change-password" to='/change-password' style={linkStyle}>
                     Change Password
                 </Link>
             </Button>
 
-            <Button variant="outline-success" onClick={handleShow}>
+            <Button variant="success" onClick={handleShow}>
                 Edit
             </Button>
             <Modal show={show} onHide={handleClose}>
@@ -172,7 +172,7 @@ const UserAccount = (props) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Button variant='outline-success' type='submit' onClick={handleClose}>
+                    <Button variant='success' type='submit' onClick={handleClose}>
                         Edit Account
                     </Button>
                 </Form>

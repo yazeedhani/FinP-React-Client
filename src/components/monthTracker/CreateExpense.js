@@ -118,12 +118,12 @@ const CreateExpense = (props) => {
                     recurringExpenseCheckbox={recurringExpenseCheckbox}
                 />
                 <br/>
-                <Button variant='outline-success' type='success' onClick={addAnotherExpense} style={{ display: 'inline-block' }}>
+                <Button variant='success' type='success' onClick={addAnotherExpense} style={{ display: 'inline-block' }}>
                         Add another transaction
                 </Button>
                 <br/>
                 <br/>
-                <Button variant='outline-danger' style={{ display: 'inline-block' }}>
+                <Button variant='danger' style={{ display: 'inline-block' }}>
                     <Link to='/monthTrackers' style={{ textDecoration: 'none', color: 'red' }}>
                         Cancel
                     </Link>
