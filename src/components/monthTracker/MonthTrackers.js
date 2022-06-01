@@ -88,7 +88,7 @@ const MonthTrackers = (props) => {
                     >
                         <Link to={`/monthTrackers/${monthTracker._id}`} style={{color: 'black', textDecoration: 'none'}}>
                             <Card.Header>
-                                <h5>{monthTracker.monthTrackerTitle}</h5>
+                                <h5>{monthTracker.month} {monthTracker.year}</h5>
                             </Card.Header>
                         </Link>
                         {/* <Link to={`/monthTrackers/${monthTracker._id}`}>
@@ -121,7 +121,7 @@ const MonthTrackers = (props) => {
             <br/>
             <Container id="bar-chart">
                 <BarChart width={730} height={250} data={monthTrackers}>
-                    <XAxis dataKey="monthTrackerTitle" />
+                    <XAxis dataKey="monthTrackerTitle"/>
                     <YAxis/>
                     <Tooltip />
                     <Legend />
