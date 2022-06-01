@@ -63,7 +63,7 @@ const CreateExpense = (props) => {
         e.preventDefault()
 
         createExpense(user, monthTrackerId, newExpense)
-            .then( res => {navigate(`/monthTrackers`)})
+            .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
             .then( () => {
                 msgAlert({
                     heading: 'Expense added',
@@ -121,6 +121,7 @@ const CreateExpense = (props) => {
                 <Button variant='outline-success' type='success' onClick={addAnotherExpense} style={{ display: 'inline-block' }}>
                         Add another transaction
                 </Button>
+                <br/>
                 <br/>
                 <Button variant='outline-danger' style={{ display: 'inline-block' }}>
                     <Link to='/monthTrackers' style={{ textDecoration: 'none', color: 'red' }}>
