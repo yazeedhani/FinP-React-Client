@@ -443,8 +443,8 @@ const ShowMonthTracker = (props) => {
                 <tbody>
                     {expenseDivs}
                     <tr>
-                        <td>Total: </td>
-                        <td>${monthTracker.totalExpenses}</td>
+                        <td><strong>Total: </strong></td>
+                        <td><strong>${monthTracker.totalExpenses}</strong></td>
                     </tr>
                 </tbody>
             </Table>
