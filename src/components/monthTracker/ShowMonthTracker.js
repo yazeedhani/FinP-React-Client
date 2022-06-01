@@ -323,8 +323,8 @@ const ShowMonthTracker = (props) => {
         <Container>
             <br/>
             <br/>
-            {/* <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/> */}
-            <div><h2>{monthTracker.monthTrackerTitle}</h2></div><br/>
+            <div><h2>{monthTracker.month} {monthTracker.year}</h2></div><br/>
+            {/* <div><h2>{monthTracker.monthTrackerTitle}</h2></div><br/> */}
             <Button variant="outline-success" onClick={() => setEditMonthTrackerShow(true)}>
                 {/* Edit Tracker */}
                 <i class="material-icons">edit</i>
