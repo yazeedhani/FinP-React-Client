@@ -430,7 +430,7 @@ const ShowMonthTracker = (props) => {
                 </Modal.Body>
             </Modal>
 
-            <Table striped hover>
+            <Table striped hover responsive>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -442,6 +442,10 @@ const ShowMonthTracker = (props) => {
                 </thead>
                 <tbody>
                     {expenseDivs}
+                    <tr>
+                        <td>Total: </td>
+                        <td>${monthTracker.totalExpenses}</td>
+                    </tr>
                 </tbody>
             </Table>
 
