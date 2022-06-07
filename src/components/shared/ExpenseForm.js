@@ -59,6 +59,7 @@ const ExpenseForm = (props) => {
                     <optgroup label="Loans">
                         <option value="Loans">Loans</option>
                     </optgroup>
+                    <option value="Income">Income</option>
                 </Form.Select>
             </Form.Group>
             <br/>
