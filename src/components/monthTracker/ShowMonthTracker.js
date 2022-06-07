@@ -245,7 +245,7 @@ const ShowMonthTracker = (props) => {
                 <tr key={exp._id}>
                     {/* <Card.Body> */}
                         <td>{exp.name}</td>
-                        <td>${exp.amount}</td>
+                        <td style={{color: exp.category !== 'Income' ? 'red' : 'green' }}>${exp.amount}</td>
                         <td>{exp.category}</td>
                         <td>{date}</td>
                         <td>
@@ -284,7 +284,7 @@ const ShowMonthTracker = (props) => {
                 <tr key={exp._id}>
                     {/* <Card.Body> */}
                         <td>{exp.name}</td>
-                        <td>${exp.amount}</td>
+                        <td style={{color: exp.category !== 'Income' ? 'red' : 'green' }}>${exp.amount}</td>
                         <td>{exp.category}</td>
                         <td>{date}</td>
                         <td>
