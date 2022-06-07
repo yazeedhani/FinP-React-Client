@@ -124,7 +124,7 @@ const CreateExpense = (props) => {
                 <br/>
                 <br/>
                 <Button variant='danger' style={{ display: 'inline-block' }}>
-                    <Link to='/monthTrackers' style={{ textDecoration: 'none', color: 'red' }}>
+                    <Link to='/monthTrackers' style={{ textDecoration: 'none', color: 'white' }}>
                         Cancel
                     </Link>
                 </Button>    
