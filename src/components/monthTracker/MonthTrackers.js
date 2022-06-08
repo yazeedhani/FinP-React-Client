@@ -3,7 +3,7 @@ import { getAllMonthTrackers } from "../../api/monthTracker";
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Card, Container } from 'react-bootstrap';
 import Chart from 'chart.js/auto';
-import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { deleteMonthTracker } from "../../api/monthTracker";
 
 const cardContainerLayout = {
@@ -99,8 +99,8 @@ const MonthTrackers = (props) => {
                             <Card.Text><strong>Savings:</strong> ${monthTracker.monthly_savings}</Card.Text>
                             <Card.Text><strong>Loan repayments:</strong> ${monthTracker.monthly_loan_payments}</Card.Text>
                             <Card.Text><strong>Budget:</strong> ${monthTracker.budget}</Card.Text>
-                            <Card.Text><strong>Cashlow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</Card.Text>
                             <Card.Text><strong>Expenses:</strong> ${monthTracker.totalExpenses.toFixed(2)}</Card.Text>
+                            <Card.Text><strong>Cashlow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</Card.Text>
                         </Card.Body>
                         <Button variant="danger" className='m-2 delete-button-monthTracker' onClick={ () => deleteOneTracker(user, monthTracker._id)}><i class="material-icons">delete_forever</i></Button>
                     </Card>
@@ -120,15 +120,17 @@ const MonthTrackers = (props) => {
             </div>
             <br/>
             <Container id="bar-chart">
-                <BarChart width={730} height={250} data={monthTrackers}>
-                    <XAxis dataKey="monthTrackerTitle"/>
-                    <YAxis/>
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="totalExpenses" name="Expenses" unit="$" fill="#82ca9d" />
-                    <Bar dataKey="monthly_savings" name="Savings" unit="$" fill="#8884d8"/>
-                    <Bar dataKey="monthly_loan_payments" name="Loan payments" unit="$" fill="#f55d42"/>
-                </BarChart>
+                {/* <ResponsiveContainer> */}
+                    <BarChart width={730} height={250} data={monthTrackers}>
+                        <XAxis dataKey="monthTrackerTitle"/>
+                        <YAxis/>
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="totalExpenses" name="Expenses" unit="$" fill="#82ca9d" />
+                        <Bar dataKey="monthly_savings" name="Savings" unit="$" fill="#8884d8"/>
+                        <Bar dataKey="monthly_loan_payments" name="Loan payments" unit="$" fill="#f55d42"/>
+                    </BarChart>
+                {/* </ResponsiveContainer> */}
             </Container>
         </>
     )
