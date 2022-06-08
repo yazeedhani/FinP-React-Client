@@ -207,7 +207,8 @@ const ShowMonthTracker = (props) => {
     // Savings will not be added to the expenses total
     let totalExpenses = 0
     monthTracker.expenses.forEach( expense => {
-        if(expense.category !== 'Savings')
+        // Savings considered as expense for now, 'expense.category !== 'Savings' && '
+        if(expense.category !== 'Income')
         totalExpenses += expense.amount
     })
 
