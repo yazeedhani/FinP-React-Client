@@ -28,8 +28,8 @@ const Home = (props) => {
 				FinP also allows you to track your monthly savings and loan payments as well as setup a monthly budget for your spending.
 			</article>
 			<br/>
-			<Button variant='outline-success' style={buttonStyle}>
-				<Link to='/sign-up' style={{ color: 'green', textDecoration: 'none' }}>Sign up now</Link>
+			<Button variant='success' style={buttonStyle}>
+				<Link to='/sign-up' style={{ color: 'white', textDecoration: 'none' }}>Sign up now</Link>
 			</Button>
 		</div>
 	)
