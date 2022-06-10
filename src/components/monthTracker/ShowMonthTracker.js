@@ -410,6 +410,7 @@ const ShowMonthTracker = (props) => {
                     <Dropdown.Item onClick={ () => categorySelected('Shopping')}>Shopping</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Loans')}>Loans</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Savings')}>Savings</Dropdown.Item>
+                    <Dropdown.Item onClick={ () => categorySelected('Income')}>Income</Dropdown.Item>
                     <Dropdown.Item onClick={ () => categorySelected('Other')}>Other</Dropdown.Item>
                 </DropdownButton>
             {/* </ButtonGroup> */}
