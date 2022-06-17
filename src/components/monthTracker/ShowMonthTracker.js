@@ -350,7 +350,7 @@ const ShowMonthTracker = (props) => {
                 setEditMonthTrackerShow={setEditMonthTrackerShow}
             />
             <p></p>
-            <div className="grid-container">
+            <div className="flex-container">
                 <div style={{ width: 200, height: 260, boxShadow: '2px 2px 15px lightgray', padding: 20 }}>
                     <h6>Total Expenses:</h6>
                     <p> ${monthTracker.totalExpenses}</p>
@@ -393,9 +393,9 @@ const ShowMonthTracker = (props) => {
                 <ListGroup.Item><strong>Annual Income:</strong> ${monthTracker.annualTakeHome}</ListGroup.Item>
                 <ListGroup.Item><strong>Monthly Income:</strong> ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
                 <ListGroup.Item><strong>Monthly Budget:</strong> ${monthTracker.budget}</ListGroup.Item>
-                <ListGroup.Item><strong>Loan Repayments This Month:</strong> ${monthTracker.monthly_loan_payments}</ListGroup.Item>
+                {/* <ListGroup.Item><strong>Loan Repayments This Month:</strong> ${monthTracker.monthly_loan_payments}</ListGroup.Item>
                 <ListGroup.Item><strong>Total Expenses:</strong> ${monthTracker.totalExpenses}</ListGroup.Item>
-                <ListGroup.Item><strong>Savings this month:</strong> ${monthTracker.monthly_savings}</ListGroup.Item>
+                <ListGroup.Item><strong>Savings this month:</strong> ${monthTracker.monthly_savings}</ListGroup.Item> */}
                 {/* <ListGroup.Item><strong>Cashflow:</strong> ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item> */}
                 <ListGroup.Item><strong>Cashflow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</ListGroup.Item>
             </ListGroup>
