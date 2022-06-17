@@ -35,6 +35,12 @@ code {
   display: inline-block;
 }
 
+/* For circular progress bars in ShowMonthTracker.js */
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+}
+
 #pie-chart {
   width: 200%;
   margin: 0 auto;
