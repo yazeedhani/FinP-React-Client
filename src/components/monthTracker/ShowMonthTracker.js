@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { showMonthTracker, deleteExpense, createExpense, updateExpense } from "../../api/monthTracker";
 import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, ProgressBar, Table, Form } from 'react-bootstrap';
@@ -73,6 +75,12 @@ const ShowMonthTracker = (props) => {
         '#6255ed',
         '#5aed55'
     ]
+
+    // const CircularProgressbarStyle = {
+    //     width: 200,
+    //     height: 200, 
+    //     box-shadow: 2px 2px 15px lightgray
+    // }
 
     // Recurring expense checkbox to put into a form when passed in as a prop to ExpenseForm
     const recurringExpenseCheckbox = () => {
@@ -341,6 +349,45 @@ const ShowMonthTracker = (props) => {
                 onHide={() => setEditMonthTrackerShow(false)}
                 setEditMonthTrackerShow={setEditMonthTrackerShow}
             />
+            <p></p>
+            <div className="grid-container">
+                <div style={{ width: 200, height: 260, boxShadow: '2px 2px 15px lightgray', padding: 20 }}>
+                    <h6>Total Expenses:</h6>
+                    <p> ${monthTracker.totalExpenses}</p>
+                    <CircularProgressbar 
+                        value={(monthTracker.totalExpenses/monthTracker.monthlyTakeHome * 100)} 
+                        text={`${(monthTracker.totalExpenses/monthTracker.monthlyTakeHome * 100).toFixed(2)}%`}
+                        styles={buildStyles({pathColor: 'Tomato', textColor: 'Black', textSize: '16px',})} 
+                    />
+                </div>
+                <div style={{ width: 200, height: 260, boxShadow: '2px 2px 15px lightgray', padding: 20 }}>
+                    <h6>Cashflow:</h6>
+                    <p>${monthTracker.monthly_cashflow}</p>
+                    <CircularProgressbar 
+                        value={(monthTracker.monthly_cashflow/monthTracker.monthlyTakeHome * 100)} 
+                        text={`${(monthTracker.monthly_cashflow/monthTracker.monthlyTakeHome * 100).toFixed(2)}%`}
+                        styles={buildStyles({pathColor: 'Tomato', textColor: 'Black', textSize: '16px',})} 
+                    />
+                </div>
+                <div style={{ width: 200, height: 260, boxShadow: '2px 2px 15px lightgray', padding: 20 }}>
+                    <h6>Loan Payments:</h6>
+                    <p> ${monthTracker.monthly_loan_payments}</p>
+                    <CircularProgressbar 
+                        value={(monthTracker.monthly_loan_payments/monthTracker.monthlyTakeHome * 100)} 
+                        text={`${(monthTracker.monthly_loan_payments/monthTracker.monthlyTakeHome * 100).toFixed(2)}%`}
+                        styles={buildStyles({pathColor: 'Tomato', textColor: 'Black', textSize: '16px',})} 
+                    />
+                </div>
+                <div style={{ width: 200, height: 260, boxShadow: '2px 2px 15px lightgray', padding: 20 }}>
+                    <h6>Savings:</h6>
+                    <p> ${monthTracker.monthly_savings}</p>
+                    <CircularProgressbar 
+                        value={(monthTracker.monthly_savings/monthTracker.monthlyTakeHome * 100)} 
+                        text={`${(monthTracker.monthly_savings/monthTracker.monthlyTakeHome * 100).toFixed(2)}%`}
+                        styles={buildStyles({pathColor: 'Tomato', textColor: 'Black', textSize: '16px',})} 
+                    />
+                </div>
+            </div>
             <p></p>
             <ListGroup>
                 <ListGroup.Item><strong>Annual Income:</strong> ${monthTracker.annualTakeHome}</ListGroup.Item>
