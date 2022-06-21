@@ -70,7 +70,7 @@ const MonthTrackers = (props) => {
                 <br/>
                 <p>You have no month trackers, yet!</p>
                 <p>Create a new month tracker!</p>
-                <Button variant="success"><Link to='/monthTrackers/create' style={{ textDecoration: 'none', color: 'green' }}> Create Month Tracker</Link> </Button>
+                <Button variant="success"><Link to='/monthTrackers/create' style={{ textDecoration: 'none', color: 'white' }}> Create Month Tracker</Link> </Button>
             </Container>
             )
     }
