@@ -8,6 +8,7 @@ import { Button, Card, Modal, Container, Dropdown, DropdownButton, ListGroup, Bu
 import ExpenseForm from "../shared/ExpenseForm";
 import UpdateExpenseModal from "./UpdateExpenseModal";
 import UpdateMonthTrackerModal from "./UpdateMonthTrackerModal";
+import { deleteMonthTracker } from "../../api/monthTracker";
 
 const ShowMonthTracker = (props) => {
     // This state is what will be displayed on the monthTracker dashboard
@@ -183,6 +184,27 @@ const ShowMonthTracker = (props) => {
             })
     }
 
+    const deleteOneTracker = (user, monthTrackerId) => {
+        deleteMonthTracker(user, monthTrackerId)
+            .then( () => triggerRefresh() )
+            .then( () => {
+                setUpdated(true)
+                msgAlert({
+                    heading: 'Deleted Tracker',
+                    message: '',
+                    variant: 'success'
+                })
+            })
+            .then( () => {navigate(`/monthTrackers`)})
+            .catch( () => {
+                msgAlert({
+                    heading: 'Oh No!',
+                    message: 'Month tracker not able to be deleted.',
+                    variant: 'danger'
+                })
+            })
+    }
+
     // Calculate if the user has met their budget for a single month tracker
     const meetingBudget = () => {
         if( totalExpenses === 0 )
@@ -337,6 +359,9 @@ const ShowMonthTracker = (props) => {
             <Button variant="success" onClick={() => setEditMonthTrackerShow(true)}>
                 {/* Edit Tracker */}
                 <i class="material-icons">edit</i>
+            </Button>
+            <Button variant="danger" style={{marginLeft: 5}} onClick={ () => deleteOneTracker(user, monthTracker._id)}>
+                <i class="material-icons">delete_forever</i>
             </Button>
             <UpdateMonthTrackerModal 
                 show={editMonthTrackerShow}
