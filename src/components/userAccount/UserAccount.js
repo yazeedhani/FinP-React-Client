@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, Modal, Form } from 'react-bootstrap';
-import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount } from "../../api/userAccout";
+import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount, createRecurringTransaction } from "../../api/userAccout";
+import CreateRecurringTransactionModal from "./CreateRecurringTransModal";
 
 const linkStyle = {
     color: 'white',
@@ -128,7 +129,14 @@ const UserAccount = (props) => {
             <p><strong>Total Savings:</strong> ${account.savings}</p>
             <p><strong>Total Loans:</strong> ${account.loans}</p>
             <p><strong>Total Cashlow:</strong> ${account.cashflow}</p>
-            <p><strong>Recurring Expenses:</strong></p>
+            
+            <CreateRecurringTransactionModal
+                triggerRefresh={triggerRefresh}
+                user={user}
+                msgAlert={msgAlert}
+            />
+
+            <p><strong>Recurring Transactions:</strong></p>
             <ul>
                 {recurringExpensesLIs}
             </ul>
@@ -138,7 +146,6 @@ const UserAccount = (props) => {
                     Change Password
                 </Link>
             </Button>
-
             <Button variant="success" onClick={handleShow}>
                 Edit
             </Button>

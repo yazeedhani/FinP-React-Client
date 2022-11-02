@@ -23,6 +23,17 @@ export const updateUserAccount = (user, updatedAccount) => {
     })
 }
 
+export const createRecurringTransaction = (user, recurringTransaction) => {
+    return axios({
+        url: `${apiUrl}/account/${user._id}`,
+        method: 'POST',
+        headers: {
+            Authorization: `Token token=${user.token}`
+        },
+        data: {recurringTransaction: recurringTransaction}
+    })
+}
+
 export const deleteOneRecurrenceExpense = (user, recurringId) => {
     return axios({
         url: `${apiUrl}/account/${user._id}/${recurringId}`,
