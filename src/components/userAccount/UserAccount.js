@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, Modal, Form } from 'react-bootstrap';
 import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount, createRecurringTransaction } from "../../api/userAccout";
 import CreateRecurringTransactionModal from "./CreateRecurringTransModal";
+import UpdateRecurringTransactionModal from "./UpdateRecurringExpenseModal";
 
 const linkStyle = {
     color: 'white',
@@ -113,6 +114,12 @@ const UserAccount = (props) => {
                     <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense.recurringId)}>
                         {recurringExpense.name} ${recurringExpense.amount} <i class="material-icons">close</i>
                     </Button>
+                    <UpdateRecurringTransactionModal
+                        triggerRefresh={triggerRefresh}
+                        user={user}
+                        msgAlert={msgAlert}
+                        transaction={recurringExpense}
+                    />
                 </li>
             )
         })
