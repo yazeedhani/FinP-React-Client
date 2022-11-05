@@ -5,7 +5,6 @@ import { updateRecurringTransaction } from "../../api/userAccout";
 const UpdateRecurringTransactionModal = (props) => {
     const { user, triggerRefresh, msgAlert, transaction } = props
     const [recurringTransaction, setRecurringTransaction] = useState(transaction)
-    const [recurringTransactionShow, setRecurringTransactionShow] = useState(false)
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
