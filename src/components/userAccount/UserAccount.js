@@ -127,7 +127,6 @@ const UserAccount = (props) => {
     else if(account.recurrences.length > 0)
     {
         recurringExpenses = account.recurrences.map( (recurringExpense, index) => {
-            console.log('RECURRING EXPENSE: ', recurringExpense)
             return (
                 <tr key={recurringExpense._id}>
                     <td>{recurringExpense.name}</td>
@@ -149,8 +148,6 @@ const UserAccount = (props) => {
             )
         })
     }
-
-    console.log('ACCOUNT: ', account)
 
     return (
         <Container>
