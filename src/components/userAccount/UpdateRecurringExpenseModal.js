@@ -49,8 +49,8 @@ const UpdateRecurringTransactionModal = (props) => {
     return (
         <>
             <Button variant="success" onClick={handleShow}>
-                    Update Transaction
-                </Button>
+                <i class="material-icons">edit</i>
+            </Button>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Update Recurring Transaction</Modal.Title>

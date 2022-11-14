@@ -63,16 +63,16 @@ const ExpenseForm = (props) => {
                 </Form.Select>
             </Form.Group>
             <br/>
-            {/* <Form.Group className="mb-3" controlId="recurringExpense">
+            <Form.Group className="mb-3" controlId="recurringExpense">
                 <Form.Check 
                     type="checkbox" 
                     label="Is this a recurring transaction?"
                     name='recurring'
-                    defaultChecked={expense.recurring}
+                    checked={expense.recurring}
                     onChange={handleChange} 
                 />
-            </Form.Group> */}
-            {recurringExpenseCheckbox()}
+            </Form.Group>
+            {/* {recurringExpenseCheckbox()} */}
             <br/>
             <Button variant='success' type='submit' style={{ display: 'inline-block' }}>
                 {buttonText}

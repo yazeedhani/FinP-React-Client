@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, Modal, Form } from 'react-bootstrap';
+import { Button, Card, Container, Dropdown, DropdownButton, ListGroup, ButtonGroup, Modal, Table, Form } from 'react-bootstrap';
 import { deleteOneRecurrenceExpense, getUserAccount, updateUserAccount, createRecurringTransaction } from "../../api/userAccout";
 import CreateRecurringTransactionModal from "./CreateRecurringTransModal";
 import UpdateRecurringTransactionModal from "./UpdateRecurringExpenseModal";
@@ -19,6 +19,25 @@ const UserAccount = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const navigate = useNavigate()
+
+    const columns = [
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: 'amount', label: 'Amount', minWidth: 100 },
+        {
+          id: 'category',
+          label: 'Category',
+          minWidth: 170,
+          align: 'right',
+          format: (value) => value.toLocaleString('en-US'),
+        },
+        {
+          id: 'actions',
+          label: 'Actions',
+          minWidth: 170,
+          align: 'right',
+          format: (value) => value.toLocaleString('en-US'),
+        }
+      ];
 
     useEffect( () => {
         getUserAccount(user)
@@ -95,7 +114,7 @@ const UserAccount = (props) => {
     }
 
     // Display recurring expenses/transaction in My Account view
-    let recurringExpensesLIs
+    let recurringExpenses
 
     if(!account.recurrences)
     {
@@ -107,20 +126,26 @@ const UserAccount = (props) => {
     }
     else if(account.recurrences.length > 0)
     {
-        recurringExpensesLIs = account.recurrences.map( (recurringExpense, index) => {
+        recurringExpenses = account.recurrences.map( (recurringExpense, index) => {
             console.log('RECURRING EXPENSE: ', recurringExpense)
             return (
-                <li key={index} style={{ listStyle: 'none', marginTop: 5 }}>
-                    <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense.recurringId)}>
-                        {recurringExpense.name} ${recurringExpense.amount} <i class="material-icons">close</i>
-                    </Button>
-                    <UpdateRecurringTransactionModal
-                        triggerRefresh={triggerRefresh}
-                        user={user}
-                        msgAlert={msgAlert}
-                        transaction={recurringExpense}
-                    />
-                </li>
+                <tr key={recurringExpense._id}>
+                    <td>{recurringExpense.name}</td>
+                    <td style={{color: recurringExpense.category !== 'Income' ? 'red' : 'green' }}>${recurringExpense.amount}</td>
+                    <td>{recurringExpense.category}</td>
+                    {/* <td>{date}</td> */}
+                    <td>
+                        <UpdateRecurringTransactionModal
+                            triggerRefresh={triggerRefresh}
+                            user={user}
+                            msgAlert={msgAlert}
+                            transaction={recurringExpense}
+                        />
+                        <Button variant="danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteRecurrenceExpense(user, recurringExpense.recurringId)}>
+                            <i class="material-icons">delete_forever</i>
+                        </Button>
+                    </td>
+                </tr>
             )
         })
     }
@@ -144,9 +169,21 @@ const UserAccount = (props) => {
             />
 
             <p><strong>Recurring Transactions:</strong></p>
-            <ul>
-                {recurringExpensesLIs}
-            </ul>
+            <Table striped hover responsive>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        {/* <th>Date</th> */}
+                        <th>Actions</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    {recurringExpenses}
+                </tbody>
+            </Table>
+
 
             <Button variant="success">
                 <Link id="link-change-password" to='/change-password' style={linkStyle}>

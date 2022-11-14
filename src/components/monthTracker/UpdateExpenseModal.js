@@ -37,7 +37,7 @@ const UpdateExpenseModal = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('EXPENSE: ', expense)
+        console.log('EXPENSE IN HANDLE SUBMIT: ', expense)
         updateExpense(user, monthTrackerId, expense._id, expense)
             // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
             .then( () => setEditExpenseShow(false) )
@@ -72,7 +72,7 @@ const UpdateExpenseModal = (props) => {
                 // addAnotherExpense={addAnotherExpense}
                 buttonText={'Edit Transaction'}
                 expense={expense}
-                recurringExpenseCheckbox={recurringExpenseCheckbox}
+                // recurringExpenseCheckbox={recurringExpenseCheckbox}
             />
             </Modal.Body>
         </Modal>
