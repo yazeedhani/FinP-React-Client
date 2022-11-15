@@ -32,6 +32,18 @@ const ExpenseForm = (props) => {
                 />
             </Form.Group>
             <br/>
+            <Form.Group controlId='date'>
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                    type='date'
+                    name='date'
+                    value={expense.date}
+                    placeholder='Enter date'
+                    onChange={handleChange}
+                    style={inputStyle}
+                />
+            </Form.Group>
+            <br/>
             <Form.Group controlId='category'>
                 <Form.Label>Category</Form.Label>
                 <Form.Select 
