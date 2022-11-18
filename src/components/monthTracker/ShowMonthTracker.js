@@ -222,7 +222,7 @@ const ShowMonthTracker = (props) => {
         else if( totalExpenses > monthTracker.budget )
         {
             return (
-                <p style={{color: 'red'}}>You have exceeded your budget.</p>
+                <p style={{color: 'red'}}>You have exceeded your budget by ${totalExpenses - monthTracker.budget}.</p>
             )
         }
         else
