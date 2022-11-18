@@ -36,7 +36,7 @@ const ShowMonthTracker = (props) => {
         monthly_cashflow: 0,
         expenses: [],
     })
-    const [expense, setExpense] = useState({name: '', category: '', amount: null, date: null, recurring: false})
+    const [expense, setExpense] = useState({name: '', category: '', amount: null, date: new Date().toLocaleDateString(), recurring: false})
     const [updated, setUpdated] = useState(false)
     const { user, msgAlert } = props
     const { monthTrackerId } = useParams()
@@ -77,11 +77,7 @@ const ShowMonthTracker = (props) => {
         '#5aed55'
     ]
 
-    // const CircularProgressbarStyle = {
-    //     width: 200,
-    //     height: 200, 
-    //     box-shadow: 2px 2px 15px lightgray
-    // }
+    console.log('EXPENSE:', expense)
 
     // Recurring expense checkbox to put into a form when passed in as a prop to ExpenseForm
     const recurringExpenseCheckbox = () => {
@@ -222,7 +218,7 @@ const ShowMonthTracker = (props) => {
         else if( totalExpenses > monthTracker.budget )
         {
             return (
-                <p style={{color: 'red'}}>You have exceeded your budget.</p>
+                <p style={{color: 'red'}}>You have exceeded your budget by.</p>
             )
         }
         else
@@ -261,27 +257,19 @@ const ShowMonthTracker = (props) => {
         return (cat.amount > 0)
     })
 
-    console.log('FILTERED CAT ARRAY: ', filteredCategoryArray)
-
-    console.log('CATEGORYARRAY AFTER UPDATE: ', categoryArray)
-
-    const monthTrackerExpensesWithDateObjects = monthTracker.expenses.map(exp => {
-        exp.date = exp.date.substr(0,10)
-        return {...exp, date: new Date(exp.date)};
-    })
-    console.log('MONTHTRACKER EXPENSES USING DATE OBJECTS:', monthTrackerExpensesWithDateObjects)
-    const monthTrackerExpensesSortedByDateAsc = monthTrackerExpensesWithDateObjects.sort((objA, objB) => Number(objA.date) - Number(objB.date),)
-
-    console.log('MONTHTRACKER EXPENSES SORTED:', monthTrackerExpensesSortedByDateAsc)
-
+    /* Sort transactions by date */
+    // Sort transaction in ascending order
+    const monthTrackerExpensesSortedByDateAsc = monthTracker.expenses.sort((objA, objB) => new Date(objA.date) - new Date(objB.date))
+    // Convert date fields back to text since Date objects cannot be displayed in React as child components
     const monthTrackerExpensesSortedByStrAsc = monthTrackerExpensesSortedByDateAsc.map( exp => {
-        exp.date = exp.date.toString()
-        return {...exp, date: exp.date}
+        const date = new Date(exp.date)
+        // Add one more day to get the correct date, otherwise date will be one day behind
+        date.setDate(date.getDate() + 1)
+        return {...exp, date: date.toLocaleDateString()}
     })
 
     // To filter expenses by category
     let expenseDivs = monthTrackerExpensesSortedByStrAsc.map( exp => {
-        console.log('EXP: ', exp)
         // const date = exp.date.substr(0,10)
         if(exp.category === category)
         {
@@ -433,16 +421,6 @@ const ShowMonthTracker = (props) => {
                 </div>
             </div>
             <p></p>
-            {/* <ListGroup> */}
-                {/* <ListGroup.Item><strong>Annual Income:</strong> ${monthTracker.annualTakeHome}</ListGroup.Item>
-                <ListGroup.Item><strong>Monthly Income:</strong> ${monthTracker.monthlyTakeHome.toFixed(2)}</ListGroup.Item>
-                <ListGroup.Item><strong>Monthly Budget:</strong> ${monthTracker.budget}</ListGroup.Item> */}
-                {/* <ListGroup.Item><strong>Loan Repayments This Month:</strong> ${monthTracker.monthly_loan_payments}</ListGroup.Item>
-                <ListGroup.Item><strong>Total Expenses:</strong> ${monthTracker.totalExpenses}</ListGroup.Item>
-                <ListGroup.Item><strong>Savings this month:</strong> ${monthTracker.monthly_savings}</ListGroup.Item> */}
-                {/* <ListGroup.Item><strong>Cashflow:</strong> ${(monthTracker.monthlyTakeHome - totalExpenses - monthTracker.monthly_savings).toFixed(2)}</ListGroup.Item> */}
-                {/* <ListGroup.Item><strong>Cashflow:</strong> ${monthTracker.monthly_cashflow.toFixed(2)}</ListGroup.Item> */}
-            {/* </ListGroup> */}
             <br/>  
             <br/>  
             <div>
