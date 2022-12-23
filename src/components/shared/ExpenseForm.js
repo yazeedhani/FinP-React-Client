@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Form, Button } from 'react-bootstrap/';
+import DatePicker from "react-date-picker";
 
 const ExpenseForm = (props) => {
     const {handleSubmit, handleChange, expense, buttonText, inputStyle, recurringExpenseCheckbox} = props
@@ -30,6 +31,25 @@ const ExpenseForm = (props) => {
                     onChange={handleChange}
                     style={inputStyle}
                 />
+            </Form.Group>
+            <br/>
+            <Form.Group controlId='date'>
+                <Form.Label>Date</Form.Label>
+                <Form.Control
+                    type='date'
+                    name='date'
+                    defaultValue={expense.date}
+                    value={expense.date}
+                    onChange={handleChange}
+                    style={inputStyle}
+                />
+                {/* <DatePicker
+                    name='date'
+                    // selected={expense.date.toString()}
+                    onChange={handleChange}
+                    style={inputStyle}
+                    value={expense.date}
+                /> */}
             </Form.Group>
             <br/>
             <Form.Group controlId='category'>
