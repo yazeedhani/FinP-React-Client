@@ -4,18 +4,16 @@ import ExpenseForm from "../shared/ExpenseForm";
 import { Button, Card, Form, Modal } from 'react-bootstrap';
 
 const UpdateExpenseModal = (props) => {
-    // const [expense, setExpense] = useState(props.expense)
-    const { user, triggerRefresh, msgAlert, show, monthTrackerId, setEditExpenseShow, expense, setSelectedExpense } = props
-
-    const recurringExpenseCheckbox = () => {
-        return (
-            <></>
-    )}
+    const { user, triggerRefresh, msgAlert, monthTrackerId, transaction } = props
+    const [updatedTransaction, setUpdatedTransaction] = useState(transaction)
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const handleChange = (e) => {
         e.persist()
 
-        setSelectedExpense( prevExp => {
+        setUpdatedTransaction ( prevUpdateTransaction => {
             const name = e.target.name
             let value = e.target.value
 
@@ -31,17 +29,16 @@ const UpdateExpenseModal = (props) => {
 
             const updatedValue = { [name]:value }
 
-            return {...prevExp, ...updatedValue}
+            return {...prevUpdateTransaction, ...updatedValue}
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('EXPENSE IN HANDLE SUBMIT: ', expense)
-        updateExpense(user, monthTrackerId, expense._id, expense)
-            // .then( res => {navigate(`/monthTrackers/${monthTrackerId}`)})
-            .then( () => setEditExpenseShow(false) )
+        updateExpense(user, monthTrackerId, updatedTransaction._id, updatedTransaction)
             .then( () => triggerRefresh() )
+            .then( () => setUpdatedTransaction(updatedTransaction))
+            .then( () => setShow(false) )
             .then( () => {
                 msgAlert({
                     heading: 'Expense Updated',
@@ -58,24 +55,76 @@ const UpdateExpenseModal = (props) => {
             })
     }
 
-    console.log('EXPENSE in UPDATEMODAL: ', expense)
-    console.log('recurringExpenseCheckbox: ', recurringExpenseCheckbox())
+    console.log('TRANSACTION in UPDATEMODAL: ', transaction)
+
     return (
-        <Modal className='edit-modal' show={show} onHide={setEditExpenseShow}>
-            <Modal.Header closeButton>
-            <Modal.Title>Edit Transaction</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <ExpenseForm 
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                // addAnotherExpense={addAnotherExpense}
-                buttonText={'Edit Transaction'}
-                expense={expense}
-                // recurringExpenseCheckbox={recurringExpenseCheckbox}
-            />
-            </Modal.Body>
-        </Modal>
+        <>
+            <Button variant="success" onClick={handleShow}>
+                <i class="material-icons">edit</i>
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Edit Transaction</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId='name'>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                required
+                                type='text'
+                                name='name'
+                                value={updatedTransaction.name}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <br/>
+                        <Form.Group controlId="category">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Select
+                                value={updatedTransaction.category}
+                                name='category'
+                                onChange={handleChange}
+                            >
+                                <option></option>
+                                <optgroup label="Expenses">
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Housing">Housing</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Auto">Auto</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Restaurant">Restaurant</option>
+                                    <option value="Other">Other</option>
+                                </optgroup>
+                                <optgroup label="Savings">
+                                    <option value="Savings">Savings</option>
+                                </optgroup>
+                                <optgroup label="Loans">
+                                    <option value="Loans">Loans</option>
+                                </optgroup>
+                                <option value="Income">Income</option>
+                            </Form.Select>
+                        </Form.Group>
+                        <br/>
+                        <Form.Group controlId='amount'>
+                            <Form.Label>Amount</Form.Label>
+                            <Form.Control
+                                required
+                                type='number'
+                                name='amount'
+                                value={updatedTransaction.amount}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <br/>
+                        <Button variant='success' type='submit'>
+                            Update
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 

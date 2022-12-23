@@ -49,7 +49,7 @@ const ShowMonthTracker = (props) => {
     const [editMonthTrackerShow, setEditMonthTrackerShow] = useState(false)
   
     let [category, setCategory ] = useState('All')
-    const [selectedExpense, setSelectedExpense] = useState(null)
+    // const [selectedExpense, setSelectedExpense] = useState(null)
     
     const categoryArray = [
         {category: 'Housing', amount: 0},
@@ -218,7 +218,7 @@ const ShowMonthTracker = (props) => {
         else if( totalExpenses > monthTracker.budget )
         {
             return (
-                <p style={{color: 'red'}}>You have exceeded your budget by.</p>
+                <p style={{color: 'red'}}>You have exceeded your budget by ${totalExpenses - monthTracker.budget}.</p>
             )
         }
         else
@@ -276,36 +276,23 @@ const ShowMonthTracker = (props) => {
             return (
                 <tr key={exp._id}>
                     {/* <Card.Body> */}
-                    <td>{exp.name}</td>
-                    <td style={{color: exp.category !== 'Income' ? 'red' : 'green' }}>${exp.amount}</td>
-                    <td>{exp.category}</td>
-                    <td>{exp.date}</td>
-                    <td>
-                        <Button 
-                            variant="success"
-                            type='submit' 
-                            onClick={() => {
-                                setSelectedExpense(exp)
-                                // setExpense(exp)    
-                                setEditExpenseShow(true)
-                                }}>
-                            <i class="material-icons">edit</i>
-                        </Button>
-                        <UpdateExpenseModal 
-                            expense={selectedExpense}
-                            setSelectedExpense={setSelectedExpense}
-                            show={editExpenseShow}
-                            user={user}
-                            msgAlert={msgAlert}
-                            monthTrackerId={expense.monthTracker}
-                            triggerRefresh={triggerRefresh}
-                            onHide={() => setEditExpenseShow(false)}
-                            setEditExpenseShow={setEditExpenseShow}
-                        />
-                        <Button variant="danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
-                            <i class="material-icons">delete_forever</i>
-                        </Button>
                     </td>
+                        <td>{exp.name}</td>
+                        <td style={{color: exp.category !== 'Income' ? 'red' : 'green' }}>${exp.amount}</td>
+                        <td>{exp.category}</td>
+                        <td>{date}</td>
+                        <td>
+                            <UpdateExpenseModal 
+                                transaction={exp}
+                                user={user}
+                                msgAlert={msgAlert}
+                                monthTrackerId={expense.monthTracker}
+                                triggerRefresh={triggerRefresh}
+                            />
+                            <Button variant="outline-danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
+                                <i class="material-icons">delete_forever</i>
+                            </Button>
+                        </td>
                     {/* </Card.Body> */}
                 </tr>
             )
@@ -320,26 +307,12 @@ const ShowMonthTracker = (props) => {
                         <td>{exp.category}</td>
                         <td>{exp.date}</td>
                         <td>
-                            <Button 
-                                variant="success"
-                                type='submit' 
-                                onClick={() => {
-                                    setSelectedExpense(exp)
-                                    // setExpense(exp)    
-                                    setEditExpenseShow(true)
-                                    }}>
-                                <i class="material-icons">edit</i>
-                            </Button>
                             <UpdateExpenseModal 
-                                expense={selectedExpense}
-                                setSelectedExpense={setSelectedExpense}
-                                show={editExpenseShow}
+                                transaction={exp}
                                 user={user}
                                 msgAlert={msgAlert}
                                 monthTrackerId={exp.monthTracker}
                                 triggerRefresh={triggerRefresh}
-                                onHide={() => setEditExpenseShow(false)}
-                                setEditExpenseShow={setEditExpenseShow}
                             />
                             <Button variant="danger" style={{marginLeft: 5}} type='submit' onClick={ () => deleteOneExpense(user, exp.monthTracker, exp._id)}>
                                 <i class="material-icons">delete_forever</i>
