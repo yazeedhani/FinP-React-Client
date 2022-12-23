@@ -132,7 +132,7 @@ const UserAccount = (props) => {
                     <td>{recurringExpense.name}</td>
                     <td style={{color: recurringExpense.category !== 'Income' ? 'red' : 'green' }}>${recurringExpense.amount}</td>
                     <td>{recurringExpense.category}</td>
-                    {/* <td>{date}</td> */}
+                    <td></td>
                     <td>
                         <UpdateRecurringTransactionModal
                             triggerRefresh={triggerRefresh}
@@ -172,7 +172,7 @@ const UserAccount = (props) => {
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Category</th>
-                        {/* <th>Date</th> */}
+                        <th>Occurence</th>
                         <th>Actions</th> 
                     </tr>
                 </thead>
